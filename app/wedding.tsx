@@ -40,6 +40,7 @@ function FamilyContact(){
 export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   const [c,setC]=useState<WeddingContent>(defaultContent);
   const [loading,setLoading]=useState(true),[loadError,setLoadError]=useState(''),[locked,setLocked]=useState(false),[password,setPassword]=useState('');
+  const [backendAvailable,setBackendAvailable]=useState(true);
   const [countdown,setCountdown]=useState<number|null>(null),[guest,setGuest]=useState<Guest|null>(null),[manageToken,setManageToken]=useState('');
   const [saving,setSaving]=useState(false),[error,setError]=useState(''),[success,setSuccess]=useState(''),[menuOpen,setMenuOpen]=useState(false);
   const [name,setName]=useState(''),[contact,setContact]=useState(''),[attending,setAttending]=useState('yes'),[count,setCount]=useState(1),[dietary,setDietary]=useState(''),[meal,setMeal]=useState('');
@@ -55,7 +56,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
     setLoading(true);setLoadError('');
     try{
       const [details,pictures]=await Promise.all([api('content'),page==='photographs'&&photoSharingEnabled?api('photos'):Promise.resolve(null)]);
-      setC(details.content);setLocked(false);if(pictures)setPhotos(pictures.photos);
+      setC(details.content);setBackendAvailable(details.backendAvailable!==false);setLocked(false);if(pictures)setPhotos(pictures.photos);
     }catch(e){
       if((e as Error).message==='Please enter the invitation password.')setLocked(true);
       else setLoadError('Some details couldn’t load. Please try again.');
@@ -92,6 +93,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   },[page,manageToken]);
   async function unlock(e:FormEvent){e.preventDefault();setSaving(true);setError('');try{await api('auth/login',{method:'POST',body:JSON.stringify({role:'guest',password})});setPassword('');await load();if(manageToken)await refreshGuest()}catch(e){setError((e as Error).message)}finally{setSaving(false)}}
   async function submit(e:FormEvent){
+    if(!backendAvailable){e.preventDefault();return;}
     e.preventDefault();setSaving(true);setError('');setSuccess('');setMusicMsg('');
     const choice={song:song.trim(),artist:artist.trim()};
     try{
@@ -173,7 +175,8 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
                 {guest?.attending==='yes'&&<button className="text-button" type="button" disabled={saving||!song.trim()||!artist.trim()} onClick={()=>void sendMusicOnly()}>Send just my song request</button>}
               </div>
             </>}
-            <p className="privacy-note">Your contact details are shared only with the wedding organisers. <a href="/privacy">Guest privacy</a></p><button className="button" disabled={saving||loading}>{saving?'Saving your reply…':guest?'Save my changes':'Send my reply'}</button>
+            {!backendAvailable&&<p className="form-message" role="status">Online replies are opening soon. For now, <a href="tel:+2347068007835">contact the family</a> to confirm your attendance.</p>}
+            <p className="privacy-note">Your contact details are shared only with the wedding organisers. <a href="/privacy">Guest privacy</a></p><button className="button" disabled={saving||loading||!backendAvailable}>{!backendAvailable?'Online RSVP coming soon':saving?'Saving your reply…':guest?'Save my changes':'Send my reply'}</button>
           </form>
           {error&&<p className="form-message" role="alert">{error}</p>}{success&&<p className="form-message" role="status">{success}</p>}{manageToken&&<button className="text-button" onClick={()=>void copyLink()}>Copy my private RSVP link</button>}
           {musicMsg&&<p className="form-message" role="status">{musicMsg}</p>}

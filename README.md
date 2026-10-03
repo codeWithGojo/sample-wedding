@@ -6,6 +6,8 @@ The design, family copy, supplied photographs and calendar button are preserved.
 
 Entrance passes and wedding photo sharing currently show “Coming soon” placeholders, at the owner's request. Both are linked from the welcome page; entrance passes also have `/entry`, and the album has `/photographs`. The feature switches in `app/wedding-extras.tsx` are both disabled. Enable them only when the family is ready, with the existing backend configured. Guest approval and photo moderation still apply after activation.
 
+Without all three backend environment variables, the public content and calendar endpoints serve the supplied invitation details and event locally. Online RSVP shows an opening-soon message and cannot submit. No guest data is stored in this mode. Once configured, all requests use the existing backend, preserving its invitation password and guest controls.
+
 ## Deploy
 
 1. Set the three server-only variables shown in `.env.example` in Vercel. Do not prefix these with `NEXT_PUBLIC_`.
