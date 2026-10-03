@@ -4,6 +4,8 @@ This copy runs the wedding pages on standard Next.js and Vercel. The existing pr
 
 The design, family copy, supplied photographs and calendar button are preserved. The shareable QR opens `/guest` for directions, RSVP with an optional song title and artist, and the photo page. Its address contains no personal guest token. Personal entry QRs stay on private RSVP pages. Guest uploads open on the wedding day unless the family opens them earlier, and every guest photo waits for approval. Guest management links keep their private token in the URL fragment. Backend credentials never appear in browser code.
 
+Entrance passes and wedding photo sharing currently show “Coming soon” placeholders, at the owner's request. Both are linked from the welcome page; entrance passes also have `/entry`, and the album has `/photographs`. The feature switches in `app/wedding-extras.tsx` are both disabled. Enable them only when the family is ready, with the existing backend configured. Guest approval and photo moderation still apply after activation.
+
 ## Deploy
 
 1. Set the three server-only variables shown in `.env.example` in Vercel. Do not prefix these with `NEXT_PUBLIC_`.

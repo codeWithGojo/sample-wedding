@@ -8,6 +8,7 @@ import { api, newGuestToken, resizePhoto } from './client-api';
 import { splitLoveStory, storyImages } from './love-story';
 import { nearbyStays } from './stays';
 import GuestQr from './qr';
+import { EntrancePlaceholder, PhotoPlaceholder, entranceQrEnabled, photoSharingEnabled } from './wedding-extras';
 
 export type WeddingPage = 'welcome'|'story'|'day'|'rsvp'|'travel'|'faqs'|'gifts'|'photographs'|'guest';
 const navigation: {page:WeddingPage;path:string;label:string}[] = [
@@ -18,6 +19,8 @@ const navigation: {page:WeddingPage;path:string;label:string}[] = [
   {page:'faqs',path:'/faqs',label:'FAQs'},
   {page:'gifts',path:'/gifts',label:'Gifts'},
   {page:'rsvp',path:'/rsvp',label:'RSVP'},
+  {page:'guest',path:'/guest',label:'Guest area'},
+  {page:'photographs',path:'/photographs',label:'Photographs'},
 ];
 const headings: Partial<Record<WeddingPage,{title:string;intro:string}>> = {
   story:{title:'Our Love Story',intro:'From 23rd December to Forever.'},
@@ -51,7 +54,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   async function load(){
     setLoading(true);setLoadError('');
     try{
-      const [details,pictures]=await Promise.all([api('content'),page==='photographs'?api('photos'):Promise.resolve(null)]);
+      const [details,pictures]=await Promise.all([api('content'),page==='photographs'&&photoSharingEnabled?api('photos'):Promise.resolve(null)]);
       setC(details.content);setLocked(false);if(pictures)setPhotos(pictures.photos);
     }catch(e){
       if((e as Error).message==='Please enter the invitation password.')setLocked(true);
@@ -111,7 +114,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   async function sendMusicOnly(){setSaving(true);setMusicMsg('');try{await saveMusic(manageToken,{song:song.trim(),artist:artist.trim()})}catch(e){setMusicMsg((e as Error).message)}finally{setSaving(false)}}
   async function upload(e:FormEvent){e.preventDefault();setUploadBusy(true);setUploadMsg('');try{if(!file)throw new Error('Choose a photo first.');const form=new FormData();form.set('photo',await resizePhoto(file),'wedding-photo.jpg');form.set('caption',caption);await api('photos',{method:'POST',headers:{'X-Guest-Token':manageToken},body:form});setUploadMsg('Your photo is saved and waiting for the couple’s approval.');setFile(null);setCaption('')}catch(e){setUploadMsg((e as Error).message)}finally{setUploadBusy(false)}}
   const days=countdown===null?null:Math.floor(countdown/86400000),hours=countdown===null?null:Math.floor((countdown%86400000)/3600000);
-  const passLink=guest?.passToken&&typeof window!=='undefined'?location.origin+'/entry?pass='+guest.passToken:'';
+  const passLink=entranceQrEnabled&&guest?.passToken&&typeof window!=='undefined'?location.origin+'/entry?pass='+guest.passToken:'';
   const heading=headings[page];
 
   if(locked)return <main className="invitation-gate"><a className="wordmark" href="/">B &amp; B</a><p>12 December 2026 · Ughelli</p><h1>You’re invited</h1><p>Enter the password shared with your invitation.</p><form onSubmit={unlock}><label htmlFor="invitation-password">Invitation password</label><input id="invitation-password" type="password" autoComplete="current-password" value={password} onChange={e=>setPassword(e.target.value)} required/><button className="button" disabled={saving}>{saving?'Opening…':'Open the invitation'}</button></form>{error&&<p role="alert" className="form-message">{error}</p>}<a className="text-link" href="tel:+2347068007835">Ask the family for help</a></main>;
@@ -123,7 +126,6 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="wedding-nav" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close menu':'Menu'}</button>
       <nav id="wedding-nav" aria-label="Wedding navigation" className={menuOpen?'is-open':''}>
         {navigation.map(item=><a key={item.page} href={pageHref(item.path)} aria-current={item.page===page?'page':undefined} className={item.page==='rsvp'?'nav-rsvp':undefined}>{item.label}</a>)}
-        {weddingStarted&&<a href={pageHref('/photographs')}>Photographs</a>}
       </nav>
     </header>
     <main id="main">
@@ -138,6 +140,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
         </section>
         <section className="welcome-letter section"><div><p className="welcome-kicker">Dear family and friends,</p><h2>We’re so glad<br/>you’re here</h2></div><div><p>A chance meeting through Onos brought us together on 23 December 2023. Now, we’re bringing our families and favourite people together to celebrate what comes next.</p><p>Thank you for the love you’ve shown us. We’re looking forward to seeing you in Ughelli on 12 December, sharing the day and making a few more memories together.</p><p className="couple-signature">With love,<br/>Blessing &amp; Blessing</p><div className="actions"><a className="text-link" href={pageHref('/our-story')}>Read our story</a><a className="text-link" href={pageHref('/travel')}>Plan your stay</a></div></div></section>
         <div className="date-strip"><span className="date-strip-date">12.12 <small>2026</small></span><span aria-live="off">{days===null?'12 December 2026 · 11am prompt':weddingStarted?'The day is here':`${days} days · ${hours} hours until we celebrate`}</span><a className="button calendar-button" href="/api/calendar">Add to calendar</a></div>
+        <section className="section wedding-extras-links" aria-label="Entrance and wedding photographs"><article><p className="placeholder-status">Coming soon</p><h2>Your entrance QR</h2><p>Your personal pass will have a place of its own.</p><a className="button" href="/entry">View entrance pass</a></article><article><p className="placeholder-status">Coming soon</p><h2>Our wedding pictures</h2><p>A shared album for the memories we’ll make together.</p><a className="button" href={pageHref('/photographs')}>Visit the photo area</a></article></section>
       </>}
 
       {page==='story'&&c.story&&<section className="section story-section" id="story"><div className="story-chapters">{splitLoveStory(c.story).map((chapter,i)=>{const photo=storyImages[i%storyImages.length];return <article className="story-chapter" key={chapter.title||i}>{chapter.title&&<h2>{chapter.title}</h2>}<figure className="story-photograph"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async"/></figure><div className="story-chapter-copy">{chapter.paragraphs.map((paragraph,n)=><p key={n} className={i===0&&n===0?'story-date':paragraph==='From 23rd December to Forever.'?'story-closing':undefined}>{paragraph}</p>)}</div></article>})}</div><div className="story-next"><a className="button" href={pageHref('/the-day')}>Join us on 12 December</a></div></section>}
@@ -153,6 +156,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       {page==='rsvp'&&<section className="section rsvp-page-layout">
         <div className="rsvp-aside"><img src="/couple/laughter.webp" alt="Blessing and Blessing sitting together" width={960} height={1280}/><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p><p>{venueName}<br/>{venueAddress}</p></div>
         <div className="rsvp-main">
+          {!entranceQrEnabled&&<EntrancePlaceholder/>}
           {guest&&<section className="reply-status" id="my-pass"><h2>{guest.status==='approved'?'We’re looking forward to seeing you':guest.attending==='no'?'Thank you for your reply':'Your reply is with the family'}</h2><p>{guest.name}</p><p>{guest.status==='approved'?`Confirmed for ${guest.allowedGuests} ${guest.allowedGuests===1?'guest':'guests'}, including you.`:guest.status==='revoked'?'Your pass is currently inactive. Please contact the family.':guest.attending==='no'?'We’ll miss you on the day.':'Keep your private link and return here for your confirmation and entry QR.'}</p>{passLink&&<div className="guest-pass"><GuestQr value={passLink} name={guest.name}/><p>Show this QR to the ushers. {guest.checkedIn>0?`${guest.checkedIn} of ${guest.allowedGuests} guests have checked in.`:'Save it on your phone or bring a printed copy.'}</p><a href={passLink} className="text-link">Open full entry pass</a></div>}<button className="text-button" onClick={()=>void refreshGuest(manageToken,true)}>Refresh confirmation</button><button className="text-button" onClick={()=>{formRef.current?.scrollIntoView({behavior:'smooth'});document.getElementById('guest-name')?.focus()}}>Edit my reply</button></section>}
           <form ref={formRef} onSubmit={submit} className="rsvp-form" id="reply-form">
             <h2>{guest?'Your reply':'Will you join us?'}</h2><p>Please include yourself in the guest count. The family will confirm your party before issuing an entry pass.</p>
@@ -197,12 +201,14 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
         <div className="guest-hub-actions">
           <section><h2>Find the venue</h2><p>{venueName}<br/>{venueAddress}</p><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p><a className="button" href={directionsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></section>
           <section><h2>Let us know you’re coming</h2><p>Send your reply, tell us who’s coming with you and leave a song for the DJ.</p><a className="button" href={pageHref('/rsvp')}>{guest?'Open my reply & entry pass':'RSVP & request a song'}</a></section>
-          <section><h2>Keep the memories</h2><p>We’d love to see the day through your eyes. Use the photo page to send us your favourite pictures.</p><a className="button" href={pageHref('/photographs')}>Open the photo page</a></section>
+          <section><h2>Your entrance QR</h2><p>Your personal entrance pass will be available here later.</p><a className="button" href="/entry">View entrance pass</a></section>
+          <section><h2>Keep the memories</h2><p>Our wedding photo area is ready for the memories to come. Photo uploads are coming soon.</p><a className="button" href={pageHref('/photographs')}>Open the photo area</a></section>
         </div>
         <aside className="wedding-qr"><p className="qr-couple-names">Blessing &amp; Blessing</p><h2>Scan for the day</h2><p>Directions, RSVP, song requests and photographs, all here.</p>{siteOrigin?<><GuestQr value={siteOrigin+'/guest'} name="Blessing and Blessing" label="Wedding QR for venue directions, RSVP and photographs" downloadName="blessing-wedding-qr.png"/><a className="text-link" href={siteOrigin+'/guest'}>Open the wedding link</a></>:<p role="status">Preparing the wedding QR…</p>}<p className="qr-note">You can share this QR with our guests. Your personal entry QR will be on your private RSVP page.</p></aside>
       </section>}
 
       {page==='photographs'&&<section className="section gallery-section">
+        {!photoSharingEnabled?<PhotoPlaceholder/>:<>
         {photos.length>0&&<div className="gallery-grid">{photos.map(p=><button key={p.id} className="photo-tile" onClick={()=>setPhotoOpen(p)} aria-label={p.caption||'Open wedding photo'}><img src={'/api/photos/'+p.id} alt={p.caption||'Blessing and Blessing’s celebration'} loading="lazy"/>{p.caption&&<span>{p.caption}</span>}</button>)}</div>}
         <div className="photo-page-note"><h2>Share a moment</h2><p>The dance floor, a family reunion, that photograph we didn’t know you took. We’d love to keep your favourite moments from our day.</p>
           {!(weddingStarted||c.uploadOpen)&&<p>Guest uploads open on 12 December 2026 at 11am. Keep your private RSVP link to return here and add your photos.</p>}
@@ -210,11 +216,12 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
           <p>Photos are saved for the couple and appear here after they approve them. Please share only pictures you have permission to upload.</p>
         </div>
         {(weddingStarted||c.uploadOpen)&&guest?.status==='approved'&&<form className="guest-upload" onSubmit={upload}><label htmlFor="guest-photo">Your photo</label><input id="guest-photo" type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]||null)} required/><label htmlFor="guest-caption">Caption (optional)</label><input id="guest-caption" maxLength={300} value={caption} onChange={e=>setCaption(e.target.value)}/><button className="button" disabled={uploadBusy}>{uploadBusy?'Uploading…':'Send photo to the couple'}</button>{uploadMsg&&<p className="form-message" role="status">{uploadMsg}</p>}</form>}
+        </>}
         <a className="text-link" href={pageHref('/guest')}>Back to the wedding QR page</a>
       </section>}
     </main>
     <footer className="wedding-footer"><a className="wordmark" href={pageHref('/')}>B &amp; B</a><p>#BlessingFoundHerBlessing26</p><div><button className="text-button" onClick={()=>void shareSite()}>Share the celebration</button><a href={siteOrigin?'https://wa.me/?text='+encodeURIComponent('Blessing & Blessing · 12 December 2026 · '+siteOrigin):'https://wa.me/'} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><a href={pageHref('/guest')}>Wedding QR</a><a href="/privacy">Guest privacy</a><a href="/organiser">Organiser</a></div>{shareMsg&&<p role="status">{shareMsg}</p>}</footer>
-    <div className="mobile-actions"><a href={pageHref('/rsvp')}>{guest?'Your RSVP':'RSVP'}</a><a href={directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a>{guest?.status==='approved'&&<a href={pageHref('/rsvp')}>Entry pass</a>}</div>
+    <div className="mobile-actions"><a href={pageHref('/rsvp')}>{guest?'Your RSVP':'RSVP'}</a><a href={directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a><a href="/entry">Entry pass</a></div>
     <Dialog open={!!photoOpen} onOpenChange={open=>{if(!open)setPhotoOpen(null)}}><DialogContent className="photo-dialog" showCloseButton={false}><DialogClose asChild><button className="dialog-close">Close</button></DialogClose><DialogTitle className="sr-only">Wedding photograph</DialogTitle><DialogDescription>{photoOpen?.caption||'A moment to keep'}</DialogDescription>{photoOpen&&<img src={'/api/photos/'+photoOpen.id} alt={photoOpen.caption||'Wedding photograph'}/>}</DialogContent></Dialog>
   </div>;
 }
