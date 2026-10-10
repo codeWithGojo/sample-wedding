@@ -18,3 +18,7 @@ Without all three backend environment variables, the public content and calendar
 `NEXT_PUBLIC_SITE_URL` is optional until the final domain is connected. Without it, link previews use Vercel's deployment URL. The calendar continues to download the event at 11am West Africa Time on 12 December 2026.
 
 The existing backend must remain online. This is a frontend hosting move, not a database migration. Do not delete its guest list or photo bucket. The service credential and shared proxy secret must be configured again for future deployments if they are not saved as project environment variables.
+
+## Wedding site update — 10 October 2026
+
+The site now uses #BlessingFoundHerBlessing. RSVP, gift and entrance-pass pages have been removed; their old URLs return to the welcome page. Menus, guest information, sharing and calendar copy have been updated. Existing private family records and the photo feature settings are preserved.

@@ -1,2 +1,2 @@
-import Entry from './entry';
-export default function Page(){return <Entry/>}
+import { redirect } from "next/navigation";
+export default function Page(){ redirect("/"); }

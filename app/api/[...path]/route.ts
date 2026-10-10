@@ -16,10 +16,10 @@ function handle(req: Request) {
   if (!configured && req.method === 'GET' && pathname === '/api/calendar') {
     const escape = (value: string) => value.replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
     const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-    const calendar = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Blessing and Blessing//Wedding//EN', 'BEGIN:VEVENT',
+    const calendar = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//#BlessingFoundHerBlessing//Wedding//EN', 'BEGIN:VEVENT',
       'UID:blessing-and-blessing-20261212', 'DTSTAMP:' + stamp, 'DTSTART:20261212T100000Z',
-      'SUMMARY:Blessing & Blessing — Traditional Marriage', 'LOCATION:' + escape(venueName + ', ' + venueAddress),
-      'DESCRIPTION:Traditional marriage. 11am prompt. #BlessingFoundHerBlessing26', 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
+      'SUMMARY:#BlessingFoundHerBlessing — Traditional Marriage', 'LOCATION:' + escape(venueName + ', ' + venueAddress),
+      'DESCRIPTION:Traditional marriage. 11am prompt. #BlessingFoundHerBlessing', 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
     return new Response(calendar, { headers: { 'Content-Type': 'text/calendar; charset=utf-8', 'Content-Disposition': 'attachment; filename="blessing-wedding.ics"', 'Cache-Control': 'no-store' } });
   }
   return proxyWeddingRequest(req, {

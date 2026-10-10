@@ -398,3 +398,11 @@ main,section,.hero-copy,.event-details,.venue-section>div,.rsvp-section>div{min-
   .page-introduction h1 { font-size: 37px; }
   .wedding-site .rsvp-form { padding: 20px 15px; }
 }
+
+/* Keep the full celebration hashtag readable on narrow screens. */
+.wedding-header .wordmark, .wedding-footer .wordmark, .invitation-gate .wordmark, .admin-header .wordmark, .admin-login .wordmark, .legal-page .wordmark { font-size: clamp(15px, 1.65vw, 23px); line-height: 1.4; letter-spacing: -.4px; overflow-wrap: anywhere; }
+.wedding-header .wordmark { min-width: 0; }
+.welcome-hero .wedding-hashtag-title { font-size: clamp(38px, 5.5vw, 72px); line-height: 1.12; letter-spacing: -1.8px; overflow-wrap: anywhere; }
+.welcome-monogram { font-size: clamp(24px, 3vw, 42px); padding: 24px; overflow-wrap: anywhere; }
+.wedding-extras-links { grid-template-columns: minmax(0, 1fr); }
+@media (max-width: 900px) { .wedding-header .wordmark { max-width: calc(100% - 92px); font-size: clamp(14px, 3.6vw, 20px); } }

@@ -1,2 +1,2 @@
-import Scanner from './scanner';
-export default function Page(){return <Scanner/>}
+import { redirect } from "next/navigation";
+export default function Page(){ redirect("/"); }
