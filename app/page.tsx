@@ -1,2 +1,2 @@
-import Wedding from "./wedding";
-export default function Home() { return <Wedding />; }
+import WeddingEntrance from "./wedding-entrance";
+export default function Home() { return <WeddingEntrance />; }

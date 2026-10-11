@@ -7,6 +7,7 @@ import { api, resizePhoto } from './client-api';
 import { splitLoveStory, storyImages } from './love-story';
 import { nearbyStays } from './stays';
 import GuestQr from './qr';
+import Link from 'next/link';
 import { PhotoPlaceholder, photoSharingEnabled } from './wedding-extras';
 
 export type WeddingPage = 'welcome'|'story'|'day'|'travel'|'faqs'|'photographs'|'guest';
@@ -17,14 +18,14 @@ const navigation: {page:WeddingPage;path:string;label:string}[] = [
   {page:'travel',path:'/travel',label:'Travel & stay'},
   {page:'faqs',path:'/faqs',label:'FAQs'},
   {page:'guest',path:'/guest',label:'Guest area'},
-  {page:'photographs',path:'/photographs',label:'Photographs'},
+  {page:'photographs',path:'/photographs',label:'Gallery'},
 ];
 const headings: Partial<Record<WeddingPage,{title:string;intro:string}>> = {
   story:{title:'Our Love Story',intro:'From 23rd December to Forever.'},
   day:{title:'The day',intro:'Saturday, 12 December 2026 · 11am prompt'},
   travel:{title:'Come to Ughelli',intro:'The venue, directions and places to stay for the weekend.'},
   faqs:{title:'A few things you might want to know',intro:'And if we’ve missed anything, speak to the family.'},
-  photographs:{title:'Photographs from the day',intro:''},
+  photographs:{title:'Our gallery',intro:'A few moments together, with more memories to come.'},
   guest:{title:'For our guests',intro:'We’re glad you’re joining us. Here’s everything you’ll need for the day.'},
 };
 
@@ -40,8 +41,9 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   const [saving,setSaving]=useState(false),[error,setError]=useState(''),[menuOpen,setMenuOpen]=useState(false);
   const [photos,setPhotos]=useState<Photo[]>([]),[photoOpen,setPhotoOpen]=useState<Photo|null>(null),[shareMsg,setShareMsg]=useState('');
   const [siteOrigin,setSiteOrigin]=useState('');
+  const [albumOpen,setAlbumOpen]=useState<{src:string;alt:string}|null>(null);
   const [file,setFile]=useState<File|null>(null),[caption,setCaption]=useState(''),[uploadMsg,setUploadMsg]=useState(''),[uploadBusy,setUploadBusy]=useState(false);
-  const pageHref=(path:string)=>path+(manageToken?'#guest='+manageToken:'');
+  const pageHref=(path:string)=>(path==='/'?'/?enter=1':path)+(manageToken?'#guest='+manageToken:'');
   const directionsUrl=c.directionsUrl||defaultContent.directionsUrl;
   const weddingStarted=countdown===0;
 
@@ -78,34 +80,34 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
   return <div className={'wedding-site page-'+page}>
     <a className="skip-link" href="#main">Skip to content</a>
     <header className="wedding-header">
-      <a className="wordmark" href={pageHref('/')} aria-label="#BlessingFoundHerBlessing home">#BlessingFoundHerBlessing</a>
+      <Link className="wordmark" href={pageHref('/')} aria-label="#BlessingFoundHerBlessing home">#BlessingFoundHerBlessing</Link>
       <button className="menu-toggle" aria-expanded={menuOpen} aria-controls="wedding-nav" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close menu':'Menu'}</button>
       <nav id="wedding-nav" aria-label="Wedding navigation" className={menuOpen?'is-open':''}>
-        {navigation.map(item=><a key={item.page} href={pageHref(item.path)} aria-current={item.page===page?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}</a>)}
+        {navigation.map(item=><Link key={item.page} href={pageHref(item.path)} aria-current={item.page===page?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}</Link>)}
       </nav>
     </header>
     <main id="main">
       {loadError&&<div className="load-notice" role="alert">{loadError} <button className="plain-button" onClick={()=>void load()}>Retry</button></div>}
-      {heading&&<header className="page-introduction"><p><a href={pageHref('/')}>#BlessingFoundHerBlessing</a> · 12 December 2026</p><h1>{page==='story'?(c.storyTitle||heading.title):heading.title}</h1>{heading.intro&&<p className="page-lead">{heading.intro}</p>}</header>}
+      {heading&&<header className="page-introduction"><p><Link href={pageHref('/')}>#BlessingFoundHerBlessing</Link> · 12 December 2026</p><h1>{page==='story'?(c.storyTitle||heading.title):heading.title}</h1>{heading.intro&&<p className="page-lead">{heading.intro}</p>}</header>}
 
       {page==='welcome'&&<>
         <section className="welcome-hero">
           {c.heroPhoto?<img className="welcome-background" src={c.heroPhoto} alt="The couple together" fetchPriority="high"/>:<div className="welcome-monogram" aria-hidden="true">#BlessingFoundHerBlessing</div>}
           <div className="welcome-shade"/>
-          <div className="welcome-hero-copy"><p className="occasion">Our traditional marriage</p><h1 className="wedding-hashtag-title">#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><p className="couple-names">Blessing Egohiniovo Awhefeada Esq.<br/>&amp; Engr. Blessing Oshewire Toka</p><p className="welcome-date">Saturday, 12 December 2026<br/><strong>11am prompt</strong> · Ughelli, Delta State</p><div className="actions"><a className="button" href={pageHref('/the-day')}>Details for the day</a><a className="text-link" href={directionsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></div></div>
+          <div className="welcome-hero-copy"><p className="occasion">Our traditional marriage</p><h1 className="wedding-hashtag-title">#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><p className="couple-names">Blessing Egohiniovo Awhefeada Esq.<br/>&amp; Engr. Blessing Oshewire Toka</p><p className="welcome-date">Saturday, 12 December 2026<br/><strong>11am prompt</strong> · Ughelli, Delta State</p><div className="actions"><Link className="button" href={pageHref('/the-day')}>Details for the day</Link><a className="text-link" href={directionsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></div></div>
         </section>
-        <section className="welcome-letter section"><div><p className="welcome-kicker">Dear family and friends,</p><h2>We’re so glad you’re here</h2></div><div><p>A chance meeting through Onos brought us together on 23 December 2023. Now, we’re bringing our families and favourite people together to celebrate what comes next.</p><p>Thank you for the love you’ve shown us. We’re looking forward to seeing you in Ughelli on 12 December, sharing the day and making a few more memories together.</p><p className="couple-signature">With love,<br/>#BlessingFoundHerBlessing</p><div className="actions"><a className="text-link" href={pageHref('/our-story')}>Read our story</a><a className="text-link" href={pageHref('/travel')}>Plan your stay</a></div></div></section>
+        <section className="welcome-letter section"><div><p className="welcome-kicker">Dear family and friends,</p><h2>We’re so glad you’re here</h2></div><div><p>A chance meeting through Onos brought us together on 23 December 2023. Now, we’re bringing our families and favourite people together to celebrate what comes next.</p><p>Thank you for the love you’ve shown us. We’re looking forward to seeing you in Ughelli on 12 December, sharing the day and making a few more memories together.</p><p className="couple-signature">With love,<br/>#BlessingFoundHerBlessing</p><div className="actions"><Link className="text-link" href={pageHref('/our-story')}>Read our story</Link><Link className="text-link" href={pageHref('/travel')}>Plan your stay</Link></div></div></section>
         <div className="date-strip"><span className="date-strip-date">12.12 <small>2026</small></span><span aria-live="off">{days===null?'12 December 2026 · 11am prompt':weddingStarted?'The day is here':`${days} days · ${hours} hours until we celebrate`}</span><a className="button calendar-button" href="/api/calendar">Add to calendar</a></div>
-        <section className="section wedding-extras-links" aria-label="Wedding photographs"><article><p className="placeholder-status">Coming soon</p><h2>Our wedding pictures</h2><p>A shared album for the memories we’ll make together.</p><a className="button" href={pageHref('/photographs')}>Visit the photo area</a></article></section>
+        <section className="section wedding-extras-links" aria-label="Wedding photographs"><article><p className="placeholder-status">Coming soon</p><h2>Our wedding pictures</h2><p>A shared album for the memories we’ll make together.</p><Link className="button" href={pageHref('/photographs')}>Visit the photo area</Link></article></section>
       </>}
 
-      {page==='story'&&c.story&&<section className="section story-section" id="story"><div className="story-chapters">{splitLoveStory(c.story).map((chapter,i)=>{const photo=storyImages[i%storyImages.length];return <article className="story-chapter" key={chapter.title||i}>{chapter.title&&<h2>{chapter.title}</h2>}<figure className="story-photograph"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async"/></figure><div className="story-chapter-copy">{chapter.paragraphs.map((paragraph,n)=><p key={n} className={i===0&&n===0?'story-date':paragraph==='From 23rd December to Forever.'?'story-closing':undefined}>{paragraph}</p>)}</div></article>})}</div><div className="story-next"><a className="button" href={pageHref('/the-day')}>Join us on 12 December</a></div></section>}
+      {page==='story'&&c.story&&<section className="section story-section" id="story"><div className="story-chapters">{splitLoveStory(c.story).map((chapter,i)=>{const photo=storyImages[i%storyImages.length];return <article className="story-chapter" key={chapter.title||i}>{chapter.title&&<h2>{chapter.title}</h2>}<figure className="story-photograph"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async"/></figure><div className="story-chapter-copy">{chapter.paragraphs.map((paragraph,n)=><p key={n} className={i===0&&n===0?'story-date':paragraph==='From 23rd December to Forever.'?'story-closing':undefined}>{paragraph}</p>)}</div></article>})}</div><div className="story-next"><Link className="button" href={pageHref('/the-day')}>Join us on 12 December</Link></div></section>}
 
       {page==='day'&&<>
-        <section className="section day-details"><div className="day-date"><span>12.12</span><p>Saturday · December 2026</p></div><div><h2>The Awhefeada &amp; Toka families</h2><p>Our children, Blessing Egohiniovo and Blessing Oshewire, are getting married. Please join us in Ughelli as we celebrate them and welcome one another into the family.</p><div className="detail-line"><h3>When</h3><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p></div><div className="detail-line"><h3>Where</h3><p>{venueName}<br/>{venueAddress}</p></div><a className="text-link" href={pageHref('/travel')}>Venue &amp; travel information</a><a className="text-link invitation-download" href="/invitation.pdf" download>Save the family invitation</a></div></section>
+        <section className="section day-details"><div className="day-date"><span>12.12</span><p>Saturday · December 2026</p></div><div><h2>The Awhefeada &amp; Toka families</h2><p>Our children, Blessing Egohiniovo and Blessing Oshewire, are getting married. Please join us in Ughelli as we celebrate them and welcome one another into the family.</p><div className="detail-line"><h3>When</h3><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p></div><div className="detail-line"><h3>Where</h3><p>{venueName}<br/>{venueAddress}</p></div><Link className="text-link" href={pageHref('/travel')}>Venue &amp; travel information</Link><a className="text-link invitation-download" href="/invitation.pdf" download>Save the family invitation</a></div></section>
         <section className="section aso-ebi-section"><h2>Aso ebi</h2><div><p>Our colours are Burgundy, Peach, Champagne Gold and Ivory.</p><div className="colour-swatches" aria-label="Colours of the day"><span className="swatch wine" title="Burgundy"/><span className="swatch peach" title="Peach"/><span className="swatch gold" title="Champagne Gold"/><span className="swatch ivory" title="Ivory"/></div><p>Traditional attire is welcome.</p>{c.asoEbi?<p>{c.asoEbi}</p>:<p>For fabric enquiries, speak to the family on <a href="tel:+2347068007835">0706 800 7835</a> or <a href="tel:+2347089045705">0708 904 5705</a>.</p>}</div></section>
         {c.programme.length>1&&<section className="section programme-section" id="programme"><h2>Programme</h2><ol className="programme-timeline">{c.programme.map((item,i)=><li key={i}><span className="programme-time">{item.time}</span><div><h3>{item.title}</h3>{item.detail&&<p>{item.detail}</p>}</div></li>)}</ol></section>}
-        <section className="section day-actions"><a className="button calendar-button" href="/api/calendar">Add to calendar</a><a className="text-link" href={pageHref('/guest')}>Wedding QR</a></section>
+        <section className="section day-actions"><a className="button calendar-button" href="/api/calendar">Add to calendar</a><Link className="text-link" href={pageHref('/guest')}>Wedding QR</Link></section>
         {c.livestreamUrl&&<section className="section livestream-section"><h2>Join us from wherever you are</h2><a className="button" href={c.livestreamUrl} target="_blank" rel="noopener noreferrer">Open the livestream</a></section>}
       </>}
 
@@ -119,7 +121,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       {page==='faqs'&&<section className="section faq-page-layout"><div className="faq-groups">
         <section><h2>Your invitation</h2><details><summary>Who can help with guest arrangements?</summary><p>For questions about attending, bringing another guest or any dietary needs, please contact the family using the numbers here.</p></details></section>
         <section><h2>On the day</h2><details><summary>When and where is the marriage?</summary><p>Saturday, 12 December 2026, 11am prompt, at {venueName}, {venueAddress}.</p></details><details><summary>What should I wear?</summary><p>Traditional attire is welcome. Our colours are Burgundy, Peach, Champagne Gold and Ivory. For aso ebi fabric enquiries, speak to the family using the numbers here.</p></details></section>
-        <section><h2>Travel &amp; stay</h2><details><summary>Where can I find a hotel?</summary><p>Our <a href={pageHref('/travel')}>Travel &amp; Stay page</a> has hotel locations, published star categories and booking links. Choose your travel dates on the booking page or contact the hotel directly.</p></details><details><summary>Can someone help me with directions?</summary><p>Use Directions below to open Google Maps. If you get stuck on your way to Oteri, call the family on 0706 800 7835 or 0708 904 5705.</p></details></section>
+        <section><h2>Travel &amp; stay</h2><details><summary>Where can I find a hotel?</summary><p>Our <Link href={pageHref('/travel')}>Travel &amp; Stay page</Link> has hotel locations, published star categories and booking links. Choose your travel dates on the booking page or contact the hotel directly.</p></details><details><summary>Can someone help me with directions?</summary><p>Use Directions below to open Google Maps. If you get stuck on your way to Oteri, call the family on 0706 800 7835 or 0708 904 5705.</p></details></section>
       </div><FamilyContact/></section>}
 
       {page==='guest'&&<section className="section guest-hub-layout">
@@ -127,12 +129,13 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
           <section><h2>Find the venue</h2><p>{venueName}<br/>{venueAddress}</p><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p><a className="button" href={directionsUrl} target="_blank" rel="noopener noreferrer">Open in Google Maps</a></section>
           
           
-          <section><h2>Keep the memories</h2><p>Our wedding photo area is ready for the memories to come. Photo uploads are coming soon.</p><a className="button" href={pageHref('/photographs')}>Open the photo area</a></section>
+          <section><h2>Keep the memories</h2><p>Our wedding photo area is ready for the memories to come. Photo uploads are coming soon.</p><Link className="button" href={pageHref('/photographs')}>Open the photo area</Link></section>
         </div>
         <aside className="wedding-qr"><p className="qr-couple-names">#BlessingFoundHerBlessing</p><h2>Scan for the day</h2><p>Directions and photographs, all here.</p>{siteOrigin?<><GuestQr value={siteOrigin+'/guest'} name="#BlessingFoundHerBlessing" label="Wedding QR for venue directions and photographs" downloadName="blessing-wedding-qr.png"/><a className="text-link" href={siteOrigin+'/guest'}>Open the wedding link</a></>:<p role="status">Preparing the wedding QR…</p>}<p className="qr-note">Share this QR so guests can find the venue and the wedding album.</p></aside>
       </section>}
 
       {page==='photographs'&&<section className="section gallery-section">
+        <div className="couple-album">{storyImages.map(photo=><button className="photo-tile" key={photo.src} onClick={()=>setAlbumOpen({src:photo.src,alt:photo.alt})} aria-label={'View '+photo.alt}><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy"/></button>)}</div>
         {!photoSharingEnabled?<PhotoPlaceholder/>:<>
         {photos.length>0&&<div className="gallery-grid">{photos.map(p=><button key={p.id} className="photo-tile" onClick={()=>setPhotoOpen(p)} aria-label={p.caption||'Open wedding photo'}><img src={'/api/photos/'+p.id} alt={p.caption||'#BlessingFoundHerBlessing’s celebration'} loading="lazy"/>{p.caption&&<span>{p.caption}</span>}</button>)}</div>}
         <div className="photo-page-note"><h2>Share a moment</h2><p>The dance floor, a family reunion, that photograph we didn’t know you took. We’d love to keep your favourite moments from our day.</p>
@@ -142,11 +145,11 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
         </div>
         {(weddingStarted||c.uploadOpen)&&guest?.status==='approved'&&<form className="guest-upload" onSubmit={upload}><label htmlFor="guest-photo">Your photo</label><input id="guest-photo" type="file" accept="image/jpeg,image/png,image/webp" onChange={e=>setFile(e.target.files?.[0]||null)} required/><label htmlFor="guest-caption">Caption (optional)</label><input id="guest-caption" maxLength={300} value={caption} onChange={e=>setCaption(e.target.value)}/><button className="button" disabled={uploadBusy}>{uploadBusy?'Uploading…':'Send photo to the couple'}</button>{uploadMsg&&<p className="form-message" role="status">{uploadMsg}</p>}</form>}
         </>}
-        <a className="text-link" href={pageHref('/guest')}>Back to the wedding QR page</a>
+        <Link className="text-link" href={pageHref('/guest')}>Back to the wedding QR page</Link>
       </section>}
     </main>
-    <footer className="wedding-footer"><a className="wordmark" href={pageHref('/')}>#BlessingFoundHerBlessing</a><div><button className="text-button" onClick={()=>void shareSite()}>Share the celebration</button><a href={siteOrigin?'https://wa.me/?text='+encodeURIComponent('#BlessingFoundHerBlessing · 12 December 2026 · '+siteOrigin):'https://wa.me/'} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><a href={pageHref('/guest')}>Wedding QR</a><a href="/privacy">Guest privacy</a><a href="/organiser">Organiser</a></div>{shareMsg&&<p role="status">{shareMsg}</p>}</footer>
-    <div className="mobile-actions"><a href={pageHref('/the-day')}>The day</a><a href={directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a><a href="tel:+2347068007835">Contact family</a></div>
-    <Dialog open={!!photoOpen} onOpenChange={open=>{if(!open)setPhotoOpen(null)}}><DialogContent className="photo-dialog" showCloseButton={false}><DialogClose asChild><button className="dialog-close">Close</button></DialogClose><DialogTitle className="sr-only">Wedding photograph</DialogTitle><DialogDescription>{photoOpen?.caption||'A moment to keep'}</DialogDescription>{photoOpen&&<img src={'/api/photos/'+photoOpen.id} alt={photoOpen.caption||'Wedding photograph'}/>}</DialogContent></Dialog>
+    <footer className="wedding-footer"><Link className="wordmark" href={pageHref('/')}>#BlessingFoundHerBlessing</Link><div><button className="text-button" onClick={()=>void shareSite()}>Share the celebration</button><a href={siteOrigin?'https://wa.me/?text='+encodeURIComponent('#BlessingFoundHerBlessing · 12 December 2026 · '+siteOrigin):'https://wa.me/'} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><Link href={pageHref('/guest')}>Wedding QR</Link><a href="/privacy">Guest privacy</a><a href="/organiser">Organiser</a></div>{shareMsg&&<p role="status">{shareMsg}</p>}</footer>
+    <div className="mobile-actions"><Link href={pageHref('/the-day')}>The day</Link><a href={directionsUrl} target="_blank" rel="noopener noreferrer">Directions</a><a href="tel:+2347068007835">Contact family</a></div>
+    <Dialog open={!!photoOpen||!!albumOpen} onOpenChange={open=>{if(!open){setPhotoOpen(null);setAlbumOpen(null)}}}><DialogContent className="photo-dialog" showCloseButton={false}><DialogClose asChild><button className="dialog-close">Close</button></DialogClose><DialogTitle className="sr-only">Wedding photograph</DialogTitle><DialogDescription>{photoOpen?.caption||albumOpen?.alt||'A moment to keep'}</DialogDescription>{albumOpen&&<img src={albumOpen.src} alt={albumOpen.alt}/>}{photoOpen&&<img src={'/api/photos/'+photoOpen.id} alt={photoOpen.caption||'Wedding photograph'}/>}</DialogContent></Dialog>
   </div>;
 }
