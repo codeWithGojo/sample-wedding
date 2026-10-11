@@ -81,6 +81,8 @@
 .wedding-music p{font:10px/1.5 Arial,sans-serif;margin:8px 10px 2px}
 .wedding-music>a{display:block;font:10px/1.5 Arial,sans-serif;margin:0 10px 10px;text-underline-offset:3px}
 .wedding-music-toggle{display:flex;align-items:center;gap:8px;background:none;color:inherit;border:0;padding:10px 14px;min-height:44px;font:12px Arial,sans-serif}
+.background-music-control{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));right:18px;z-index:45;width:44px;height:44px;display:grid;place-items:center;border:1px solid #c4a572;border-radius:50%;background:#fff8ecef;color:#5f142c;text-decoration:none}
+.background-music-control:focus-visible{outline:3px solid #ab7e38;outline-offset:4px}
 .couple-album{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:36px}
 .couple-album .photo-tile img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
 @keyframes portrait-arrive{from{opacity:0;transform:rotate(-3deg) translateY(18px)}to{opacity:1;transform:rotate(-2deg) translateY(0)}}
@@ -114,3 +116,5 @@
 }
 @media(max-width:370px){.sealed-invitation h1{font-size:27px}.scene-heading h1{font-size:28px}.scene-actions{gap:8px}.scene-actions button,.scene-actions a{padding:12px 14px}}
 @media(prefers-reduced-motion:reduce){.invitation-scene,.curtain-panel,.curtain-valance,.invitation-preview,.invitation-zoom-paper{transition:none}.couple-portrait,.wedding-loader-heart svg,.wedding-loader-pulse{animation:none}.curtain-panel{will-change:auto}}
+
+@media(max-width:700px){.background-music-control{bottom:calc(88px + env(safe-area-inset-bottom));right:14px}}

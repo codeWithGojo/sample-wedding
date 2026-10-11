@@ -70,7 +70,7 @@ export default function WeddingEntrance() {
     </div>
 
     <div className="curtain-panel curtain-left" aria-hidden="true"/><div className="curtain-panel curtain-right" aria-hidden="true"/><div className="curtain-valance" aria-hidden="true"/>
-    {!opened && <div className="sealed-invitation"><p className="seal-overline">An invitation from our families</p><button className="champagne-seal" onClick={openCurtains} aria-label="Open the wedding invitation and start the music"><span className="seal-emboss"><Rings/><span>12 · 12 · 26</span></span></button><h1>#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><p>With love, you’re invited.</p><button className="seal-caption" onClick={openCurtains}>Touch the seal to open <ArrowDown size={14}/></button></div>}
+    {!opened && <div className="sealed-invitation"><p className="seal-overline">An invitation from our families</p><button className="champagne-seal" onClick={openCurtains} aria-label="Open the wedding invitation"><span className="seal-emboss"><Rings/><span>12 · 12 · 26</span></span></button><h1>#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><p>With love, you’re invited.</p><button className="seal-caption" onClick={openCurtains}>Touch the seal to open <ArrowDown size={14}/></button></div>}
     {!opened && <button className="entrance-skip" onClick={enterSite}>Go straight to the site <ArrowRight size={15}/></button>}
 
     <Dialog open={inviteOpen} onOpenChange={setInviteOpen}>
