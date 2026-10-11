@@ -118,3 +118,51 @@
 @media(prefers-reduced-motion:reduce){.invitation-scene,.curtain-panel,.curtain-valance,.invitation-preview,.invitation-zoom-paper{transition:none}.couple-portrait,.wedding-loader-heart svg,.wedding-loader-pulse{animation:none}.curtain-panel{will-change:auto}}
 
 @media(max-width:700px){.background-music-control{bottom:calc(88px + env(safe-area-inset-bottom));right:14px}}
+
+/* Phone entrance: one moving photograph, then a camera pullback to the table. */
+.mobile-invitation{display:none}
+@media(max-width:700px){
+ .invitation-scene{padding:0;display:block;min-height:100svh;transform:none;transition:none;filter:none}
+ .curtains-closed .invitation-scene{transform:none;filter:none}
+ .invitation-scene>.scene-heading,.invitation-scene>.scene-tableau,.invitation-scene>.scene-actions,.invitation-scene>.scene-footnote,.invitation-scene>.scene-background{display:none}
+ .mobile-invitation{display:block;position:relative;min-height:100svh;background:#eee2ce;isolation:isolate}
+ .mobile-invitation-stage{height:100svh;position:relative;overflow:hidden}
+ .mobile-room{position:absolute;inset:0;background:linear-gradient(#fbf3e52e,#eadbc066),url('/entrance/wedding-set.webp') center/cover}
+ .mobile-couple-photo{position:absolute;inset:0;margin:0;z-index:2;transform-origin:center;overflow:hidden;transform:translateY(-27%) scale(.42);box-shadow:0 18px 50px #3d221b45}
+ .mobile-couple-photo>img{width:100%;height:100%;display:block;object-fit:cover;object-position:50% 54%;max-width:none}
+ .mobile-photo-frame{position:absolute;inset:0;border:12px solid #bd965c;box-shadow:inset 0 0 0 3px #f4d8a1,inset 0 0 0 7px #91703f;pointer-events:none}
+ .mobile-table{position:absolute;z-index:1;left:-25%;right:-25%;top:38%;bottom:-15%;border-radius:50% 50% 0 0/12% 12% 0 0;background:linear-gradient(175deg,#fff9ee,#e9d8bb 68%,#cdb68f);box-shadow:0 -2px 1px #fef9ed,0 -12px 35px #644b3826;overflow:hidden;transform:translateY(0)}
+ .mobile-table-cloth{position:absolute;inset:0;background:repeating-linear-gradient(96deg,transparent 0 13%,#ad957915 15%,#ffffff65 18%,transparent 22%)}
+ .mobile-table-runner{position:absolute;top:0;bottom:0;left:35%;right:35%;background:linear-gradient(100deg,#63172f,#852e43 45%,#5f142c);transform:rotate(-8deg);border-inline:1px solid #d9bc88;opacity:.9}
+ .mobile-card-placement{position:absolute;z-index:3;top:43%;left:50%;width:min(52vw,22svh);transform:translateX(-50%);text-align:center}
+ .mobile-invitation-card{display:block;padding:0;border:1px solid #c5a371;background:#fff8ec;width:100%;transform:perspective(800px) rotateX(13deg) rotate(-5deg);transform-origin:center;box-shadow:8px 14px 15px #2b0b143d,1px 2px 0 #ead5af;touch-action:pan-y;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none;transition:transform .35s}
+ .mobile-invitation-card:active{transform:perspective(800px) rotateX(0) rotate(-2deg) scale(1.05)}
+ .mobile-invitation-card img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
+ .mobile-card-placement>p{font:11px/1.4 Arial,sans-serif;color:#5f142c;display:flex;align-items:center;justify-content:center;gap:5px;margin:14px -35px 0;white-space:nowrap}
+ .mobile-invitation-footer{position:absolute;z-index:3;bottom:max(18px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;opacity:0;visibility:hidden;transition:opacity .5s}
+ .mobile-invitation-footer>p{font:10px/1.4 Arial,sans-serif;letter-spacing:.09em;text-transform:uppercase;margin:0 0 10px}
+ .mobile-invitation-footer .scene-actions{margin:0;gap:10px}
+ .mobile-read-alternative{background:none;border:0;color:#67152f;font:11px/1.4 Arial,sans-serif;min-height:44px;padding:10px;text-decoration:underline;text-underline-offset:3px}
+ .mobile-film-skip{position:absolute;z-index:3;top:max(18px,env(safe-area-inset-top));right:14px;display:flex;align-items:center;gap:6px;border:1px solid #ffffff55;border-radius:2px;background:#35152273;color:#fff8ec;padding:8px 10px;min-height:44px;font:10px/1.4 Arial,sans-serif}
+ .mobile-film-skip[hidden]{display:none}
+ .mobile-film-running:not(.mobile-film-ready) .mobile-couple-photo{animation:mobile-photo-pullback 6.2s cubic-bezier(.22,.65,.25,1) both}
+ .mobile-film-running:not(.mobile-film-ready) .mobile-photo-frame{animation:mobile-frame-reveal 6.2s both}
+ .mobile-film-running:not(.mobile-film-ready) .mobile-table{animation:mobile-table-arrive 6.2s both}
+ .mobile-film-running:not(.mobile-film-ready) .mobile-card-placement{animation:mobile-card-arrive 6.2s both}
+ .mobile-film-ready .mobile-invitation-footer{opacity:1;visibility:visible}
+ body:has(.invitation-experience) .background-music-control{bottom:max(18px,env(safe-area-inset-bottom))}
+ .invitation-closeup{max-height:96svh!important;padding:10px!important;gap:8px!important}
+ .invitation-closeup-header h2{font-size:20px}
+ .invitation-zoom-viewport{max-height:none;flex:1;scroll-behavior:smooth}
+ .invitation-zoom-paper{transform-origin:50% 0;animation:mobile-paper-approach .45s cubic-bezier(.22,.65,.25,1) both}
+}
+@keyframes mobile-photo-pullback{0%{transform:translate(0,0) scale(1.015)}56%{transform:translate(-1%,.5%) scale(1.075)}100%{transform:translateY(-27%) scale(.42)}}
+@keyframes mobile-frame-reveal{0%,60%{opacity:0}100%{opacity:1}}
+@keyframes mobile-table-arrive{0%,54%{opacity:0;transform:translateY(30%) scale(1.1)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes mobile-card-arrive{0%,58%{opacity:0;transform:translate(-50%,60px) scale(.65)}100%{opacity:1;transform:translate(-50%,0) scale(1)}}
+@keyframes mobile-paper-approach{from{opacity:.6;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+@media(max-width:700px) and (max-height:700px){.mobile-card-placement{top:39%;width:min(52vw,19svh)}}
+@media(max-width:700px) and (prefers-reduced-motion:reduce){
+ .mobile-couple-photo,.mobile-photo-frame,.mobile-table,.mobile-card-placement,.invitation-zoom-paper{animation:none!important}
+ .mobile-invitation-footer,.mobile-invitation-card,.invitation-zoom-viewport{transition:none;scroll-behavior:auto}
+}

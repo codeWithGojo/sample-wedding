@@ -7,6 +7,7 @@ import Wedding from './wedding';
 import Link from 'next/link';
 import WeddingLoader from './wedding-loader';
 import { prepareInvitation } from './invitation-assets';
+import WeddingMobileInvitation from './wedding-mobile-invitation';
 
 function Rings() {
   return <svg viewBox="0 0 88 60" fill="none" aria-hidden="true"><circle cx="34" cy="34" r="20" stroke="currentColor" strokeWidth="2"/><circle cx="55" cy="34" r="20" stroke="currentColor" strokeWidth="2"/><path d="M43 14C28 4 39-3 44 4c5-7 16 0-1 10Z" fill="currentColor"/></svg>;
@@ -19,6 +20,7 @@ export default function WeddingEntrance() {
   const [inviteOpen, setInviteOpen] = useState(false);
   const [zoom, setZoom] = useState(1);
   const invitationButton = useRef<HTMLButtonElement>(null);
+  const invitationViewport = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (new URLSearchParams(location.search).get('enter') === '1') {
@@ -38,7 +40,9 @@ export default function WeddingEntrance() {
 
   useEffect(() => {
     if (!opened || entered) return;
-    const timeout = window.setTimeout(() => invitationButton.current?.focus({ preventScroll: true }), 1450);
+    const timeout = window.setTimeout(() => {
+      if (window.matchMedia('(min-width: 701px)').matches) invitationButton.current?.focus({ preventScroll: true });
+    }, 1450);
     return () => window.clearTimeout(timeout);
   }, [opened, entered]);
 
@@ -50,6 +54,18 @@ export default function WeddingEntrance() {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
+  useEffect(() => {
+    if (!inviteOpen || !window.matchMedia('(max-width: 700px)').matches) return;
+    const frame = requestAnimationFrame(() => {
+      const viewport = invitationViewport.current;
+      if (viewport) {
+        viewport.scrollLeft = (viewport.scrollWidth - viewport.clientWidth) / 2;
+        viewport.scrollTop = viewport.scrollHeight * .18;
+      }
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [inviteOpen]);
+
   if (entered) return <><Wedding/><button className="replay-invitation" onClick={() => { setOpened(false); setEntered(false); setZoom(1); window.history.replaceState(null, '', '/' + location.hash); window.scrollTo({ top: 0 }); }}><RotateCcw size={15}/> Open the invitation again</button></>;
 
   return <main className={'invitation-experience ' + (opened ? 'curtains-open' : 'curtains-closed')}>
@@ -57,6 +73,7 @@ export default function WeddingEntrance() {
     <div className={'entrance-content ' + (loading ? 'entrance-is-loading' : 'entrance-is-ready')} inert={loading} aria-hidden={loading}>
     <div className="invitation-scene" aria-hidden={!opened} inert={!opened}>
       <div className="scene-background" aria-hidden="true"/>
+      <WeddingMobileInvitation active={opened && !loading} onRead={() => { setZoom(1.75); setInviteOpen(true); }} onEnter={enterSite}/>
       <div className="scene-heading"><p>The Awhefeada &amp; Toka families</p><h1>#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><span>12 December 2026 · Ughelli</span></div>
       <div className="scene-tableau">
         <figure className="couple-portrait"><div className="portrait-mat"><img src="/couple/laughter.webp" width="960" height="1280" alt="Blessing Egohiniovo and Blessing Oshewire together" fetchPriority="high"/></div><figcaption>From 23 December, to forever.</figcaption></figure>
@@ -77,7 +94,7 @@ export default function WeddingEntrance() {
       <DialogContent className="invitation-closeup" showCloseButton={false}>
         <div className="invitation-closeup-header"><div><DialogTitle>You’re invited</DialogTitle><DialogDescription>Traditional marriage · 12 December 2026</DialogDescription></div><DialogClose asChild><button className="invitation-back"><ArrowLeft size={17}/> Back</button></DialogClose></div>
         <div className="invitation-zoom-controls" aria-label="Invitation zoom controls"><button disabled={zoom <= 1} onClick={() => setZoom(z => Math.max(1, z - .25))} aria-label="Zoom out"><Minus size={18}/></button><span aria-live="polite">{Math.round(zoom * 100)}%</span><button disabled={zoom >= 2.5} onClick={() => setZoom(z => Math.min(2.5, z + .25))} aria-label="Zoom in"><Plus size={18}/></button><button onClick={() => setZoom(1)} aria-label="Reset zoom"><RotateCcw size={16}/></button></div>
-        <div className="invitation-zoom-viewport"><div className="invitation-zoom-paper" style={{ width: `${zoom * 100}%` }}><img src="/invitation.jpg" width="850" height="1203" alt="Family invitation: Blessing Egohiniovo Awhefeada Esq. and Engr. Blessing Oshewire Toka, 12 December 2026 at 11am, Ricky’s Hotel and Event Place, Oteri, Ughelli."/></div></div>
+        <div ref={invitationViewport} className="invitation-zoom-viewport"><div className="invitation-zoom-paper" style={{ width: `${zoom * 100}%` }}><img src="/invitation.jpg" width="850" height="1203" alt="Family invitation: Blessing Egohiniovo Awhefeada Esq. and Engr. Blessing Oshewire Toka, 12 December 2026 at 11am, Ricky’s Hotel and Event Place, Oteri, Ughelli."/></div></div>
         <div className="invitation-closeup-actions"><button onClick={enterSite}>Enter the site <ArrowRight size={17}/></button><Link href="/photographs" onClick={() => setInviteOpen(false)}><Images size={17}/> Gallery</Link></div>
       </DialogContent>
     </Dialog>
