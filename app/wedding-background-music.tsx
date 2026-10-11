@@ -43,8 +43,15 @@ export default function WeddingBackgroundMusic({ src }: { src: string }) {
         if (!cancelled && currentAttempt === attempt) setPlaying(false);
       });
     };
+    const startFromInteraction = (event: Event) => {
+      if (event.target instanceof Element && event.target.closest('[data-wedding-music-control]')) return;
+      if (event instanceof KeyboardEvent && event.key !== 'Enter' && event.key !== ' ') return;
+      start();
+    };
     startRef.current = start;
     window.addEventListener('wedding:play-music', start);
+    window.addEventListener('click', startFromInteraction);
+    window.addEventListener('keydown', startFromInteraction);
     start();
     return () => {
       cancelled = true;
@@ -53,6 +60,8 @@ export default function WeddingBackgroundMusic({ src }: { src: string }) {
       audio.pause();
       startRef.current = () => {};
       window.removeEventListener('wedding:play-music', start);
+      window.removeEventListener('click', startFromInteraction);
+      window.removeEventListener('keydown', startFromInteraction);
     };
   }, [src]);
 
@@ -71,11 +80,11 @@ export default function WeddingBackgroundMusic({ src }: { src: string }) {
   }
 
   return <>
-    <audio ref={audioRef} src={src} preload="auto" loop hidden aria-hidden="true"
+    <audio ref={audioRef} src={src} data-wedding-soundtrack preload="auto" loop hidden aria-hidden="true"
       onPlaying={() => setPlaying(true)} onPause={() => setPlaying(false)}
       onError={() => { setUnavailable(true); setPlaying(false); }}/>
     {unavailable ? <a className="background-music-control" href={spotifySongUrl} target="_blank" rel="noopener noreferrer" aria-label="Listen to Until I Found You on Spotify" title="Listen to our song"><Music2 size={18}/></a> :
-      <button className="background-music-control" onClick={toggle}
+      <button className="background-music-control" data-wedding-music-control onClick={toggle}
         aria-label={playing ? 'Pause background music' : 'Play Until I Found You'}
         title={playing ? 'Pause our song' : 'Play our song'} aria-pressed={playing}>
         {playing ? <VolumeX size={18}/> : <Music2 size={18}/>}

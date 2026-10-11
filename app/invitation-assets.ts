@@ -19,15 +19,30 @@ function prepareImage(src: string) {
 // A failed image or slow connection must never trap guests on the loading screen.
 export async function prepareInvitation(maximumWaitMs = 9000) {
   let timeout: ReturnType<typeof setTimeout> | undefined;
+  const audio = document.querySelector<HTMLAudioElement>('audio[data-wedding-soundtrack]');
+  let disposeAudio = () => {};
+  const musicReady = !audio || audio.readyState >= 3 || audio.error ? Promise.resolve() :
+    new Promise<void>(resolve => {
+      const finish = () => {
+        audio.removeEventListener('canplay', finish);
+        audio.removeEventListener('error', finish);
+        resolve();
+      };
+      disposeAudio = finish;
+      audio.addEventListener('canplay', finish);
+      audio.addEventListener('error', finish);
+    });
   try {
     await Promise.race([
       Promise.allSettled([
         ...invitationImages.map(prepareImage),
         document.fonts?.ready ?? Promise.resolve(),
+        musicReady,
       ]),
       new Promise<void>(resolve => { timeout = setTimeout(resolve, maximumWaitMs); }),
     ]);
   } finally {
     clearTimeout(timeout);
+    disposeAudio();
   }
 }
