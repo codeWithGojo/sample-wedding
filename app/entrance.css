@@ -184,3 +184,6 @@
  .mobile-scene-camera,.invitation-zoom-paper{animation:none!important;transition:none!important}
  .mobile-invitation-footer,.invitation-zoom-viewport{transition:none;scroll-behavior:auto}
 }
+
+/* Begin the portrait entrance when the seal opens, not behind closed curtains. */
+.curtains-closed .couple-portrait{animation:none}

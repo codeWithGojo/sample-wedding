@@ -23,10 +23,11 @@ export default function WeddingEntrance() {
   const invitationViewport = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (new URLSearchParams(location.search).get('enter') === '1') {
-      setEntered(true);
-      setLoading(false);
-      return;
+    // Old shared links must still begin with the invitation experience.
+    const url = new URL(location.href);
+    if (url.searchParams.has('enter')) {
+      url.searchParams.delete('enter');
+      window.history.replaceState(null, '', url.pathname + url.search + url.hash);
     }
     let cancelled = false;
     prepareInvitation().finally(() => { if (!cancelled) setLoading(false); });
@@ -50,7 +51,7 @@ export default function WeddingEntrance() {
     setLoading(false);
     setInviteOpen(false);
     setEntered(true);
-    window.history.replaceState(null, '', '/?enter=1' + location.hash);
+    window.history.replaceState(null, '', '/' + location.hash);
     window.scrollTo({ top: 0, behavior: 'instant' });
   }
 
@@ -76,7 +77,7 @@ export default function WeddingEntrance() {
       <WeddingMobileInvitation active={opened && !loading} onRead={() => { setZoom(1.75); setInviteOpen(true); }} onEnter={enterSite}/>
       <div className="scene-heading"><p>The Awhefeada &amp; Toka families</p><h1>#Blessing<wbr/>FoundHer<wbr/>Blessing</h1><span>12 December 2026 · Ughelli</span></div>
       <div className="scene-tableau">
-        <figure className="couple-portrait"><div className="portrait-mat"><img src="/couple/laughter.webp" width="960" height="1280" alt="Blessing Egohiniovo and Blessing Oshewire together" fetchPriority="high"/></div><figcaption>From 23 December, to forever.</figcaption></figure>
+        <figure className="couple-portrait"><div className="portrait-mat"><img src="/couple/laughter.webp" width="960" height="1280" alt="Blessing Egokiniovo and Blessing Oshevire together" fetchPriority="high"/></div><figcaption>From 23 December, to forever.</figcaption></figure>
         <div className="invitation-display">
           <button ref={invitationButton} className="invitation-preview" onClick={() => { setZoom(1); setInviteOpen(true); }} aria-label="View our wedding invitation up close"><img src="/invitation.jpg" width="850" height="1203" alt="The Awhefeada and Toka families’ traditional marriage invitation" fetchPriority="high"/><span><Mail size={18}/> View invitation <Plus size={16}/></span></button>
           <div className="invitation-pedestal" aria-hidden="true"/>
@@ -94,7 +95,7 @@ export default function WeddingEntrance() {
       <DialogContent className="invitation-closeup" showCloseButton={false}>
         <div className="invitation-closeup-header"><div><DialogTitle>You’re invited</DialogTitle><DialogDescription>Traditional marriage · 12 December 2026</DialogDescription></div><DialogClose asChild><button className="invitation-back"><ArrowLeft size={17}/> Back</button></DialogClose></div>
         <div className="invitation-zoom-controls" aria-label="Invitation zoom controls"><button disabled={zoom <= 1} onClick={() => setZoom(z => Math.max(1, z - .25))} aria-label="Zoom out"><Minus size={18}/></button><span aria-live="polite">{Math.round(zoom * 100)}%</span><button disabled={zoom >= 2.5} onClick={() => setZoom(z => Math.min(2.5, z + .25))} aria-label="Zoom in"><Plus size={18}/></button><button onClick={() => setZoom(1)} aria-label="Reset zoom"><RotateCcw size={16}/></button></div>
-        <div ref={invitationViewport} className="invitation-zoom-viewport"><div className="invitation-zoom-paper" style={{ width: `${zoom * 100}%` }}><img src="/invitation.jpg" width="850" height="1203" alt="Family invitation: Blessing Egohiniovo Awhefeada Esq. and Engr. Blessing Oshewire Toka, 12 December 2026 at 11am, Ricky’s Hotel and Event Place, Oteri, Ughelli."/></div></div>
+        <div ref={invitationViewport} className="invitation-zoom-viewport"><div className="invitation-zoom-paper" style={{ width: `${zoom * 100}%` }}><img src="/invitation.jpg" width="850" height="1203" alt="Family invitation: Blessing Egokiniovo Awhefeada Esq. and Engr. Blessing Oshevire Toka, 12 December 2026 at 11am, Ricky’s Hotel and Event Place, Oteri, Ughelli."/></div></div>
         <div className="invitation-closeup-actions"><button onClick={enterSite}>Enter the site <ArrowRight size={17}/></button><Link href="/photographs" onClick={() => setInviteOpen(false)}><Images size={17}/> Gallery</Link></div>
       </DialogContent>
     </Dialog>
