@@ -1,0 +1,33 @@
+/* Invitation-inspired additions; existing pages and interactions remain intact. */
+.keepsake-eyebrow{font:11px/1.6 Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin-bottom:22px}
+.family-invitation{text-align:center;background:var(--wine);color:var(--ivory);padding:80px 6vw;position:relative}
+.family-invitation-rule{width:68px;height:1px;background:var(--gold);margin:28px auto}
+.family-invitation h2{font-size:clamp(29px,3.8vw,49px);line-height:1.3;max-width:760px;margin:0 auto 26px}
+.family-invitation h2 span{font-style:italic;color:var(--gold)}
+.family-invitation>p:not(.keepsake-eyebrow){max-width:460px;margin:24px auto;font-size:15px}
+.invitation-couple{display:flex;align-items:center;justify-content:center;gap:42px;margin:36px auto;font:clamp(27px,3vw,42px)/1.25 Georgia,serif}
+.invitation-couple small{display:block;font:13px/1.7 Arial,sans-serif;margin-top:12px;letter-spacing:.025em}
+.invitation-couple i{color:var(--gold);font-size:48px}
+.family-invitation-link{display:inline-flex;gap:30px;padding:12px 0;border-bottom:1px solid var(--gold);text-decoration:none;font-size:14px}
+.keepsake-section{display:grid;grid-template-columns:1fr 1.1fr;gap:7vw;align-items:center;background:var(--ivory)}
+.keepsake-section h2{font-size:clamp(34px,4vw,54px);letter-spacing:-1px}
+.keepsake-section p:not(.keepsake-eyebrow){max-width:400px;font-size:15px}
+.keepsake-wrap{min-width:0;transform:rotate(-2deg)}
+.date-keepsake{position:relative;aspect-ratio:640/260;overflow:hidden;border-radius:12px;background:#f4cbbb;box-shadow:0 14px 38px #4b142414;border:1px solid var(--gold)}
+.date-keepsake canvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.keepsake-date{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:12px;color:var(--wine)}
+.keepsake-date span{font-size:12px;letter-spacing:.06em}.keepsake-date strong{font:clamp(23px,3vw,37px)/1.2 Georgia,serif}
+.keepsake-controls{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-top:20px;transform:rotate(2deg)}
+.keepsake-controls p{margin:0}.keepsake-controls .text-button{min-height:44px;padding:8px 0}
+.story-prelude{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:9vw;padding:80px 10vw;max-width:1440px;margin:auto}
+.story-prelude figure{margin:0;position:relative}.story-prelude img{width:100%;height:560px;object-fit:cover;object-position:center 38%;border-radius:180px 180px 3px 3px;display:block}
+.story-prelude figcaption{font:11px/1.6 Arial,sans-serif;letter-spacing:.08em;margin-top:16px;text-transform:uppercase}
+.story-prelude h2{font-size:clamp(40px,5.5vw,70px);line-height:1.07;letter-spacing:-2px;margin-bottom:25px}
+.story-prelude p:not(.keepsake-eyebrow){max-width:360px;line-height:1.85}
+.chapter-index{display:flex;gap:12px;overflow-x:auto;padding:0 6vw 24px;max-width:1440px;margin:auto;scrollbar-width:thin}
+.chapter-index a{display:flex;align-items:center;gap:12px;min-width:220px;flex:1;padding:16px 0;text-decoration:none;border-bottom:1px solid var(--gold);font-size:13px}
+.chapter-index span{font:26px Georgia,serif;color:var(--wine)}
+.chapter-number{grid-column:1/-1;font:11px Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;margin:0;color:var(--muted-foreground)}
+.story-chapter{scroll-margin-top:100px}.photo-tile .album-caption{display:flex;align-items:center;justify-content:space-between;position:static;padding:15px 4px;color:var(--wine);background:transparent;font:17px Georgia,serif}.album-caption small{font:11px Arial,sans-serif}
+@media(max-width:700px){.family-invitation{padding:54px 7vw}.invitation-couple{flex-direction:column;gap:17px}.invitation-couple i{font-size:32px}.invitation-couple small{margin-top:7px}.keepsake-section{grid-template-columns:1fr;gap:24px;padding-top:45px;padding-bottom:45px}.keepsake-date{gap:5px}.keepsake-date span{font-size:10px}.keepsake-controls .text-link{font-size:13px}.story-prelude{grid-template-columns:1fr;padding:48px 7vw;gap:30px}.story-prelude img{height:420px}.story-prelude h2{font-size:46px}.chapter-index a{min-width:210px}.chapter-index{padding-bottom:12px}.keepsake-wrap{margin:6px 3px}}
+@media(prefers-reduced-motion:no-preference){.family-invitation-link span{transition:transform .2s}.family-invitation-link:hover span{transform:translate(3px,-3px)}.date-keepsake.is-revealed .keepsake-date{animation:keepsake-reveal .4s ease-out}@keyframes keepsake-reveal{from{opacity:.3;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}}
