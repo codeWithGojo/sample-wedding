@@ -1,0 +1,40 @@
+/* An ivory invitation, with burgundy ink and the couple's original photography. */
+.wedding-site{--ivory:#fff9f1;--wine:#561c2d;--peach:#f5decd;--gold:#c0a17a;--ink:#33232a;background:var(--ivory);color:var(--ink)}
+.wedding-header{background:#fff9f1f5;padding:22px 5vw;border-bottom:1px solid #561c2d1c;backdrop-filter:blur(14px);position:sticky;top:0;z-index:40}
+.wedding-header .wordmark{color:var(--wine);font-size:clamp(15px,1.4vw,21px);letter-spacing:-.6px}
+.wedding-header nav{gap:8px 23px}.wedding-header nav a{font-size:12px;color:#6a5359}
+.wedding-header nav a[aria-current=page]{color:var(--wine);text-decoration-color:var(--gold);text-underline-offset:9px}
+.welcome-hero{display:grid;grid-template-columns:1.05fr 1fr;margin:32px auto;max-width:1320px;min-height:640px;border-radius:4px;background:#f4eadf;overflow:hidden;border:1px solid #561c2d10}
+.welcome-background{position:absolute;inset:0 0 0 auto;width:49%;height:100%;object-position:center 35%;z-index:0}
+.welcome-shade{display:none}.portrait-caption{position:absolute;bottom:20px;right:28px;z-index:1;background:#fff9f1eb;color:var(--wine);padding:10px 16px;font:italic 14px Georgia,serif;border-radius:2px}
+.welcome-hero-copy{width:100%;max-width:100%;padding:64px 42px;z-index:2;align-self:center}
+.welcome-hero-copy .occasion{font:10px/1.7 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;margin-bottom:32px;display:flex;align-items:center;gap:14px;color:var(--wine)}
+.occasion>span{border-right:1px solid var(--gold);padding-right:14px;letter-spacing:.12em}
+.welcome-hero .wedding-hashtag-title{font:clamp(38px,4.6vw,64px)/1.09 Georgia,serif;color:var(--wine);letter-spacing:-2.3px;max-width:570px;margin-bottom:30px;overflow-wrap:normal}
+.welcome-hero .couple-names{font-size:14px;color:#63464e;line-height:1.95;margin-bottom:28px}
+.welcome-date{font-size:13px;line-height:1.9;color:#63464e}.welcome-date strong{color:var(--wine)}
+.wedding-site .button{border-radius:4px;min-height:48px;font-size:13px;box-shadow:none;transition:background .2s,transform .2s}
+.wedding-site .button:hover{transform:translateY(-2px)}.welcome-hero .actions{gap:12px 20px;margin-top:28px}
+.welcome-hero .text-link{font-size:12px}.wedding-site .text-link{text-underline-offset:5px}
+.wedding-site .section{max-width:1320px;margin-inline:auto;padding:72px 5%}.wedding-site h2{color:var(--wine)}
+.family-invitation{padding:78px 6vw;background:#561c2d;color:var(--ivory);border-block:1px solid #c0a17a66}.family-invitation h2{color:var(--ivory);font-weight:400}
+.family-invitation-rule{margin:24px auto}.invitation-couple{margin:34px auto;gap:52px}.invitation-couple small{font-size:12px;color:#eed5c5}
+.wedding-site .welcome-letter h2{font-weight:400;font-size:clamp(34px,3.3vw,46px);max-width:420px;line-height:1.17}
+.welcome-letter .welcome-kicker{font:10px Arial,sans-serif;text-transform:uppercase;letter-spacing:.18em;color:#8b5e54}
+.welcome-letter>div:last-child>p{font-size:16px;line-height:1.9;color:#634c50}.welcome-letter .couple-signature{color:var(--wine)!important}
+.story-prelude{padding:70px 7%;max-width:1320px;gap:10%}.story-prelude img{height:550px;border-radius:180px 180px 4px 4px;box-shadow:16px 16px 0 #ecdccc}
+.story-prelude h2{font-weight:400}.story-prelude figure{padding-right:16px}.story-prelude .keepsake-eyebrow{color:#8b5e54}
+.wedding-site .date-strip{border-radius:4px;max-width:1188px;background:#561c2d;box-shadow:none;margin-bottom:36px;padding:28px 36px}
+.page-introduction{max-width:1320px;margin:auto;padding:54px 5% 22px}.page-introduction>p:first-child{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#8b5e54}
+.page-introduction h1{font-weight:400;color:var(--wine);font-size:clamp(38px,4vw,60px);line-height:1.13}.page-lead{font-size:17px;color:#6e5359}
+.wedding-site .story-photograph img{border-radius:4px}.story-chapter-copy{font-size:18px;color:#513d43}.story-chapter{border-color:#c0a17a80}
+.wedding-site .family-contact,.wedding-qr,.day-date,.wedding-site .rsvp-form,.wedding-placeholder{background:#f4eadf;border:1px solid #c0a17a66;border-radius:8px;box-shadow:none}
+.wedding-site details{border-color:#c0a17a80}.wedding-site summary{font-size:16px;color:var(--wine)}
+.wedding-footer{background:#3d1723;padding:45px 5vw}.wedding-footer .wordmark{font-size:22px;letter-spacing:-.6px}.wedding-footer>div{margin-top:14px;gap:4px 28px}.wedding-footer a:not(.wordmark),.wedding-footer .text-button{color:#ebd6c6;font-size:12px}
+.wedding-site :focus-visible{outline:2px solid #9a632e;outline-offset:5px}
+@media(min-width:701px) and (max-width:1399px){.welcome-hero{margin:26px 4vw}.welcome-hero-copy{padding:45px 32px}.wedding-site .date-strip{margin-inline:5vw}.welcome-hero .actions{flex-direction:column;align-items:flex-start}}
+@media(max-width:900px){.wedding-header{padding:16px 5vw}.wedding-header nav.is-open{padding-top:14px}.welcome-hero{min-height:580px}.welcome-hero-copy{padding:36px 24px}.welcome-hero .wedding-hashtag-title{font-size:43px}.welcome-hero .couple-names{font-size:12px}.welcome-hero-copy .occasion{font-size:9px;letter-spacing:.06em;gap:9px}.portrait-caption{font-size:12px;right:15px;bottom:15px}.invitation-couple{gap:30px}}
+@media(max-width:700px){.wedding-header .wordmark{font-size:16px}.menu-toggle{font-size:12px;border-color:#c0a17a80;border-radius:4px}.welcome-hero{display:flex;flex-direction:column;margin:16px 4vw 24px;min-height:0;border-radius:6px}.welcome-background{position:relative;inset:auto;width:100%;height:390px;order:0;object-position:50% 32%}.welcome-monogram{position:relative;inset:auto;min-height:280px}.welcome-hero-copy{order:1;padding:30px 24px 34px;width:100%}.welcome-hero-copy .occasion{margin-bottom:20px;font-size:9px}.welcome-hero .wedding-hashtag-title{font-size:clamp(39px,11vw,58px);letter-spacing:-1.5px;margin-bottom:22px}.welcome-hero .couple-names{font-size:13px;line-height:1.9;margin-bottom:20px}.welcome-hero .actions{align-items:stretch;gap:14px}.welcome-hero .button{width:100%}.portrait-caption{top:350px;bottom:auto;right:12px;font-size:11px;padding:7px 10px}.wedding-site .section{padding:44px 6vw}.family-invitation{padding:50px 7vw}.invitation-couple{gap:18px}.family-invitation h2{font-size:32px}.family-invitation .invitation-couple{font-size:30px}.story-prelude{padding:45px 7vw;gap:34px}.story-prelude img{height:420px}.story-prelude h2{font-size:44px}.wedding-site .date-strip{margin:0 4vw 25px;padding:26px}.page-introduction{padding:32px 6vw 5px}.page-introduction h1{font-size:39px}.wedding-footer .wordmark{font-size:18px}.wedding-site .welcome-letter h2{font-size:36px}.story-chapter-copy{font-size:17px}}
+@media(max-width:360px){.welcome-background{height:340px}.portrait-caption{top:300px}.welcome-hero-copy{padding:27px 19px}.welcome-hero .wedding-hashtag-title{font-size:36px}.wedding-header .wordmark{font-size:14px}}
+@media(prefers-reduced-motion:no-preference){.welcome-hero-copy{animation:invitation-copy-in .55s ease-out}.story-prelude figure{transition:transform .35s}.story-prelude figure:hover{transform:translateY(-4px)}@keyframes invitation-copy-in{from{opacity:.2;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}}
+@media(prefers-reduced-motion:reduce){.wedding-site *, .wedding-site *::before,.wedding-site *::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.wedding-site .button:hover{transform:none}}
