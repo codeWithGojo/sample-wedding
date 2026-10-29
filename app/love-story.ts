@@ -1,83 +1,55 @@
-export const storyHeadings = [
-  'The Day Our Paths Crossed',
-  'Then Came Us',
-  'Through It All',
-  'And Then There Was Forever',
-] as const;
+export const storyIntro = 'From a random encounter at the bank to forever.';
 
-export const suppliedLoveStory = `The Day Our Paths Crossed
+export const suppliedLoveStory = `Funny how life has a way of bringing two people together when they least expect it.
 
-23rd December,2023
+Our love story began quite randomly on the 23rd of December, 2023. I had gone to the bank to resolve an issue completely unaware that the day would become the beginning of something so beautiful. In the middle of it all, my friend Onos called me outside to meet him.
 
-Every love story has a beginning, and ours began on the 23rd of December,2023.
+When I stepped out, I saw this tall, dark, handsome fellow standing beside him. I greeted my friend with a hug, exchanged pleasantries and then, to my utmost surprise, this stranger attempted to hug me too. My immediate reaction? “Hol’ up! I don’t hug strangers!” 😂
 
-Neither of us knew that an ordinary meeting would become the beginning of something so beautiful. We simply crossed paths all thanks to our mutual friend Onos and somehow, that moment became the first page of our story.
+Little did I know that the stranger I was so quick to keep at arm’s length would one day become my husband-to-be.
 
-Then Came Us
+Apparently, he was interested enough to ask Onos for my phone number. But Onos, being the good friend he is, asked for my permission first. And guess what? I said no! 😂 I wasn't about to hand my number over to just anybody.
 
-What followed was a beautiful mix of friendship, laughter, love, unforgettable moments and lessons that shaped us into the couple we are today.
+It took a few weeks before I finally agreed to share my number with him. Fast-forward to January, he reached out, we started talking, and somehow, what began as a random meeting slowly blossomed into something special. We kept talking, got to know each other, and before we knew it, we were writing our own love story.
 
-Along the way, I discovered a man with a genuinely kind heart and a sweet soul. A man who cares deeply and loves in his own way.
+And as they say, “the rest is history.”
 
-And yes… a truly “finished man”.
+Today, that same tall, dark fellow who couldn't even get a hug from me on our first meeting is the man I get to call my fiancé. The man I am preparing to spend the rest of my life with. The man I will walk down the aisle to meet this December.
 
-Blessing, one of the things I cherish most about you is the way you care for me. It is in the little things, the thoughtful moments, the times you show up and the way you make me feel loved.
+Isn't it beautiful how God can take an ordinary day, an unexpected introduction, and two people who had no idea what was coming, and turn it into a lifetime of love?
 
-I may not always say it enough, but I see you.
+From “I don't hug strangers” to “I do.” 😂
 
-I see your heart.
-I see your kindness.
-I see the man you are becoming.
-And I am so proud to love you.
+Our story is a beautiful reminder that sometimes, the things we never planned turn out to be the most beautiful parts of our lives.
 
-Through It All
+And now, we are counting down to forever.
 
-Our story hasn’t been perfect and we never expected it to be.
+Here's to us, to love, to friendship, to God's beautiful timing, and to forever with my once-upon-a-stranger.`;
 
-We have had moments that tested us, moments that made us laugh until our stomachs hurt, moments that taught us patience, forgiveness and the importance of choosing each other.
-
-And through it all, we kept finding our way back to each other.
-
-Because sometimes love isn’t about having a perfect story.
-
-It’s about finding the person you want to write the rest of the story with.
-
-And Then There Was Forever
-
-Today, we stand at the beginning of our next chapter not just as two people in love, but as two people ready to build a life together.
-
-When I look back at that 23rd of December, I am filled with gratitude.
-
-Grateful that our paths crossed.
-Grateful for everything we’ve shared.
-Grateful for everything we’ve overcome.
-And most of all, grateful that somehow, out of all the people in this world, I found you.
-
-Blessing, I choose you.
-
-I choose you for today, for tomorrow, and for every tomorrow that God gives us.
-
-And if I could go back to that day and meet you all over again, I would still choose you.
-
-From 23rd December to Forever.`;
-
+const photoVersion = '?v=real-20261029';
+export const entrancePhoto = '/couple/red-portrait.webp' + photoVersion;
 export const storyImages = [
-  {src:'/couple/together.webp',alt:'Blessing and Blessing taking a photograph together at an event',width:810,height:1440},
-  {src:'/couple/laughter.webp',alt:'Blessing and Blessing sitting together at a restaurant',width:960,height:1280},
-  {src:'/couple/together.webp',alt:'Blessing and Blessing together, both wearing sunglasses',width:810,height:1440},
-  {src:'/couple/forever.webp',alt:'Blessing kissing Blessing on the cheek',width:960,height:1378},
+  {src:'/couple/together.webp' + photoVersion,alt:'Blessing Egokiniovo and Blessing Oshevire together in white T-shirts and blue jeans',width:1025,height:1534},
+  {src:'/couple/laughter.webp' + photoVersion,alt:'Blessing Egokiniovo laughing while sitting with Blessing Oshevire',width:1025,height:1534},
+  {src:'/couple/forever.webp' + photoVersion,alt:'Blessing Egokiniovo and Blessing Oshevire smiling at each other',width:1025,height:1534},
 ] as const;
 
 export type StoryChapter = {title:string;paragraphs:string[]};
 export function splitLoveStory(story:string):StoryChapter[]{
+  const paragraphs = story.trim().split(/\n\s*\n/).map(block => block.trim());
+  // Chapter markers are existing paragraphs: the supplied story stays intact.
+  const beginnings = [
+    {start: paragraphs[0], title: 'An ordinary day at the bank'},
+    {start: 'Apparently, he was interested enough', title: 'Then we started talking'},
+    {start: 'Today, that same tall, dark fellow', title: 'From strangers to “I do”'},
+    {start: 'And now, we are counting down', title: 'Counting down to forever'},
+  ];
   const chapters:StoryChapter[]=[];
-  for(const block of story.trim().split(/\n\s*\n/)){
-    const heading=block.trim();
-    if(storyHeadings.some(title=>title===heading))chapters.push({title:heading,paragraphs:[]});
-    else{
-      if(!chapters.length)chapters.push({title:'',paragraphs:[]});
-      chapters[chapters.length-1].paragraphs.push(block.trim());
-    }
+  for(const paragraph of paragraphs){
+    const beginning = beginnings.find(({start}) => paragraph.startsWith(start));
+    if(beginning) chapters.push({title:beginning.title,paragraphs:[]});
+    if(!chapters.length) chapters.push({title:'Our story',paragraphs:[]});
+    chapters[chapters.length-1].paragraphs.push(paragraph);
   }
   return chapters;
 }

@@ -12,52 +12,6 @@
 .entrance-is-loading{visibility:hidden}
 @keyframes wedding-heartbeat{0%,45%,100%{transform:scale(1)}12%{transform:scale(1.13)}24%{transform:scale(1.02)}33%{transform:scale(1.09)}}
 @keyframes wedding-heart-ring{0%{transform:scale(.82);opacity:0}15%{opacity:.65}80%,100%{transform:scale(1.4);opacity:0}}
-.invitation-experience{--velvet:#5f142c;--champagne:#d9bc88;--paper:#fff8ec;position:relative;isolation:isolate;min-height:100svh;background:#f5eddf;color:#4f1b29;overflow:hidden}
-.invitation-experience button:focus-visible,.invitation-experience a:focus-visible,.invitation-closeup button:focus-visible,.invitation-closeup a:focus-visible{outline:3px solid #ab7e38;outline-offset:5px}
-.invitation-scene{position:relative;min-height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:42px 6vw 28px;transition:filter 1.5s,transform 1.7s cubic-bezier(.2,.65,.2,1);filter:blur(0);transform:scale(1)}
-.curtains-closed .invitation-scene{filter:blur(8px);transform:scale(1.05);height:100svh;overflow:hidden}
-.scene-background{position:absolute;inset:0;z-index:-2;background:#f5eee2 url('/entrance/wedding-set.webp') center/cover no-repeat}
-.scene-background:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(255,250,239,.16),transparent 65%,rgba(254,247,232,.45))}
-.scene-heading{text-align:center;width:min(100%,800px);position:relative;z-index:2;margin-bottom:32px}
-.scene-heading p{font:12px/1.5 Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;margin:0 0 12px}
-.scene-heading h1{font:clamp(27px,3.8vw,53px)/1.13 Georgia,serif;letter-spacing:-.035em;margin:0 0 12px;overflow-wrap:normal}
-.scene-heading>span{font:12px/1.5 Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase}
-.scene-tableau{width:min(940px,100%);display:grid;grid-template-columns:1fr .78fr;gap:clamp(30px,7vw,100px);align-items:center;perspective:1400px}
-.couple-portrait{margin:0;width:min(100%,360px);justify-self:center;transform:rotate(-2deg);filter:drop-shadow(12px 17px 20px rgba(64,30,21,.18));animation:portrait-arrive 1.6s both}
-.portrait-mat{padding:12px;background:#f9efd9;border:6px solid #be965d;outline:1px solid #efd7a3;outline-offset:-5px;box-shadow:inset 0 0 0 1px #8d6934,0 0 0 2px #a7824d}
-.portrait-mat img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:50% 50%}
-.couple-portrait figcaption{padding:15px 8px 0;font:italic 16px/1.4 Georgia,serif;text-align:center}
-.invitation-display{width:min(100%,310px);justify-self:center;align-self:end;perspective:1000px;margin-bottom:10px}
-.invitation-preview{width:100%;padding:0;border:0;background:transparent;display:block;position:relative;transform:rotateY(-7deg) rotate(2deg);transition:transform .5s;filter:drop-shadow(5px 10px 16px rgba(84,46,23,.24))}
-.invitation-preview:hover{transform:rotateY(0) rotate(0) translateY(-7px)}
-.invitation-preview>img{display:block;width:100%;height:auto;border:1px solid #c5a371}
-.invitation-preview>span{display:flex;align-items:center;justify-content:center;gap:10px;background:#67152f;color:#fff6e7;min-height:48px;font:13px/1.3 Arial,sans-serif;letter-spacing:.02em;border:1px solid #c7aa75}
-.invitation-pedestal{height:16px;margin:8px -10px 0;background:linear-gradient(#e6d6b9,#b99b6c);border:1px solid #b29665;border-radius:3px;box-shadow:0 20px 25px rgba(90,70,40,.12)}
-.scene-actions{display:flex;gap:14px;align-items:center;justify-content:center;position:relative;z-index:2;margin-top:34px;flex-wrap:wrap}
-.scene-actions button,.scene-actions a,.invitation-closeup-actions button,.invitation-closeup-actions a{display:inline-flex;justify-content:center;align-items:center;gap:12px;min-height:48px;padding:13px 26px;border:1px solid #67152f;background:#67152f;color:#fff8ec;text-decoration:none;font:14px/1.3 Arial,sans-serif}
-.scene-actions a,.invitation-closeup-actions a{background:#fff8eceb;color:#67152f}
-.scene-footnote{margin:18px 0 0;text-align:center;font:12px/1.5 Arial,sans-serif;max-width:310px}
-.curtain-panel{position:absolute;top:0;bottom:0;width:50.5%;z-index:4;will-change:transform;background-color:#571025;background-image:linear-gradient(90deg,rgba(0,0,0,.2),transparent 65%,rgba(0,0,0,.5)),repeating-linear-gradient(90deg,#3c091c 0%,#66172f 5%,#8c2c43 8%,#6b1a33 11%,#3c081b 16%,#631a31 20%);box-shadow:inset -12px 0 24px #23000b80,9px 0 22px #0005;transition:transform 1.8s cubic-bezier(.3,0,.2,1)}
-.curtain-panel:after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent 0 2px,#ffffff03 2px 3px);opacity:.6;pointer-events:none}
-.curtain-left{left:0;transform-origin:left top;border-right:1px solid #c6a67550}
-.curtain-right{right:0;transform-origin:right top;box-shadow:inset 12px 0 24px #23000b80,-9px 0 22px #0005}
-.curtain-valance{position:absolute;left:-5%;right:-5%;top:-90px;height:clamp(145px,22vh,240px);border-radius:0 0 50% 50%;background:linear-gradient(175deg,#782238 0%,#490d23 48%,#831f3c 75%,#34071a);z-index:5;border-bottom:2px solid #c4a470;box-shadow:0 8px 20px #27010e66;transition:transform 1.5s}
-.curtains-open .curtain-left{transform:translateX(-104%)}
-.curtains-open .curtain-right{transform:translateX(104%)}
-.curtains-open .curtain-valance{transform:translateY(-110%)}
-.sealed-invitation{position:absolute;inset:0;z-index:6;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;color:#f0ddba;padding:75px 22px 100px}
-.seal-overline{font:11px/1.6 Arial,sans-serif;text-transform:uppercase;letter-spacing:.22em;margin:0 0 36px}
-.champagne-seal{height:130px;width:132px;display:grid;place-items:center;position:relative;flex-shrink:0;border:0;color:#806039;background:radial-gradient(ellipse at 32% 22%,#f7e8be 0%,#e7c994 26%,#c39d65 55%,#efd7a3 77%,#ab7b43 100%);border-radius:44% 47% 45% 48%;box-shadow:0 8px 11px #1c00115c,0 0 0 1px #e1c291,inset 0 2px 5px #fff1c7,inset 0 -4px 7px #946536;transform:rotate(-6deg);transition:transform .3s}
-.champagne-seal:hover{transform:rotate(-3deg) scale(1.035)}
-.seal-emboss{width:109px;height:107px;border:1px solid #a07a45;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;box-shadow:inset 0 1px 2px #fff0caaa,0 1px 1px #f7ddab;transform:rotate(6deg)}
-.seal-emboss svg{width:67px;height:48px;filter:drop-shadow(0 1px 0 #ffe7b7)}
-.seal-emboss>span{font:9px/1.2 Georgia,serif;letter-spacing:.16em;margin-top:5px}
-.sealed-invitation h1{font:clamp(25px,4vw,48px)/1.18 Georgia,serif;letter-spacing:-.025em;max-width:740px;margin:35px 0 13px}
-.sealed-invitation>p:not(.seal-overline){font:16px/1.5 Georgia,serif;margin:0 0 20px}
-.seal-caption{display:flex;align-items:center;gap:10px;min-height:44px;border:0;background:none;color:#ead0a5;font:11px/1.5 Arial,sans-serif;text-transform:uppercase;letter-spacing:.12em;padding:10px}
-.entrance-skip{position:absolute;bottom:max(30px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);z-index:7;color:#ecd4b1;background:none;border:0;padding:12px;min-height:44px;display:flex;align-items:center;gap:10px;font:12px/1.4 Arial,sans-serif;white-space:nowrap}
-.sealed-invitation button:focus-visible,.entrance-skip:focus-visible{outline-color:#f2dab0}
-.entrance-noscript{position:relative;z-index:8;background:#fff8ec;padding:20px}
 .invitation-closeup{width:min(94vw,650px)!important;max-width:650px!important;padding:18px!important;gap:12px!important;background:#fff8ec!important;color:#4f1b29!important;border:1px solid #c3a371!important;border-radius:8px!important;max-height:94svh!important;display:flex!important;flex-direction:column!important}
 .invitation-closeup-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .invitation-closeup-header h2{font:24px/1.2 Georgia,serif;margin:0 0 3px}
@@ -70,7 +24,9 @@
 .invitation-zoom-paper{max-width:none;min-width:100%;margin:0;transition:width .25s}
 .invitation-zoom-paper img{display:block;width:100%;height:auto;max-width:none}
 .invitation-closeup-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding-top:2px}
-.invitation-closeup-actions button,.invitation-closeup-actions a{font-size:13px;min-height:44px;padding:10px 20px}
+.invitation-closeup-actions button,.invitation-closeup-actions a{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:13px/1.4 Arial,sans-serif;min-height:44px;padding:10px 20px;border:1px solid #67152f;background:#67152f;color:#fff8ec;text-decoration:none}
+.invitation-closeup-actions a{background:transparent;color:#67152f}
+.invitation-zoom-controls button:disabled{opacity:.4;cursor:default}
 .replay-invitation{display:flex;align-items:center;gap:8px;margin:0 auto 84px;background:none;color:#681a30;border:1px solid #b99967;padding:12px 16px;min-height:44px;font:13px Arial,sans-serif}
 .wedding-music{position:fixed;z-index:45;top:18px;right:18px;background:#fff8ec;color:#5d1b2d;border:1px solid #c4a572;box-shadow:0 4px 20px #40201320;border-radius:5px;width:auto;max-width:calc(100vw - 28px)}
 .wedding-music.music-is-open{width:258px}
@@ -85,105 +41,63 @@
 .background-music-control:focus-visible{outline:3px solid #ab7e38;outline-offset:4px}
 .couple-album{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:36px}
 .couple-album .photo-tile img{width:100%;aspect-ratio:3/4;object-fit:cover;display:block}
-@keyframes portrait-arrive{from{opacity:0;transform:rotate(-3deg) translateY(18px)}to{opacity:1;transform:rotate(-2deg) translateY(0)}}
+/* A standalone portrait opening, composed around the couple's red drapes. */
+.invitation-experience{position:relative;isolation:isolate;min-height:100svh;background:#650912;color:#fff4e7;overflow:hidden}
+.invitation-experience button:focus-visible,.invitation-experience a:focus-visible,.invitation-closeup button:focus-visible,.invitation-closeup a:focus-visible{outline:3px solid #e6c699;outline-offset:5px}
+.portrait-entry-stage{position:relative;min-height:100svh;display:flex;align-items:center;padding:124px 7vw 88px;isolation:isolate;transition:opacity 400ms ease-out,transform 400ms cubic-bezier(.22,1,.36,1)}
+.portrait-loading .portrait-entry-stage{visibility:hidden}
+.entry-photograph{position:absolute;inset:0 0 0 auto;width:64%;margin:0;z-index:-3;overflow:hidden;background:#8d0510}
+.entry-photograph img{display:block;width:100%;height:100%;max-height:100svh;object-fit:contain;object-position:50% 50%;transform-origin:60% 35%}
+.entry-photograph.photo-unavailable{background:#760b18}
+.entry-photograph.photo-unavailable img{visibility:hidden}
+.entry-shade{position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(90deg,#650912 0%,#650912 25%,#650912e8 34%,#65091270 48%,transparent 67%),linear-gradient(180deg,#35000950,transparent 22%,transparent 80%,#35000966)}
+.portrait-entry-header{position:absolute;top:max(30px,env(safe-area-inset-top));left:7vw;right:5vw;display:flex;align-items:center;justify-content:space-between;gap:24px;font:14px/1.5 Georgia,serif;color:#f7e4d1}
+.entry-header-date{font:11px/1.5 Arial,sans-serif}
+.portrait-entry-copy{width:min(48%,550px);position:relative}
+.entry-family{font:12px/1.6 Arial,sans-serif;color:#e9c8b8;max-width:290px;margin:0 0 28px}
+.portrait-entry h1{font:clamp(44px,5.8vw,82px)/1.09 Georgia,serif;letter-spacing:-.045em;color:#fff4e7;margin:0 0 25px}
+.portrait-entry h1>span{font-size:.7em;color:#e4b89a}
+.entry-dedication{font:19px/1.6 Georgia,serif;margin:0 0 32px;color:#f4d7c8}
+.entry-date{display:flex;flex-direction:column;gap:7px;font:12px/1.6 Arial,sans-serif;color:#f7e4d1;padding:20px 0;border-top:1px solid #f1c99f55;width:fit-content}
+.portrait-entry-actions{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:10px}
+.portrait-entry-actions button{min-height:48px;font:13px/1.4 Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:3px;cursor:pointer}
+.entry-primary{background:#fff1df;color:#571425;border:1px solid #fff1df;padding:15px 23px;transition:background 150ms ease-out,transform 250ms cubic-bezier(.22,1,.36,1)}
+.entry-primary:hover{background:#efd2b6;transform:translateY(-2px)}
+.entry-invitation{background:transparent;color:#f6ddca;border:0;padding:10px 0;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#d3ad8b}
+.entry-photo-caption{position:absolute;right:4vw;bottom:28px;font:italic 16px/1.5 Georgia,serif;color:#f9dfd0;pointer-events:none}
+.portrait-leaving .portrait-entry-stage{opacity:0;transform:scale(1.025)}
+.entrance-noscript{position:relative;z-index:8;background:#fff8ec;padding:20px;color:#571425}
+@media(prefers-reduced-motion:no-preference){
+ .portrait-ready .entry-photograph img{animation:entry-photo-reveal 1400ms cubic-bezier(.22,1,.36,1) both}
+ .portrait-ready .portrait-entry-copy{animation:entry-copy-reveal 600ms cubic-bezier(.22,1,.36,1) both}
+ @keyframes entry-photo-reveal{from{opacity:.3;transform:scale(1.045)}to{opacity:1;transform:scale(1)}}
+ @keyframes entry-copy-reveal{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+}
+@media(min-width:701px) and (max-height:740px){.portrait-entry-stage{padding-top:90px;padding-bottom:40px}.entry-family{margin-bottom:15px}.portrait-entry h1{font-size:55px;margin-bottom:18px}.entry-dedication{margin-bottom:18px}.entry-date{padding:14px 0}}
 @media(max-width:700px){
- .invitation-scene{padding:40px 7vw 30px;justify-content:flex-start;min-height:100svh}
- .scene-heading{margin-bottom:27px;max-width:310px}
- .scene-heading h1{font-size:31px}
- .scene-heading p{font-size:9px;letter-spacing:.11em;margin-bottom:9px}
- .scene-heading>span{font-size:10px}
- .scene-background{background-position:50% center}
- .scene-tableau{grid-template-columns:1fr;gap:35px;max-width:290px}
- .couple-portrait{width:78%;max-width:250px}
- .portrait-mat{padding:8px;border-width:4px}
- .couple-portrait figcaption{font-size:14px;padding-top:10px}
- .invitation-display{width:71%;max-width:245px}
- .invitation-preview>span{min-height:44px;font-size:11px;gap:7px}
- .scene-actions{margin-top:28px;gap:10px}
- .scene-actions button,.scene-actions a{font-size:12px;padding:12px 17px;min-height:46px}
- .scene-footnote{font-size:10px;max-width:265px}
- .seal-overline{font-size:9px;letter-spacing:.16em;margin-bottom:32px}
- .sealed-invitation h1{font-size:30px;max-width:320px}
- .sealed-invitation>p:not(.seal-overline){font-size:15px}
- .wedding-music{top:auto;bottom:16px;right:14px}
- .wedding-music.music-is-open{width:228px}
- .wedding-music iframe{width:226px;height:200px}
- .invitation-closeup{padding:12px!important;width:96vw!important}
- .invitation-closeup-header h2{font-size:21px}
- .invitation-closeup-actions{gap:8px}
- .invitation-closeup-actions button,.invitation-closeup-actions a{padding:11px 14px}
- .couple-album{grid-template-columns:1fr;gap:22px}
+ .portrait-entry-stage{min-height:100svh;align-items:flex-end;padding:100px 7vw max(28px,env(safe-area-inset-bottom))}
+ .entry-photograph{inset:0;width:100%;height:100%;background:#98030d}
+ .entry-photograph img{height:100%;max-height:none;object-fit:cover;object-position:50% 28%}
+ .entry-shade{background:linear-gradient(180deg,#3b000655,transparent 18%,transparent 42%,#45081270 55%,#450812ed 76%,#450812 100%)}
+ .portrait-entry-header{top:max(22px,env(safe-area-inset-top));left:7vw;right:7vw;justify-content:center;text-align:center;font-size:14px;text-shadow:0 1px 12px #270009}
+ .entry-header-date{display:none}
+ .portrait-entry-copy{width:100%;padding-top:44svh}
+ .entry-family{font-size:10px;max-width:none;margin-bottom:12px}
+ .portrait-entry h1{font-size:clamp(38px,10.2vw,56px);line-height:1.04;margin-bottom:12px;letter-spacing:-.035em}
+ .portrait-entry h1 br{display:none}
+ .entry-dedication{font-size:16px;line-height:1.5;margin-bottom:14px}
+ .entry-dedication br{display:none}
+ .entry-date{font-size:11px;gap:3px;padding:12px 0;border-top-color:#f1c99f44}
+ .portrait-entry-actions{flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 18px;margin-top:5px}
+ .portrait-entry-actions button{font-size:12px}
+ .entry-primary{padding:13px 18px;gap:10px!important}
+ .entry-invitation{padding:10px 0}
+ .entry-photo-caption{display:none}
+ .invitation-closeup{max-height:94svh!important}
+ .invitation-zoom-viewport{flex:1;max-height:none}
+ .couple-album{grid-template-columns:1fr;gap:25px}
+ .couple-album .photo-tile img{aspect-ratio:1025/1534;object-fit:contain}
 }
-@media(max-width:370px){.sealed-invitation h1{font-size:27px}.scene-heading h1{font-size:28px}.scene-actions{gap:8px}.scene-actions button,.scene-actions a{padding:12px 14px}}
-@media(prefers-reduced-motion:reduce){.invitation-scene,.curtain-panel,.curtain-valance,.invitation-preview,.invitation-zoom-paper{transition:none}.couple-portrait,.wedding-loader-heart svg,.wedding-loader-pulse{animation:none}.curtain-panel{will-change:auto}}
-
-@media(max-width:700px){.background-music-control{bottom:calc(88px + env(safe-area-inset-bottom));right:14px}}
-
-/* A continuous room: the camera travels between the couple and the invitation. */
-.mobile-invitation{display:none}
-@media(max-width:700px){
- .invitation-scene{padding:0;display:block;min-height:100svh;transform:none;transition:none;filter:none}
- .curtains-closed .invitation-scene{transform:none;filter:none}
- .invitation-scene>.scene-heading,.invitation-scene>.scene-tableau,.invitation-scene>.scene-actions,.invitation-scene>.scene-footnote,.invitation-scene>.scene-background{display:none}
- .mobile-invitation{display:block;position:relative;min-height:100svh;background:#f5eee2;isolation:isolate}
- .mobile-invitation-stage{height:100svh;position:relative;overflow:hidden;touch-action:pan-y pinch-zoom;-webkit-touch-callout:none;user-select:none;-webkit-user-select:none}
- .mobile-scene-camera{position:absolute;inset:0 auto 0 0;width:240%;height:100%;transform:translateX(-51%) scale(1.08);transform-origin:72% 46%;transition:transform 1.6s cubic-bezier(.22,.65,.25,1),transform-origin 1.6s cubic-bezier(.22,.65,.25,1)}
- .mobile-room{position:absolute;inset:0;background:#f5eee2 url('/entrance/wedding-set.webp') center/cover}
- .mobile-room:after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,#fff8ec18,transparent 65%,#fff8ec55)}
- .mobile-view-tour.mobile-film-running .mobile-scene-camera{animation:mobile-room-tour 22s ease-in-out infinite}
- .mobile-view-table .mobile-scene-camera{transform:translateX(-4%) scale(1.12);transform-origin:24% 43%}
- .mobile-view-table.mobile-card-held .mobile-scene-camera{transform:translateX(-4%) scale(2.25);transition-duration:.8s}
- .mobile-scene-monogram{position:absolute;top:8%;left:72%;width:84vw;transform:translateX(-50%);text-align:center;color:#67213a;text-shadow:0 1px 0 #fff9e9}
- .mobile-scene-monogram>span{display:block;max-width:300px;margin:auto;font:clamp(25px,7.5vw,34px)/1.13 Georgia,serif;letter-spacing:-.035em}
- .mobile-scene-monogram small{display:block;font:9px/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;margin-top:12px}
- .mobile-couple-photo{position:absolute;left:72%;bottom:23%;width:min(75vw,42svh);margin:0;transform:translateX(-50%) rotate(-2deg);filter:drop-shadow(9px 16px 15px #40251435)}
- .mobile-photo-frame{padding:7px;border:5px solid #b28b52;background:#fff5df;outline:1px solid #ebce94;outline-offset:-4px;box-shadow:inset 0 0 0 1px #ead6ab,0 0 0 1px #886638}
- .mobile-photo-frame img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;object-position:center;pointer-events:none;-webkit-user-drag:none}
- .mobile-couple-photo figcaption{font:italic 12px/1.4 Georgia,serif;text-align:center;padding:14px 0 0;color:#6b433d}
- .mobile-console{position:absolute;left:4%;top:64%;width:40%;height:24%;background:linear-gradient(100deg,#ede0c9,#fff9ed 40%,#eddfc5);border:1px solid #ccb387;border-radius:12px 12px 4px 4px;box-shadow:8px 16px 20px #674d3529;display:flex;flex-direction:column;padding:10px 8px 6px;gap:5px}
- .mobile-console:before,.mobile-console:after{content:'';position:absolute;top:100%;width:12px;height:24px;background:linear-gradient(90deg,#bb945b,#e7cb91,#a27b43);border-radius:0 0 2px 2px}
- .mobile-console:before{left:10%}.mobile-console:after{right:10%}
- .mobile-console-top{position:absolute;left:-3px;right:-3px;top:-8px;height:11px;border:1px solid #c2a571;background:linear-gradient(#fff9e9,#c9ae7d);border-radius:7px;box-shadow:0 3px 5px #6b492a20}
- .mobile-console-drawer{flex:1;border:1px solid #bfa374;border-radius:8px;box-shadow:inset 0 0 0 2px #fff8e3;position:relative}
- .mobile-console-drawer:after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);height:12px;width:12px;border-radius:50%;background:radial-gradient(circle at 30% 25%,#f5dfb0,#b18a4d 70%);box-shadow:1px 2px 3px #734e2a44}
- .mobile-card-placement{position:absolute;z-index:2;bottom:36%;left:24%;width:min(60vw,31svh);transform:translateX(-50%)}
- .mobile-invitation-card{display:block;width:100%;padding:0;border:3px solid #dbc192;background:#fff8ec;transform:perspective(1200px) rotateY(5deg);box-shadow:inset 0 0 0 1px #fff2ca,4px 5px 8px #5a392638;touch-action:none}
- .mobile-invitation-card img{display:block;width:100%;height:auto;pointer-events:none;-webkit-user-drag:none}
- .mobile-card-stand{height:12px;margin:0 -10px;background:linear-gradient(#ddc08e,#af8650 65%,#dbc396);border:1px solid #9d7947;box-shadow:0 4px 5px #60442930;border-radius:1px}
- .mobile-scene-tools{position:absolute;z-index:3;top:max(18px,env(safe-area-inset-top));right:14px}
- .mobile-scene-tools button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #c5a779;background:#fff8eccc;color:#67152f;border-radius:50%}
- .mobile-invitation-footer{position:absolute;z-index:3;bottom:max(18px,env(safe-area-inset-bottom));left:0;right:0;text-align:center;padding:28px 14px 0;background:linear-gradient(transparent,#fff8ecb3 40%,#fff8eceb)}
- .mobile-view-invitation{display:flex;align-items:center;gap:8px;margin:auto;background:#67152f;color:#fff8ec;border:1px solid #b99863;padding:11px 22px;min-height:48px;font:13px/1.4 Arial,sans-serif}
- .mobile-enter-direct{display:flex;align-items:center;justify-content:center;gap:7px;margin:3px auto 0;background:none;border:0;color:#67213a;font:11px/1.4 Arial,sans-serif;min-height:44px;padding:10px}
- .mobile-hold-control{display:block;margin:0 auto 10px;min-height:44px;min-width:240px;padding:10px 16px;border:1px solid #c5a779;background:#fff8ec;color:#67213a;font:12px/1.4 Arial,sans-serif;touch-action:none;user-select:none;-webkit-user-select:none;-webkit-touch-callout:none}
- .mobile-hold-control[aria-pressed=true]{background:#ead8b7;border-color:#9b7545}
- .mobile-invitation-footer .scene-actions{margin:0;gap:10px}
- .mobile-invitation-footer .scene-actions button,.mobile-invitation-footer .scene-actions a{font-size:12px;padding:12px 16px;min-height:46px}
- .mobile-read-alternative{background:none;border:0;color:#67152f;font:11px/1.4 Arial,sans-serif;min-height:44px;padding:10px;text-decoration:underline;text-underline-offset:3px}
- body:has(.invitation-experience) .background-music-control{bottom:max(18px,env(safe-area-inset-bottom))}
- .invitation-closeup{max-height:96svh!important;padding:10px!important;gap:8px!important;background:#fff8ecf5!important}
- .invitation-closeup-header h2{font-size:20px}
- .invitation-zoom-viewport{max-height:none;flex:1;scroll-behavior:smooth}
- .invitation-zoom-paper{transform-origin:50% 0;animation:mobile-paper-approach .5s cubic-bezier(.22,.65,.25,1) both}
-}
-@keyframes mobile-room-tour{
- 0%,100%{transform:translateX(-51%) scale(1.08);transform-origin:72% 46%}
- 24%{transform:translateX(-48%) scale(1.02);transform-origin:72% 46%}
- 52%,62%{transform:translateX(-4%) scale(1.03);transform-origin:24% 43%}
- 84%{transform:translateX(-49%) scale(1.02);transform-origin:72% 46%}
-}
-@keyframes mobile-paper-approach{from{opacity:.6;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
-@media(max-width:700px) and (max-height:700px){
- .mobile-scene-monogram{top:5%}.mobile-scene-monogram>span{font-size:25px;max-width:280px}
- .mobile-card-placement{bottom:39%;width:min(60vw,28svh)}
- .mobile-console{top:61%;height:19%}
- .mobile-couple-photo{bottom:26%;width:min(72vw,37svh)}
- .mobile-invitation-footer{padding-top:16px}
-}
-@media(max-width:700px) and (prefers-reduced-motion:reduce){
- .mobile-scene-camera,.invitation-zoom-paper{animation:none!important;transition:none!important}
- .mobile-invitation-footer,.invitation-zoom-viewport{transition:none;scroll-behavior:auto}
-}
-
-/* Begin the portrait entrance when the seal opens, not behind closed curtains. */
-.curtains-closed .couple-portrait{animation:none}
+@media(max-width:360px){.portrait-entry h1{font-size:36px}.portrait-entry-actions{gap:0}.portrait-entry-copy{padding-top:42svh}.entry-family{font-size:9px}}
+@media(max-width:700px) and (max-height:700px){.portrait-entry-stage{padding-bottom:18px}.portrait-entry-copy{padding-top:38svh}.entry-family{margin-bottom:8px}.portrait-entry h1{font-size:36px}.entry-dedication{display:none}.entry-date{padding:10px 0}.portrait-entry-actions{gap:0 14px}}
+@media(prefers-reduced-motion:reduce){.invitation-experience *,.invitation-experience *::before,.invitation-experience *::after,.invitation-closeup *{animation:none!important;transition:none!important;scroll-behavior:auto!important}.entry-primary:hover{transform:none}.wedding-loader-heart svg,.wedding-loader-pulse{animation:none}}

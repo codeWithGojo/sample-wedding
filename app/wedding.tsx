@@ -2,9 +2,9 @@
 
 import { useEffect, useState, type FormEvent } from 'react';
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogClose } from '@/components/ui/dialog';
-import { defaultContent, weddingDate, venueName, venueAddress, type WeddingContent, type Guest, type Photo } from './content';
+import { currentWeddingContent, defaultContent, weddingDate, venueName, venueAddress, type WeddingContent, type Guest, type Photo } from './content';
 import { api, resizePhoto } from './client-api';
-import { splitLoveStory, storyImages } from './love-story';
+import { splitLoveStory, storyImages, storyIntro } from './love-story';
 import { nearbyStays } from './stays';
 import GuestQr from './qr';
 import { DateKeepsake, FamilyInvitation, StoryPrelude } from './wedding-keepsakes';
@@ -22,7 +22,7 @@ const navigation: {page:WeddingPage;path:string;label:string}[] = [
   {page:'photographs',path:'/photographs',label:'Gallery'},
 ];
 const headings: Partial<Record<WeddingPage,{title:string;intro:string}>> = {
-  story:{title:'Our Love Story',intro:'From 23rd December to Forever.'},
+  story:{title:'Our Love Story ❤️',intro:storyIntro},
   day:{title:'The day',intro:'Saturday, 12 December 2026 · 11am prompt'},
   travel:{title:'Come to Ughelli',intro:'The venue, directions and places to stay for the weekend.'},
   faqs:{title:'A few things you might want to know',intro:'And if we’ve missed anything, speak to the family.'},
@@ -52,7 +52,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
     setLoading(true);setLoadError('');
     try{
       const [details,pictures]=await Promise.all([api('content'),page==='photographs'&&photoSharingEnabled?api('photos'):Promise.resolve(null)]);
-      setC(details.content);setBackendAvailable(details.backendAvailable!==false);setLocked(false);if(pictures)setPhotos(pictures.photos);
+      setC(currentWeddingContent(details.content));setBackendAvailable(details.backendAvailable!==false);setLocked(false);if(pictures)setPhotos(pictures.photos);
     }catch(e){
       if((e as Error).message==='Please enter the invitation password.')setLocked(true);
       else setLoadError('Some details couldn’t load. Please try again.');

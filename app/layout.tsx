@@ -4,6 +4,7 @@ import "./entrance.css";
 import "./keepsakes.css";
 import "./refinement.css";
 import WeddingMusic from "./wedding-music";
+import { entrancePhoto } from './love-story';
 
 const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
 
@@ -17,13 +18,13 @@ export const metadata: Metadata = {
     siteName: "#BlessingFoundHerBlessing",
     title: "#BlessingFoundHerBlessing · 12 December 2026",
     description: "Traditional marriage · 11am prompt · Ricky’s Hotel and Event Place, Ughelli, Delta State. #BlessingFoundHerBlessing",
-    images: [{ url: "/couple/forever.webp", width: 960, height: 1378, alt: "#BlessingFoundHerBlessing — Traditional Marriage, 12 December 2026, 11am prompt, Ughelli, Delta State" }],
+    images: [{ url: entrancePhoto, width: 1025, height: 1534, alt: "Blessing Egokiniovo and Blessing Oshevire — Traditional Marriage, 12 December 2026" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "#BlessingFoundHerBlessing · 12 December 2026",
     description: "Traditional marriage · 11am prompt · Ughelli, Delta State. #BlessingFoundHerBlessing",
-    images: ["/couple/forever.webp"],
+    images: [entrancePhoto],
   },
   robots: { index: false, follow: false },
   icons: {

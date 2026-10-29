@@ -12,8 +12,14 @@ export type WeddingContent = {
 export const venueAddress = "No. 9 Okpare/Oteri Road, Oteri, Ughelli, Delta State";
 export const venueName = "Ricky’s Hotel and Event Place";
 export const weddingDate = "2026-12-12T11:00:00+01:00";
+// Upgrade older backend copy while preserving guest settings and future family edits.
+export function currentWeddingContent(content: WeddingContent): WeddingContent {
+  if (Number(content.storyRevision || 0) >= defaultContent.storyRevision) return content;
+  return {...content, story:defaultContent.story, storyTitle:defaultContent.storyTitle,
+    heroPhoto:defaultContent.heroPhoto, storyRevision:defaultContent.storyRevision};
+}
 export const defaultContent: WeddingContent = {
- story: suppliedLoveStory, storyTitle: "Our Love Story ❤️", heroPhoto: "/couple/forever.webp", storyRevision: 1,
+ story: suppliedLoveStory, storyTitle: "Our Love Story ❤️", heroPhoto: "/couple/forever.webp?v=real-20261029", storyRevision: 2,
  programme: [],
  parking:"",hotels:[],giftNote:"",bankName:"",accountName:"",accountNumber:"",registryUrl:"",livestreamUrl:"",asoEbi:"",uploadOpen:false,mapUrl:"",
  directionsUrl:"https://www.google.com/maps/dir/?api=1&destination="+encodeURIComponent(venueName+", "+venueAddress+", Nigeria")

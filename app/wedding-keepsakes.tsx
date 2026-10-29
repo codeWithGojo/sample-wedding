@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import Link from 'next/link';
+import { storyImages } from './love-story';
 
 export function DateKeepsake() {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -44,5 +45,5 @@ export function FamilyInvitation() {
 }
 
 export function StoryPrelude(){
- return <section className="story-prelude"><figure><img src="/couple/together.webp" alt="Blessing and Blessing together" width={810} height={1440} loading="lazy"/><figcaption>23 December 2023 — the beginning</figcaption></figure><div><p className="keepsake-eyebrow">A little of our story</p><h2>It started<br/>with Onos.</h2><p>An ordinary meeting. A mutual friend. Neither of us knew we were meeting the person we would choose for every tomorrow.</p><Link className="text-link" href="/our-story">Read our story, chapter by chapter ↗</Link></div></section>;
+ return <section className="story-prelude"><figure><img src={storyImages[0].src} alt={storyImages[0].alt} width={1025} height={1534} loading="lazy"/><figcaption>23 December 2023 — the beginning</figcaption></figure><div><p className="keepsake-eyebrow">A little of our story</p><h2>“I don’t hug<br/>strangers!”</h2><p>A trip to the bank. An introduction from Onos. And a stranger who would one day become my husband-to-be.</p><Link className="text-link" href="/our-story">Read our love story ↗</Link></div></section>;
 }
