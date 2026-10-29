@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import Link from 'next/link';
 import { storyImages } from './love-story';
+import WeddingCalendar from './wedding-calendar';
+import { Reveal, ScrollPhoto } from './wedding-motion';
 
 export function DateKeepsake() {
   const canvas = useRef<HTMLCanvasElement>(null);
@@ -36,7 +38,7 @@ export function DateKeepsake() {
   }
   return <section className="section keepsake-section" aria-labelledby="keepsake-heading">
     <div><p className="keepsake-eyebrow">Keep this little moment</p><h2 id="keepsake-heading">The next chapter<br/>has a date.</h2><p>One day. Two families. All the people we love.</p><p>Run your finger across the card, or tap the button below.</p></div>
-    <div className="keepsake-wrap"><div className={'date-keepsake '+(revealed?'is-revealed':'')}><div className="keepsake-date"><span>Saturday</span><strong>12 December 2026</strong><span>11am prompt · Ughelli</span></div>{!revealed&&<canvas ref={canvas} width={640} height={260} aria-hidden="true" onPointerDown={e=>{drawing.current=true;last.current=null;e.currentTarget.setPointerCapture(e.pointerId);scratch(e)}} onPointerMove={scratch} onPointerUp={()=>{drawing.current=false;last.current=null}} onPointerCancel={()=>{drawing.current=false;last.current=null}}/>}</div><div className="keepsake-controls">{!revealed?<button className="text-button" onClick={()=>setRevealed(true)}>Reveal the date</button>:<p role="status">It’s a date. We’ll see you there.</p>}<a className="text-link" href="/api/calendar">Save to calendar ↗</a></div></div>
+    <div className="keepsake-wrap"><div className={'date-keepsake '+(revealed?'is-revealed':'')}><div className="keepsake-date"><span>Saturday</span><strong>12 December 2026</strong><span>11am prompt · Ughelli</span></div>{!revealed&&<canvas ref={canvas} width={640} height={260} aria-hidden="true" onPointerDown={e=>{drawing.current=true;last.current=null;e.currentTarget.setPointerCapture(e.pointerId);scratch(e)}} onPointerMove={scratch} onPointerUp={()=>{drawing.current=false;last.current=null}} onPointerCancel={()=>{drawing.current=false;last.current=null}}/>}</div><div className="keepsake-controls">{!revealed?<button className="text-button" onClick={()=>setRevealed(true)}>Reveal the date</button>:<p role="status">It’s a date. We’ll see you there.</p>}<WeddingCalendar className="text-button keepsake-calendar" label="Save to calendar"/></div></div>
   </section>;
 }
 
@@ -45,5 +47,5 @@ export function FamilyInvitation() {
 }
 
 export function StoryPrelude(){
- return <section className="story-prelude"><figure><img src={storyImages[0].src} alt={storyImages[0].alt} width={1025} height={1534} loading="lazy"/><figcaption>23 December 2023 — the beginning</figcaption></figure><div><p className="keepsake-eyebrow">A little of our story</p><h2>“I don’t hug<br/>strangers!”</h2><p>A trip to the bank. An introduction from Onos. And a stranger who would one day become my husband-to-be.</p><Link className="text-link" href="/our-story">Read our love story ↗</Link></div></section>;
+ return <section className="story-prelude"><div className="story-prelude-picture"><ScrollPhoto src={storyImages[0].src} alt={storyImages[0].alt}/><span className="story-photo-note">23 December 2023<br/><em>the beginning</em></span></div><Reveal><p className="keepsake-eyebrow">A little of our story</p><h2>“I don’t hug<br/>strangers!”</h2><p>A trip to the bank. An introduction from Onos. And a stranger who would one day become my husband-to-be.</p><Link className="text-link" href="/our-story">Read our love story ↗</Link></Reveal></section>;
 }

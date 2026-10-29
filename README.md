@@ -22,3 +22,15 @@ The existing backend must remain online. This is a frontend hosting move, not a 
 ## Wedding site update — 10 October 2026
 
 The site now uses #BlessingFoundHerBlessing. RSVP, gift and entrance-pass pages have been removed; their old URLs return to the welcome page. Menus, guest information, sharing and calendar copy have been updated. Existing private family records and the photo feature settings are preserved.
+
+## Portrait and motion update — 29 October 2026
+
+All couple photographs now use the four supplied studio portraits. The red portrait has its own entrance; the full replacement love story is revision 2. Legacy story content is upgraded without overwriting event settings or future family revisions.
+
+The public organiser page and navigation have been removed. Its old URL redirects home. Existing private backend records are preserved.
+
+Motion uses `motion/react`: native scroll progress, short page transitions, photo parallax, viewport reveals and a larger menu. Reduced-motion preferences disable the expressive effects. The real portrait supplies the favicon, Apple touch icon and the 1200×630 WhatsApp/Open Graph image at `/wedding-share-2026.jpg`.
+
+Every calendar control opens the same provider chooser. Google Calendar opens a prefilled event and lets the guest choose notifications before saving. Apple/Outlook `.ics` files include the chosen day/hour display reminders, with an Apple subscription alternative. The calendar endpoint is independent of the guest backend. Start time is 12 December 2026 at 11am WAT (10:00 UTC); the one-hour calendar block is explicitly described as a placeholder, because the celebration's finish is not confirmed. Guests must confirm Save/Add in their calendar app; native reminder permissions and settings still apply.
+
+`npm run dev` retains normal Next.js behavior. The managed preview service's host flags are translated by `scripts/dev.mjs`; when a production build is available, the service previews that exact build.

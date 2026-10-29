@@ -1,2 +1,3 @@
-import Organiser from './organiser';
-export default function Page(){return <Organiser/>}
+import { redirect } from 'next/navigation';
+
+export default function Page(){ redirect('/'); }

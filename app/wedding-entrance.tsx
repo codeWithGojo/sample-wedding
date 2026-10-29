@@ -78,7 +78,7 @@ export default function WeddingEntrance() {
       <div className="portrait-entry-copy">
         <p className="entry-family">Together with the Awhefeada &amp; Toka families</p>
         <h1>Egokiniovo<br/><span>&amp;</span> Oshevire</h1>
-        <p className="entry-dedication">From a chance encounter<br/>to a lifetime of love.</p>
+        <p className="entry-dedication">From a chance encounter<br/>{' '}to a lifetime of love.</p>
         <div className="entry-date"><span>Saturday, 12 December 2026</span><span>11am prompt · Ughelli, Delta State</span></div>
         <div className="portrait-entry-actions">
           <button ref={entryButton} className="entry-primary" onClick={() => enterSite()}>Enter our celebration <ArrowRight size={18}/></button>

@@ -1,5 +1,6 @@
 import { proxyWeddingRequest } from '@/lib/backend-proxy';
-import { defaultContent, venueName, venueAddress } from '@/app/content';
+import { defaultContent } from '@/app/content';
+import { buildWeddingCalendar, validReminder } from '@/app/calendar';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -13,14 +14,15 @@ function handle(req: Request) {
   if (!configured && req.method === 'GET' && pathname === '/api/content') {
     return Response.json({ content: defaultContent, backendAvailable: false }, { headers: { 'Cache-Control': 'no-store' } });
   }
-  if (!configured && req.method === 'GET' && pathname === '/api/calendar') {
-    const escape = (value: string) => value.replace(/\\/g, '\\\\').replace(/\r?\n/g, '\\n').replace(/,/g, '\\,').replace(/;/g, '\\;');
-    const stamp = new Date().toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
-    const calendar = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//#BlessingFoundHerBlessing//Wedding//EN', 'BEGIN:VEVENT',
-      'UID:blessing-and-blessing-20261212', 'DTSTAMP:' + stamp, 'DTSTART:20261212T100000Z',
-      'SUMMARY:#BlessingFoundHerBlessing — Traditional Marriage', 'LOCATION:' + escape(venueName + ', ' + venueAddress),
-      'DESCRIPTION:Traditional marriage. 11am prompt. #BlessingFoundHerBlessing', 'END:VEVENT', 'END:VCALENDAR', ''].join('\r\n');
-    return new Response(calendar, { headers: { 'Content-Type': 'text/calendar; charset=utf-8', 'Content-Disposition': 'attachment; filename="blessing-wedding.ics"', 'Cache-Control': 'no-store' } });
+  // The event is public and must open in a calendar even if the guest service is offline.
+  if (req.method === 'GET' && pathname === '/api/calendar') {
+    const query=new URL(req.url).searchParams;
+    const disposition=query.get('download')==='1'?'attachment':'inline';
+    return new Response(buildWeddingCalendar(validReminder(query.get('reminder'))), {
+      headers: {'Content-Type':'text/calendar; charset=utf-8',
+        'Content-Disposition':disposition+'; filename="blessing-wedding-12-dec-2026.ics"',
+        'Cache-Control':'no-store','X-Content-Type-Options':'nosniff'},
+    });
   }
   return proxyWeddingRequest(req, {
     origin: process.env.WEDDING_API_ORIGIN,
