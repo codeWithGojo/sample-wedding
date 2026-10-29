@@ -7,6 +7,7 @@ import "./refinement.css";
 import "./celebration.css";
 import "./stationery.css";
 import "./button-motion.css";
+import "./curtains.css";
 import WeddingMusic from "./wedding-music";
 import { weddingSiteUrl } from './calendar';
 
