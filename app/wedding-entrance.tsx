@@ -81,7 +81,7 @@ export default function WeddingEntrance() {
         <p className="entry-dedication">From a chance encounter<br/>{' '}to a lifetime of love.</p>
         <div className="entry-date"><span>Saturday, 12 December 2026</span><span>11am prompt · Ughelli, Delta State</span></div>
         <div className="portrait-entry-actions">
-          <button ref={entryButton} className="entry-primary" onClick={() => enterSite()}>Enter our celebration <ArrowRight size={18}/></button>
+          <button ref={entryButton} className="entry-primary" onClick={() => enterSite()}><span>Enter our celebration</span><span className="entry-action-icon" aria-hidden="true"><ArrowRight size={18}/></span></button>
           <button ref={invitationButton} className="entry-invitation" onClick={() => {setZoom(1);setInviteOpen(true);}}><Mail size={17}/> Read the invitation</button>
         </div>
       </div>

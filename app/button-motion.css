@@ -1,0 +1,136 @@
+/* Shared feedback for every working button, including controls in dialog portals. */
+:root {
+  --control-ease: cubic-bezier(.22, 1, .36, 1);
+  --control-hover-scale: 1.018;
+  --control-hover-y: -2px;
+  --control-press-scale: .965;
+  --control-duration: 250ms;
+}
+
+:is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]) {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    scale var(--control-duration) var(--control-ease),
+    translate var(--control-duration) var(--control-ease),
+    background-color 200ms ease-out,
+    border-color 200ms ease-out,
+    color 200ms ease-out,
+    box-shadow var(--control-duration) ease-out !important;
+}
+
+/* Individual transform properties preserve menu, dialog and centering transforms. */
+@media (hover: hover) and (pointer: fine) {
+  :is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):hover {
+    scale: var(--control-hover-scale);
+    translate: 0 var(--control-hover-y);
+  }
+
+  .wedding-site .button:hover,
+  .portrait-entry-actions .entry-primary:hover {
+    transform: none;
+  }
+
+  .portrait-entry-actions .entry-primary:hover {
+    box-shadow: 0 8px 24px #24040e36;
+  }
+
+  .entry-primary:hover .entry-action-icon svg {
+    translate: 3px 0;
+  }
+}
+
+:is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):focus-visible {
+  scale: 1.012;
+  translate: 0 -1px;
+}
+
+:is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):active {
+  scale: var(--control-press-scale);
+  translate: 0 0;
+  transition-duration: 80ms !important;
+}
+
+.photo-tile {
+  --control-hover-scale: 1.006;
+  --control-hover-y: -3px;
+  --control-press-scale: .985;
+}
+
+.portrait-entry-actions {
+  column-gap: 20px;
+  row-gap: 12px;
+}
+
+.portrait-entry-actions .entry-primary {
+  border-radius: 999px;
+  min-height: 58px;
+  max-width: 100%;
+  padding: 7px 8px 7px 24px;
+  gap: 20px !important;
+  border: 1px solid #fff1df;
+  background: #fff1df;
+  color: #571425;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 3px 13px #24040e1a;
+}
+
+.entry-primary > span:first-child {
+  min-width: 0;
+  text-align: left;
+}
+
+.entry-action-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  border-radius: 50%;
+  background: #67182d;
+  color: #fff1df;
+  transition: background-color 200ms ease-out;
+}
+
+.entry-action-icon svg {
+  transition: translate 250ms var(--control-ease);
+}
+
+.entry-primary:active .entry-action-icon svg {
+  translate: 4px 0;
+}
+
+@media (max-width: 700px) {
+  .portrait-entry-actions .entry-primary {
+    min-height: 56px;
+    padding: 7px 7px 7px 22px;
+    gap: 17px !important;
+    font-size: 12px;
+  }
+
+  .entry-action-icon {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+
+  .portrait-entry-actions .entry-invitation {
+    min-height: 48px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]),
+  :is(button, [role="button"], a.button, a.calendar-provider, a.family-invitation-link, a.background-music-control, .mobile-actions > a, .invitation-closeup-actions > a):not(:disabled):not([aria-disabled="true"]):not([data-disabled]):is(:hover, :active, :focus-visible) {
+    scale: none;
+    translate: none;
+    transition: none !important;
+  }
+
+  .entry-primary .entry-action-icon svg,
+  .entry-primary:is(:hover, :active, :focus-visible) .entry-action-icon svg {
+    translate: none;
+    transition: none;
+  }
+}

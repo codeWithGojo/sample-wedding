@@ -4,6 +4,7 @@ import "./entrance.css";
 import "./keepsakes.css";
 import "./refinement.css";
 import "./celebration.css";
+import "./button-motion.css";
 import WeddingMusic from "./wedding-music";
 import { weddingSiteUrl } from './calendar';
 
