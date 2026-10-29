@@ -4,9 +4,9 @@
 .wedding-loader-heart{position:relative;width:66px;height:66px;margin:0 auto 30px;display:grid;place-items:center}
 .wedding-loader-heart svg{position:relative;width:58px;height:58px;animation:wedding-heartbeat 1.5s ease-in-out infinite;transform-origin:center}
 .wedding-loader-pulse{position:absolute;inset:-9px;border:1px solid #d9bc88;border-radius:50%;animation:wedding-heart-ring 1.5s ease-out infinite}
-.wedding-loader-content p{font:20px/1.4 Georgia,serif;margin:0 0 12px}
-.wedding-loader-content>span{font:10px/1.5 Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#785943}
-.wedding-loader-continue{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:none;border:0;color:#5f142c;min-height:44px;padding:12px;display:flex;gap:10px;align-items:center;font:12px/1.4 Arial,sans-serif;white-space:nowrap}
+.wedding-loader-content p{font:20px/1.4 var(--font-wedding-display), Georgia, serif;margin:0 0 12px}
+.wedding-loader-content>span{font:10px/1.5 var(--font-wedding-text), Arial, sans-serif;letter-spacing:.15em;text-transform:uppercase;color:#785943}
+.wedding-loader-continue{position:absolute;bottom:max(28px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:none;border:0;color:#5f142c;min-height:44px;padding:12px;display:flex;gap:10px;align-items:center;font:12px/1.4 var(--font-wedding-text), Arial, sans-serif;white-space:nowrap}
 .wedding-loader-continue:focus-visible{outline:3px solid #ab7e38;outline-offset:4px}
 .entrance-content{display:contents}
 .entrance-is-loading{visibility:hidden}
@@ -14,29 +14,29 @@
 @keyframes wedding-heart-ring{0%{transform:scale(.82);opacity:0}15%{opacity:.65}80%,100%{transform:scale(1.4);opacity:0}}
 .invitation-closeup{width:min(94vw,650px)!important;max-width:650px!important;padding:18px!important;gap:12px!important;background:#fff8ec!important;color:#4f1b29!important;border:1px solid #c3a371!important;border-radius:8px!important;max-height:94svh!important;display:flex!important;flex-direction:column!important}
 .invitation-closeup-header{display:flex;align-items:center;justify-content:space-between;gap:10px}
-.invitation-closeup-header h2{font:24px/1.2 Georgia,serif;margin:0 0 3px}
-.invitation-closeup-header p{font:11px/1.5 Arial,sans-serif;margin:0;color:#725848}
-.invitation-back{display:flex;align-items:center;gap:6px;background:none;border:0;min-height:44px;color:#681a30;padding:8px;font:12px Arial,sans-serif}
+.invitation-closeup-header h2{font:24px/1.2 var(--font-wedding-display), Georgia, serif;margin:0 0 3px}
+.invitation-closeup-header p{font:11px/1.5 var(--font-wedding-text), Arial, sans-serif;margin:0;color:#725848}
+.invitation-back{display:flex;align-items:center;gap:6px;background:none;border:0;min-height:44px;color:#681a30;padding:8px;font:12px var(--font-wedding-text), Arial, sans-serif}
 .invitation-zoom-controls{display:flex;align-items:center;justify-content:center;gap:8px}
 .invitation-zoom-controls button{min-width:44px;height:44px;display:grid;place-items:center;background:#f1e6d2;color:#681a30;border:1px solid #d6c09a;border-radius:4px}
-.invitation-zoom-controls span{min-width:48px;text-align:center;font:12px Arial,sans-serif}
+.invitation-zoom-controls span{min-width:48px;text-align:center;font:12px var(--font-wedding-text), Arial, sans-serif}
 .invitation-zoom-viewport{overflow:auto;min-height:0;max-height:65svh;background:#efe1cb;overscroll-behavior:contain;border:1px solid #dac49f;scrollbar-width:thin;scrollbar-color:#b4986d #efe1cb;touch-action:pan-x pan-y pinch-zoom}
 .invitation-zoom-paper{max-width:none;min-width:100%;margin:0;transition:width .25s}
 .invitation-zoom-paper img{display:block;width:100%;height:auto;max-width:none}
 .invitation-closeup-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding-top:2px}
-.invitation-closeup-actions button,.invitation-closeup-actions a{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:13px/1.4 Arial,sans-serif;min-height:44px;padding:10px 20px;border:1px solid #67152f;background:#67152f;color:#fff8ec;text-decoration:none}
+.invitation-closeup-actions button,.invitation-closeup-actions a{display:inline-flex;align-items:center;justify-content:center;gap:10px;font:13px/1.4 var(--font-wedding-text), Arial, sans-serif;min-height:44px;padding:10px 20px;border:1px solid #67152f;background:#67152f;color:#fff8ec;text-decoration:none}
 .invitation-closeup-actions a{background:transparent;color:#67152f}
 .invitation-zoom-controls button:disabled{opacity:.4;cursor:default}
-.replay-invitation{display:flex;align-items:center;gap:8px;margin:0 auto 84px;background:none;color:#681a30;border:1px solid #b99967;padding:12px 16px;min-height:44px;font:13px Arial,sans-serif}
+.replay-invitation{display:flex;align-items:center;gap:8px;margin:0 auto 84px;background:none;color:#681a30;border:1px solid #b99967;padding:12px 16px;min-height:44px;font:13px var(--font-wedding-text), Arial, sans-serif}
 .wedding-music{position:fixed;z-index:45;top:18px;right:18px;background:#fff8ec;color:#5d1b2d;border:1px solid #c4a572;box-shadow:0 4px 20px #40201320;border-radius:5px;width:auto;max-width:calc(100vw - 28px)}
 .wedding-music.music-is-open{width:258px}
 .wedding-music-heading{display:flex;justify-content:space-between;align-items:center;padding:4px 8px 4px 12px}
-.wedding-music-heading span{display:flex;align-items:center;gap:7px;font:11px Arial,sans-serif}
+.wedding-music-heading span{display:flex;align-items:center;gap:7px;font:11px var(--font-wedding-text), Arial, sans-serif}
 .wedding-music-heading button{display:grid;place-items:center;min-width:44px;min-height:36px;background:none;border:0;color:inherit}
 .wedding-music iframe{display:block;width:256px;height:200px;border:0;max-width:100%}
-.wedding-music p{font:10px/1.5 Arial,sans-serif;margin:8px 10px 2px}
-.wedding-music>a{display:block;font:10px/1.5 Arial,sans-serif;margin:0 10px 10px;text-underline-offset:3px}
-.wedding-music-toggle{display:flex;align-items:center;gap:8px;background:none;color:inherit;border:0;padding:10px 14px;min-height:44px;font:12px Arial,sans-serif}
+.wedding-music p{font:10px/1.5 var(--font-wedding-text), Arial, sans-serif;margin:8px 10px 2px}
+.wedding-music>a{display:block;font:10px/1.5 var(--font-wedding-text), Arial, sans-serif;margin:0 10px 10px;text-underline-offset:3px}
+.wedding-music-toggle{display:flex;align-items:center;gap:8px;background:none;color:inherit;border:0;padding:10px 14px;min-height:44px;font:12px var(--font-wedding-text), Arial, sans-serif}
 .background-music-control{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));right:18px;z-index:45;width:44px;height:44px;display:grid;place-items:center;border:1px solid #c4a572;border-radius:50%;background:#fff8ecef;color:#5f142c;text-decoration:none}
 .background-music-control:focus-visible{outline:3px solid #ab7e38;outline-offset:4px}
 .couple-album{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-bottom:36px}
@@ -51,20 +51,20 @@
 .entry-photograph.photo-unavailable{background:#760b18}
 .entry-photograph.photo-unavailable img{visibility:hidden}
 .entry-shade{position:absolute;inset:0;z-index:-2;pointer-events:none;background:linear-gradient(90deg,#650912 0%,#650912 25%,#650912e8 34%,#65091270 48%,transparent 67%),linear-gradient(180deg,#35000950,transparent 22%,transparent 80%,#35000966)}
-.portrait-entry-header{position:absolute;top:max(30px,env(safe-area-inset-top));left:7vw;right:5vw;display:flex;align-items:center;justify-content:space-between;gap:24px;font:14px/1.5 Georgia,serif;color:#f7e4d1}
-.entry-header-date{font:11px/1.5 Arial,sans-serif}
+.portrait-entry-header{position:absolute;top:max(30px,env(safe-area-inset-top));left:7vw;right:5vw;display:flex;align-items:center;justify-content:space-between;gap:24px;font:14px/1.5 var(--font-wedding-display), Georgia, serif;color:#f7e4d1}
+.entry-header-date{font:11px/1.5 var(--font-wedding-text), Arial, sans-serif}
 .portrait-entry-copy{width:min(48%,550px);position:relative}
-.entry-family{font:12px/1.6 Arial,sans-serif;color:#e9c8b8;max-width:290px;margin:0 0 28px}
-.portrait-entry h1{font:clamp(44px,5.8vw,82px)/1.09 Georgia,serif;letter-spacing:-.045em;color:#fff4e7;margin:0 0 25px}
+.entry-family{font:12px/1.6 var(--font-wedding-text), Arial, sans-serif;color:#e9c8b8;max-width:290px;margin:0 0 28px}
+.portrait-entry h1{font:clamp(44px,5.8vw,82px)/1.09 var(--font-wedding-display), Georgia, serif;letter-spacing:-.045em;color:#fff4e7;margin:0 0 25px}
 .portrait-entry h1>span{font-size:.7em;color:#e4b89a}
-.entry-dedication{font:19px/1.6 Georgia,serif;margin:0 0 32px;color:#f4d7c8}
-.entry-date{display:flex;flex-direction:column;gap:7px;font:12px/1.6 Arial,sans-serif;color:#f7e4d1;padding:20px 0;border-top:1px solid #f1c99f55;width:fit-content}
+.entry-dedication{font:19px/1.6 var(--font-wedding-display), Georgia, serif;margin:0 0 32px;color:#f4d7c8}
+.entry-date{display:flex;flex-direction:column;gap:7px;font:12px/1.6 var(--font-wedding-text), Arial, sans-serif;color:#f7e4d1;padding:20px 0;border-top:1px solid #f1c99f55;width:fit-content}
 .portrait-entry-actions{display:flex;flex-direction:column;align-items:flex-start;gap:8px;margin-top:10px}
-.portrait-entry-actions button{min-height:48px;font:13px/1.4 Arial,sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:3px;cursor:pointer}
+.portrait-entry-actions button{min-height:48px;font:13px/1.4 var(--font-wedding-text), Arial, sans-serif;display:inline-flex;align-items:center;justify-content:center;gap:14px;border-radius:3px;cursor:pointer}
 .entry-primary{background:#fff1df;color:#571425;border:1px solid #fff1df;padding:15px 23px;transition:background 150ms ease-out,transform 250ms cubic-bezier(.22,1,.36,1)}
 .entry-primary:hover{background:#efd2b6;transform:translateY(-2px)}
 .entry-invitation{background:transparent;color:#f6ddca;border:0;padding:10px 0;text-decoration:underline;text-underline-offset:5px;text-decoration-color:#d3ad8b}
-.entry-photo-caption{position:absolute;right:4vw;bottom:28px;font:italic 16px/1.5 Georgia,serif;color:#f9dfd0;pointer-events:none}
+.entry-photo-caption{position:absolute;right:4vw;bottom:28px;font:italic 16px/1.5 var(--font-wedding-display), Georgia, serif;color:#f9dfd0;pointer-events:none}
 .portrait-leaving .portrait-entry-stage{opacity:0;transform:scale(1.025)}
 .entrance-noscript{position:relative;z-index:8;background:#fff8ec;padding:20px;color:#571425}
 @media(prefers-reduced-motion:no-preference){

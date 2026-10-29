@@ -1,14 +1,18 @@
 import type { Metadata, Viewport } from "next";
+import localFont from 'next/font/local';
 import "./globals.css";
 import "./entrance.css";
 import "./keepsakes.css";
 import "./refinement.css";
 import "./celebration.css";
+import "./stationery.css";
 import "./button-motion.css";
 import WeddingMusic from "./wedding-music";
 import { weddingSiteUrl } from './calendar';
 
 const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || weddingSiteUrl;
+const displayFont = localFont({src:'../public/fonts/cormorant-garamond.woff2',variable:'--font-wedding-display',weight:'400 600',display:'swap'});
+const textFont = localFont({src:'../public/fonts/manrope.woff2',variable:'--font-wedding-text',weight:'400 600',display:'swap'});
 
 export const viewport: Viewport = {themeColor:'#650912'};
 
@@ -49,7 +53,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className="antialiased">{children}<WeddingMusic/></body>
+      <body className={`${displayFont.variable} ${textFont.variable} antialiased`}>{children}<WeddingMusic/></body>
     </html>
   );
 }

@@ -1,0 +1,203 @@
+/* Wedding stationery: Cormorant Garamond, Manrope, burgundy ink and champagne. */
+body {
+  --stationery-paper: #fff9f1;
+  --stationery-ink: #5f142c;
+  --stationery-gold: #bc9568;
+  --stationery-rule: #c3a27780;
+  font-family: var(--font-wedding-text), Arial, sans-serif;
+}
+
+.wedding-site {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%236f4931' opacity='.035' filter='url(%23paper)' d='M0 0h180v180H0z'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+.wedding-site h1, .wedding-site h2, .wedding-site h3,
+.portrait-entry h1, .entry-dedication {
+  font-family: var(--font-wedding-display), Georgia, serif;
+  font-weight: 500;
+}
+.wedding-brand strong { font-size: 23px; font-weight: 500; }
+.wedding-brand small { font-size: 10px; }
+.wedding-header-v2 .desktop-wedding-nav a { font-size: 12px; }
+.wedding-site .section h2 { line-height: 1.07; letter-spacing: -.025em; }
+.wedding-site .page-introduction h1 { font-weight: 500; line-height: 1.05; }
+.welcome-hero .wedding-couple-title { font-size: clamp(64px, 7vw, 100px); line-height: .98; letter-spacing: -.035em; font-weight: 500; }
+.welcome-hero .wedding-couple-title>span { font-size: .65em; font-style: normal; }
+.welcome-hero .couple-names, .welcome-hero .welcome-date { font-size: 14px; }
+.welcome-photo { border: 1px solid var(--stationery-rule); padding: 8px; background: #f5e7d9; }
+.welcome-photo img { border-radius: inherit; }
+.welcome-hero-copy .occasion { font-size: 11px; letter-spacing: .055em; }
+.portrait-caption { font-size: 16px; }
+.portrait-entry-copy h1 { font-weight: 500; letter-spacing: -.025em; }
+.entry-dedication { font-weight: 400; }
+.entry-family, .entry-date { font-family: var(--font-wedding-text), Arial, sans-serif; }
+.portrait-entry-header { font-size: 11px; }
+
+.wedding-monogram { display: block; width: 100px; height: 100px; color: var(--stationery-gold); flex-shrink: 0; }
+.family-invitation>.wedding-monogram { margin: 0 auto 24px; width: 95px; height: 95px; color: #e0bf92; }
+.family-invitation::before, .family-invitation::after { display: none; }
+.family-invitation { background: #5f142c; }
+.family-invitation h2 { font-size: clamp(37px, 4.1vw, 58px); line-height: 1.1; }
+.family-invitation h2 span { font-style: normal; }
+.family-invitation .invitation-couple { font-size: clamp(33px, 3.3vw, 46px); line-height: 1.15; }
+.family-invitation .invitation-couple small { font-family: var(--font-wedding-text), Arial, sans-serif; font-size: 12px; line-height: 1.8; margin-top: 12px; }
+.family-invitation>p:not(.keepsake-eyebrow) { font-size: 15px; }
+.family-invitation .keepsake-eyebrow { text-transform: none; font-size: 12px; letter-spacing: .04em; }
+.family-invitation-link { margin-top: 6px; font-size: 13px; }
+.wedding-divider { display: flex; align-items: center; justify-content: center; gap: 25px; width: min(600px, 76%); margin: 20px auto 5px; }
+.wedding-divider>.wedding-monogram { width: 58px; height: 58px; }
+.wedding-divider>span { height: 1px; /* taste-skill-ignore: the approved wedding invitation uses champagne rules. */ flex: 1; background: var(--stationery-rule); }
+
+.wedding-site .welcome-letter p { font-size: 16px; line-height: 1.85; }
+.wedding-site .welcome-letter .couple-signature { font-family: var(--font-wedding-display), Georgia, serif; font-size: 22px; line-height: 1.5; }
+.wedding-site .welcome-letter .welcome-kicker { font-size: 12px; text-transform: none; letter-spacing: .02em; }
+.story-prelude-picture { padding: 0 25px 25px 0; }
+.story-prelude-picture::before { content: ''; position: absolute; inset: 25px 0 0 25px; border: 1px solid var(--stationery-rule); pointer-events: none; }
+.story-prelude .scroll-photograph { border-radius: 2px; height: 580px; }
+.story-prelude .scroll-photograph img { object-fit: cover; }
+.story-prelude h2 { font-size: clamp(46px, 5vw, 70px); letter-spacing: -.025em; }
+.story-prelude .keepsake-eyebrow { text-transform: none; letter-spacing: .02em; font-size: 12px; }
+.story-photo-note { right: -6px; bottom: -4px; font-size: 14px; line-height: 1.5; padding: 13px 20px; box-shadow: none; /* taste-skill-ignore: removes an inherited shadow from the photo note. */ border: 1px solid var(--stationery-rule); transform: rotate(-4deg); }
+.story-photo-note em { font-size: 17px; }
+
+.photo-interlude { margin-top: 90px; margin-bottom: 75px; }
+.photo-interlude .interlude-heading { margin-bottom: 32px; }
+.photo-interlude .interlude-heading h2 { font-size: clamp(48px, 5.3vw, 74px); line-height: 1; margin-bottom: 0; font-weight: 500; letter-spacing: -.025em; }
+.stationery-label { font-size: 12px; letter-spacing: .02em; margin-bottom: 18px; color: #78555b; }
+.photo-editorial { display: grid; grid-template-columns: minmax(0, 1.16fr) minmax(0, .84fr); gap: 8%; align-items: start; }
+.photo-editorial figure { margin: 0; }
+.photo-editorial img { width: 100%; height: auto; display: block; object-fit: cover; border-radius: 1px; }
+.photo-editorial .editorial-main img { aspect-ratio: 4 / 5; object-position: 50% 32%; }
+.editorial-photo-link { display: block; text-decoration: none; }
+.editorial-photo-link img { transition: transform 500ms var(--wedding-ease); }
+.photo-editorial figcaption { font-family: var(--font-wedding-display), Georgia, serif; font-size: 18px; color: #6d4650; margin-top: 15px; }
+.editorial-secondary { padding: 90px 20px 0 0; }
+.photo-editorial .editorial-secondary img { aspect-ratio: 4 / 5; object-position: 50% 32%; }
+.editorial-secondary blockquote { font-family: var(--font-wedding-display), Georgia, serif; font-size: clamp(26px, 2.6vw, 35px); line-height: 1.2; margin: 40px 0 14px; color: var(--stationery-ink); }
+.editorial-signature { font-size: 11px; letter-spacing: .035em; }
+
+.wedding-site .venue-invitation { padding-top: 70px; padding-bottom: 90px; }
+.venue-invitation-intro { display: grid; grid-template-columns: 1fr 1fr; column-gap: 8%; margin-bottom: 40px; align-items: end; }
+.venue-invitation-intro .stationery-label { grid-column: 1 / -1; }
+.wedding-site .venue-invitation-intro h2 { font-size: clamp(40px, 4.1vw, 58px); margin-bottom: 0; }
+.venue-invitation-intro>p:last-child { max-width: 380px; font-size: 15px; line-height: 1.85; margin: 0; }
+.venue-invitation-layout { display: grid; grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr); gap: 8%; align-items: center; }
+.venue-date-card { background: #f3e7d8; padding: 15px; position: relative; border: 1px solid var(--stationery-rule); }
+.venue-date-card::before { content: ''; position: absolute; inset: 0; pointer-events: none; opacity: .18; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='%23a78359' filter='url(%23n)' d='M0 0h120v120H0z'/%3E%3C/svg%3E"); background-size: 120px; }
+.venue-date-card-inner { position: relative; border: 1px solid #bc956899; padding: 28px 25px 30px; text-align: center; color: var(--stationery-ink); }
+.venue-date-card-inner>.wedding-monogram { width: 72px; height: 72px; margin: 0 auto 10px; }
+.venue-card-occasion { font-size: 11px; line-height: 1.8; margin-bottom: 28px; }
+.venue-card-occasion>span { display: block; font-family: var(--font-wedding-display), Georgia, serif; font-size: 28px; line-height: 1.3; margin-top: 6px; }
+.venue-card-date { display: flex; flex-direction: column; align-items: center; font-family: var(--font-wedding-display), Georgia, serif; }
+.venue-card-date>span { font-size: 22px; line-height: 1.3; }
+.venue-card-date>strong { font-size: clamp(110px, 10vw, 150px); font-weight: 400; line-height: .95; letter-spacing: -.045em; padding-block: 6px 12px; }
+.venue-card-time { font-size: 12px; margin: 20px 0 25px; }
+.venue-card-close { font-family: var(--font-wedding-display), Georgia, serif; font-style: italic; font-size: 18px; line-height: 1.5; margin: 0; }
+.venue-arrival-heading { display: flex; align-items: center; gap: 9px; font-size: 12px; color: #78555b; margin-bottom: 17px; }
+.venue-arrival-heading svg { color: #9e734b; }
+.venue-arrival h3 { font-family: var(--font-wedding-display), Georgia, serif; font-size: clamp(33px, 3.3vw, 46px); line-height: 1.12; margin-bottom: 20px; letter-spacing: -.015em; max-width: 440px; }
+.venue-arrival address { font-style: normal; font-size: 15px; line-height: 1.85; max-width: 370px; }
+.venue-arrival-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 25px; margin: 25px 0 28px; }
+.venue-arrival .text-button { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; }
+.venue-travel-link { display: inline-flex; gap: 9px; align-items: center; font-size: 13px; }
+.venue-map-frame { padding: 7px; border: 1px solid var(--stationery-rule); background: #f3e7d8; }
+.venue-map-frame iframe { display: block; width: 100%; height: 245px; border: 0; }
+.venue-arrival-note { margin-top: 25px; }
+.venue-arrival-note h4 { font-size: 13px; font-weight: 600; margin: 0 0 8px; }
+.venue-arrival-note p { font-size: 14px; line-height: 1.7; }
+.venue-help { display: inline-block; font-size: 12px; margin-top: 14px; }
+
+.wedding-site .day-date { border-radius: 0; outline: 1px solid var(--stationery-rule); outline-offset: -13px; }
+.wedding-site .day-date>span { font-family: var(--font-wedding-display), Georgia, serif; font-weight: 400; }
+.couple-album .photo-tile img { border-radius: 1px; }
+.couple-album .photo-tile:nth-child(1) img { aspect-ratio: 4 / 5; }
+.couple-album .photo-tile:nth-child(2) img { aspect-ratio: 1025 / 1534; }
+.couple-album .photo-tile:nth-child(3) { padding-top: 30px; }
+.couple-album .photo-tile:nth-child(3) img { border-radius: 50% 50% 1px 1px; }
+.wedding-footer>.wedding-monogram { width: 90px; height: 90px; margin: 0 auto 22px; color: #d9b488; }
+.footer-invitation h2 { font-weight: 500; font-size: clamp(48px, 6vw, 80px); line-height: 1.05; }
+.wedding-footer a:not(.wordmark), .wedding-footer .text-button { font-size: 12px; }
+
+@media (hover: hover) and (pointer: fine) {
+  .editorial-photo-link:hover img { transform: scale(1.012); }
+}
+
+@media (max-width: 900px) {
+  .welcome-hero .wedding-couple-title { font-size: clamp(54px, 7.5vw, 74px); }
+  .wedding-brand strong { font-size: 22px; }
+  .story-prelude .scroll-photograph { height: 480px; }
+  .photo-editorial { gap: 6%; }
+  .editorial-secondary { padding: 60px 0 0; }
+  .venue-invitation-layout { gap: 6%; }
+  .venue-date-card-inner { padding: 22px 12px; }
+}
+
+@media (max-width: 700px) {
+  .wedding-brand strong { font-size: 22px; }
+  .wedding-brand small { font-size: 9px; }
+  .welcome-hero .wedding-couple-title { font-size: clamp(54px, 14.7vw, 76px); margin-bottom: 23px; }
+  .welcome-photo { padding: 6px; }
+  .welcome-hero .couple-names, .welcome-hero .welcome-date { font-size: 13px; }
+  .welcome-hero .text-link { font-size: 11px; }
+  .portrait-caption { font-size: 13px; }
+  .family-invitation { padding: 50px 7vw; }
+  .family-invitation>.wedding-monogram { width: 80px; height: 80px; margin-bottom: 20px; }
+  .family-invitation h2 { font-size: 38px; }
+  .family-invitation .invitation-couple { font-size: 34px; }
+  .family-invitation>p:not(.keepsake-eyebrow) { font-size: 13px; }
+  .wedding-site .welcome-letter p { font-size: 15px; }
+  .wedding-site .welcome-letter h2 { font-size: 40px; }
+  .story-prelude { padding-block: 50px; gap: 30px; }
+  .story-prelude-picture { width: calc(100% - 5px); padding: 0 18px 18px 0; }
+  .story-prelude-picture::before { inset: 18px 0 0 18px; }
+  .story-prelude .scroll-photograph { height: auto; aspect-ratio: 4 / 5; }
+  .story-photo-note { right: -5px; bottom: -7px; font-size: 13px; padding: 10px 15px; }
+  .story-prelude h2 { font-size: 47px; }
+  .photo-interlude { margin-top: 55px; margin-bottom: 48px; }
+  .photo-interlude .interlude-heading { align-items: flex-start; gap: 20px; margin-bottom: 26px; }
+  .photo-interlude .interlude-heading h2 { font-size: 49px; }
+  .photo-interlude .interlude-heading>a { font-size: 12px; }
+  .photo-editorial { grid-template-columns: minmax(0, 1fr); gap: 30px; }
+  .editorial-secondary { width: 78%; justify-self: end; padding: 0; }
+  .photo-editorial .editorial-main img { aspect-ratio: 4 / 5; }
+  .photo-editorial .editorial-secondary img { aspect-ratio: 4 / 5; }
+  .photo-editorial figcaption { font-size: 17px; margin-top: 11px; }
+  .editorial-secondary blockquote { font-size: 28px; margin-top: 28px; }
+  .wedding-divider { width: 78%; gap: 19px; margin-block: 0; }
+  .wedding-site .venue-invitation { padding-top: 42px; padding-bottom: 50px; }
+  .venue-invitation-intro { grid-template-columns: minmax(0, 1fr); gap: 20px; margin-bottom: 28px; }
+  .venue-invitation-intro .stationery-label { margin: 0; }
+  .wedding-site .venue-invitation-intro h2 { font-size: clamp(35px, 10vw, 43px); line-height: 1.1; letter-spacing: -.025em; }
+  .venue-invitation-intro>p:last-child { font-size: 14px; }
+  .venue-invitation-layout { grid-template-columns: minmax(0, 1fr); gap: 35px; }
+  .venue-date-card { width: min(100%, 390px); margin-inline: auto; padding: 12px; }
+  .venue-date-card-inner { padding: 23px 15px 27px; }
+  .venue-date-card-inner>.wedding-monogram { width: 65px; height: 65px; }
+  .venue-card-occasion { margin-bottom: 22px; }
+  .venue-card-occasion>span { font-size: 29px; }
+  .venue-card-date>strong { font-size: 118px; }
+  .venue-card-time { margin: 18px 0 22px; }
+  .venue-card-close { font-size: 17px; }
+  .venue-arrival h3 { font-size: 37px; max-width: 330px; }
+  .venue-arrival address { font-size: 14px; }
+  .venue-arrival-actions { gap: 12px 22px; }
+  .venue-arrival-actions .button { padding-inline: 22px; font-size: 12px; }
+  .venue-map-frame iframe { height: 250px; }
+  .couple-album .photo-tile:nth-child(3) { padding-top: 0; }
+  .wedding-footer>.wedding-monogram { width: 76px; height: 76px; }
+  .footer-invitation h2 { font-size: 52px; letter-spacing: -.025em; }
+  .wedding-footer a:not(.wordmark), .wedding-footer .text-button { font-size: 11px; }
+}
+
+@media (max-width: 370px) {
+  .wedding-brand strong { font-size: 20px; }
+  .welcome-hero .wedding-couple-title { font-size: 52px; }
+  .family-invitation h2 { font-size: 35px; }
+  .family-invitation .invitation-couple { font-size: 31px; }
+  .venue-arrival h3 { font-size: 34px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .editorial-photo-link:hover img { transform: none; }
+}

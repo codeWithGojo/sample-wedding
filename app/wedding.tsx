@@ -13,6 +13,8 @@ import WeddingNavigation from './wedding-navigation';
 import WeddingCalendar from './wedding-calendar';
 import { Reveal, ScrollPhoto, WeddingPageMotion, WeddingProgress } from './wedding-motion';
 import { PhotoInterlude, WeddingCountdown } from './wedding-highlights';
+import WeddingMonogram, { WeddingDivider } from './wedding-monogram';
+import VenueInvitation from './wedding-venue';
 import { ArrowUpRight, MapPin, Phone, CalendarDays } from 'lucide-react';
 import { PhotoPlaceholder, photoSharingEnabled } from './wedding-extras';
 
@@ -21,7 +23,7 @@ const headings: Partial<Record<WeddingPage,{title:string;intro:string}>> = {
   story:{title:'Our Love Story ❤️',intro:storyIntro},
   day:{title:'The day',intro:'Saturday, 12 December 2026 · 11am prompt'},
   travel:{title:'Come to Ughelli',intro:'The venue, directions and places to stay for the weekend.'},
-  faqs:{title:'A few things you might want to know',intro:'And if we’ve missed anything, speak to the family.'},
+  faqs:{title:'A few questions',intro:'And if we’ve missed anything, speak to the family.'},
   photographs:{title:'Our gallery',intro:'A few moments together, with more memories to come.'},
   guest:{title:'For our guests',intro:'We’re glad you’re joining us. Here’s everything you’ll need for the day.'},
 };
@@ -93,6 +95,8 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
         <Reveal><WeddingCountdown countdown={countdown}/></Reveal>
         <StoryPrelude/>
         <PhotoInterlude/>
+        <WeddingDivider/>
+        <VenueInvitation compact directionsUrl={directionsUrl}/>
         <DateKeepsake/>
         <section className="section wedding-extras-links" aria-label="Wedding photographs"><article><p className="placeholder-status">Coming soon</p><h2>Our wedding pictures</h2><p>A shared album for the memories we’ll make together.</p><Link className="button" href={pageHref('/photographs')}>Visit the photo area</Link></article></section>
       </>}
@@ -110,7 +114,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       </>}
 
       {page==='travel'&&<>
-        <section className="section venue-section" id="venue"><div><h2>Where we’ll be</h2><h3>{venueName}</h3><p>{venueAddress}</p><p>Saturday, 12 December 2026<br/><strong>11am prompt</strong></p>{c.parking&&<div className="venue-note"><h3>Parking &amp; arrival</h3><p>{c.parking}</p></div>}<a className="text-link" href="tel:+2347068007835">Call the family if you need a hand finding us</a></div><div className="map-area"><iframe title="Google Maps — Ricky’s Hotel and Event Place" src={c.mapUrl||'https://www.google.com/maps?q='+encodeURIComponent(venueName+', '+venueAddress+', Nigeria')+'&output=embed'} loading="lazy" referrerPolicy="no-referrer" allowFullScreen/></div></section>
+        <VenueInvitation directionsUrl={directionsUrl} mapUrl={c.mapUrl} parking={c.parking}/>
         <section className="section stay-section"><h2>Staying in Ughelli</h2><p>If you’re travelling in, here are a few places to check. Book your room directly with the hotel or through its booking page for the dates you need.</p><div className="stay-list">{nearbyStays.map((hotel,i)=><article className="stay-row" key={hotel.name}><div className="stay-name"><span className="stay-number">0{i+1}</span><h3>{hotel.name}</h3><p className="hotel-rating">{hotel.stars>0?<><span aria-hidden="true">{'★'.repeat(hotel.stars)}</span> {hotel.stars}-star hotel</>:'Star category not confirmed'}</p>{hotel.review&&<p className="hotel-review">{hotel.review}</p>}</div><div className="stay-details"><p>{hotel.address}</p><p>{hotel.bookingNote}</p><div className="actions"><a className="button" href={hotel.bookingUrl} target="_blank" rel="noopener noreferrer">{hotel.bookingLabel}</a>{hotel.phone&&<><a className="text-link" href={'tel:'+hotel.phone}>Call reservations</a><a className="text-link" href={'https://wa.me/'+hotel.phone.replace('+','')+'?text='+encodeURIComponent('Hello, I would like to ask about room availability for a wedding in Ughelli on 12 December 2026.')} target="_blank" rel="noopener noreferrer">WhatsApp the hotel</a></>}</div><p className="hotel-source"><a href={hotel.sourceUrl} target="_blank" rel="noopener noreferrer">{hotel.ratingSource}</a> · Details checked 2 October 2026</p></div></article>)}</div><p className="booking-note">Please check the final price, availability and cancellation terms before booking. Hotel star categories and guest review scores are shown separately.</p>
           {c.hotels.length>0&&<div className="family-stays"><h3>More places from the family</h3>{c.hotels.map((hotel,i)=><article className="hotel-line" key={i}><div><h4>{hotel.name}</h4><p>{hotel.detail}</p></div>{hotel.url&&<a className="text-link" href={hotel.url} target="_blank" rel="noopener noreferrer">View hotel</a>}</article>)}</div>}
         </section>
@@ -147,7 +151,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       </section>}
     </main>
     </WeddingPageMotion>
-    <footer className="wedding-footer"><div className="footer-invitation"><p>12 December 2026 · 11am prompt</p><h2>See you in Ughelli.</h2><span>With love, Blessing &amp; Blessing.</span></div><Link className="wordmark" href={pageHref('/')}>#BlessingFoundHerBlessing</Link><div><button className="text-button" onClick={()=>void shareSite()}>Share the celebration</button><a href={siteOrigin?'https://wa.me/?text='+encodeURIComponent('#BlessingFoundHerBlessing · 12 December 2026 · '+siteOrigin):'https://wa.me/'} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><Link href={pageHref('/guest')}>Wedding QR</Link><a href="/privacy">Guest privacy</a></div>{shareMsg&&<p role="status">{shareMsg}</p>}</footer>
+    <footer className="wedding-footer"><WeddingMonogram/><div className="footer-invitation"><p>12 December 2026 · 11am prompt</p><h2>See you in Ughelli.</h2><span>With love, Blessing &amp; Blessing.</span></div><Link className="wordmark" href={pageHref('/')}>#BlessingFoundHerBlessing</Link><div><button className="text-button" onClick={()=>void shareSite()}>Share the celebration</button><a href={siteOrigin?'https://wa.me/?text='+encodeURIComponent('#BlessingFoundHerBlessing · 12 December 2026 · '+siteOrigin):'https://wa.me/'} target="_blank" rel="noopener noreferrer">Share on WhatsApp</a><Link href={pageHref('/guest')}>Wedding QR</Link><a href="/privacy">Guest privacy</a></div>{shareMsg&&<p role="status">{shareMsg}</p>}</footer>
     <div className="mobile-actions"><Link href={pageHref('/the-day')}><CalendarDays size={17}/><span>The day</span></Link><a href={directionsUrl} target="_blank" rel="noopener noreferrer"><MapPin size={17}/><span>Directions</span></a><a href="tel:+2347068007835"><Phone size={17}/><span>Family</span></a><WeddingCalendar className="mobile-calendar" label="Save date"/></div>
     <Dialog open={!!photoOpen||!!albumOpen} onOpenChange={open=>{if(!open){setPhotoOpen(null);setAlbumOpen(null)}}}><DialogContent className="photo-dialog" showCloseButton={false}><DialogClose asChild><button className="dialog-close">Close</button></DialogClose><DialogTitle className="sr-only">Wedding photograph</DialogTitle><DialogDescription>{photoOpen?.caption||albumOpen?.alt||'A moment to keep'}</DialogDescription>{albumOpen&&<img src={albumOpen.src} alt={albumOpen.alt}/>}{photoOpen&&<img src={'/api/photos/'+photoOpen.id} alt={photoOpen.caption||'Wedding photograph'}/>}</DialogContent></Dialog>
   </div>;
