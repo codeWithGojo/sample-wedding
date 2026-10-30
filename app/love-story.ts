@@ -1,3 +1,5 @@
+import { weddingConfig } from './wedding-config';
+
 export const storyIntro = 'From a random encounter at the bank to forever.';
 
 export const suppliedLoveStory = `Funny how life has a way of bringing two people together when they least expect it.
@@ -26,13 +28,8 @@ And now, we are counting down to forever.
 
 Here's to us, to love, to friendship, to God's beautiful timing, and to forever with my once-upon-a-stranger.`;
 
-const photoVersion = '?v=real-20261029';
-export const entrancePhoto = '/couple/red-portrait.webp' + photoVersion;
-export const storyImages = [
-  {src:'/couple/together.webp' + photoVersion,alt:'Blessing Egokiniovo and Blessing Oshevire together in white T-shirts and blue jeans',width:1025,height:1534},
-  {src:'/couple/laughter.webp' + photoVersion,alt:'Blessing Egokiniovo laughing while sitting with Blessing Oshevire',width:1025,height:1534},
-  {src:'/couple/forever.webp' + photoVersion,alt:'Blessing Egokiniovo and Blessing Oshevire smiling at each other',width:1025,height:1534},
-] as const;
+export const entrancePhoto = weddingConfig.gallery[0].src;
+export const storyImages = [weddingConfig.gallery[1], weddingConfig.gallery[2], weddingConfig.gallery[3]] as const;
 
 export type StoryChapter = {title:string;paragraphs:string[]};
 export function splitLoveStory(story:string):StoryChapter[]{

@@ -1,5 +1,7 @@
 "use client";
 
+import { weddingConfig } from './wedding-config';
+
 import Link from 'next/link';
 import { ArrowUpRight, MapPin } from 'lucide-react';
 import { venueAddress, venueName } from './content';
@@ -20,7 +22,7 @@ export default function VenueInvitation({ directionsUrl, mapUrl, parking, compac
       <Reveal className="venue-date-card paper-surface">
         <div className="venue-date-card-inner">
           <WeddingMonogram/>
-          <p className="venue-card-occasion">The traditional marriage of<br/><span>Blessing &amp; Blessing</span></p>
+          <p className="venue-card-occasion">The traditional marriage of<br/><span>{weddingConfig.names.together}</span></p>
           <div className="venue-card-date"><span>Saturday</span><strong>12</strong><span>December 2026</span></div>
           <p className="venue-card-time">11am prompt</p>
           <p className="venue-card-close">Together with the people we love.</p>

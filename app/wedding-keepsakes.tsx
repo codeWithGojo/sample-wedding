@@ -1,5 +1,7 @@
 "use client";
 
+import { weddingConfig } from './wedding-config';
+
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import Link from 'next/link';
 import { storyImages } from './love-story';
@@ -44,7 +46,7 @@ export function DateKeepsake() {
 }
 
 export function FamilyInvitation() {
- return <section className="family-invitation" aria-labelledby="family-invite-title"><WeddingMonogram/><p className="keepsake-eyebrow">Together with our families</p><h2 id="family-invite-title">The Awhefeada <span>&amp;</span> Toka families</h2><p>With grateful hearts, we invite you to celebrate the traditional marriage of</p><div className="invitation-couple"><span>Blessing Egokiniovo<small>Awhefeada Esq.</small></span><i aria-hidden="true">&amp;</i><span>Blessing Oshevire<small>Engr. Blessing Oshevire Toka</small></span></div><p>Saturday, 12 December 2026 · 11am prompt</p><Link className="family-invitation-link" href="/the-day">Come celebrate with us <span aria-hidden="true">↗</span></Link></section>;
+ return <section className="family-invitation" aria-labelledby="family-invite-title"><WeddingMonogram/><p className="keepsake-eyebrow">Together with our families</p><h2 id="family-invite-title">The Awhefeada <span>&amp;</span> Toka families</h2><p>With grateful hearts, we invite you to celebrate the traditional marriage of</p><div className="invitation-couple"><span>{weddingConfig.names.bride}<small>Awhefeada Esq.</small></span><i aria-hidden="true">&amp;</i><span>{weddingConfig.names.groom}<small>Engr. Toka</small></span></div><p>Saturday, 12 December 2026 · 11am prompt</p><Link className="family-invitation-link" href="/the-day">Come celebrate with us <span aria-hidden="true">↗</span></Link></section>;
 }
 
 export function StoryPrelude(){

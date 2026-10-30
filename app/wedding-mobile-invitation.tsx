@@ -1,5 +1,7 @@
 "use client";
 
+import { weddingConfig } from './wedding-config';
+
 import { useEffect, useRef, useState, type PointerEvent } from 'react';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Images, Mail, Pause, Play } from 'lucide-react';
@@ -116,7 +118,7 @@ export default function WeddingMobileInvitation({ active, onRead, onEnter }: {
       <div ref={camera} className="mobile-scene-camera" style={{ animationPlayState: paused || !active ? 'paused' : 'running' }}>
         <div className="mobile-room" aria-hidden="true"/>
         <div className="mobile-scene-monogram" aria-hidden="true"><span>#Blessing<wbr/>FoundHer<wbr/>Blessing</span><small>12 December 2026</small></div>
-        <figure className="mobile-couple-photo"><div className="mobile-photo-frame"><img src="/couple/laughter.webp" width="960" height="1280" alt="Blessing Egokiniovo and Blessing Oshevire together" fetchPriority="high" draggable={false}/></div><figcaption>From 23 December, to forever.</figcaption></figure>
+        <figure className="mobile-couple-photo"><div className="mobile-photo-frame"><img src="/couple/laughter.webp" width="960" height="1280" alt={weddingConfig.gallery[2].alt} fetchPriority="high" draggable={false}/></div><figcaption>From 23 December, to forever.</figcaption></figure>
         <div className="mobile-console" aria-hidden="true"><div className="mobile-console-top"/><div className="mobile-console-drawer"/><div className="mobile-console-drawer"/></div>
         <div className="mobile-card-placement">
           <button className="mobile-invitation-card" aria-label="Read our wedding invitation" aria-describedby="mobile-card-hint" onFocus={focusTable}

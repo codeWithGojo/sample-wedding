@@ -1,11 +1,12 @@
+import { weddingConfig } from './wedding-config';
 import { venueAddress, venueName } from './content';
 
-export const weddingSiteUrl = 'https://sample-wedding-mu.vercel.app';
-export const calendarStart = '20261212T100000Z'; // 11am in Africa/Lagos.
-export const calendarEnd = '20261212T110000Z'; // A one-hour calendar placeholder, not the celebration's finish.
+export const weddingSiteUrl = weddingConfig.siteUrl;
+export const calendarStart = weddingConfig.date.calendarStart; // 11am in Africa/Lagos.
+export const calendarEnd = weddingConfig.date.calendarEnd; // A one-hour calendar placeholder, not the celebration's finish.
 export const calendarTitle = '#BlessingFoundHerBlessing — Traditional marriage';
 export const calendarLocation = `${venueName}, ${venueAddress}, Nigeria`;
-export const calendarDescription = `Join the Awhefeada and Toka families to celebrate Blessing Egokiniovo and Blessing Oshevire.\nSaturday, 12 December 2026. 11am prompt, West Africa Time.\nThe calendar reserves one hour; the celebration's finishing time is not confirmed.\nWedding details: ${weddingSiteUrl}/the-day`;
+export const calendarDescription = `Join the Awhefeada and Toka families to celebrate ${weddingConfig.names.bride} and ${weddingConfig.names.groom}.\nSaturday, 12 December 2026. 11am prompt, West Africa Time.\nThe calendar reserves one hour; the celebration's finishing time is not confirmed.\nWedding details: ${weddingSiteUrl}/the-day`;
 export const reminderChoices = [
   {value:'both',label:'1 day and 1 hour before'},
   {value:'day',label:'1 day before'},
@@ -40,7 +41,7 @@ function foldCalendarLine(line:string) {
 export function buildWeddingCalendar(reminder:CalendarReminder='both',now=new Date()) {
   const stamp=now.toISOString().replace(/[-:]/g,'').replace(/\.\d{3}/,'');
   const lines=['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//BlessingFoundHerBlessing//Wedding//EN','CALSCALE:GREGORIAN','METHOD:PUBLISH',
-    'X-WR-CALNAME:Blessing & Blessing','X-WR-TIMEZONE:Africa/Lagos','BEGIN:VEVENT',
+    'X-WR-CALNAME:'+escapeCalendar(weddingConfig.names.together),'X-WR-TIMEZONE:Africa/Lagos','BEGIN:VEVENT',
     'UID:blessing-found-her-blessing-20261212@sample-wedding-mu.vercel.app','SEQUENCE:2',
     'DTSTAMP:'+stamp,'DTSTART:'+calendarStart,'DTEND:'+calendarEnd,'STATUS:CONFIRMED','TRANSP:OPAQUE',
     'SUMMARY:'+escapeCalendar(calendarTitle),'LOCATION:'+escapeCalendar(calendarLocation),

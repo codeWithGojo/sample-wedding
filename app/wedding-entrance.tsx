@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
-import { ArrowLeft, ArrowRight, Mail, Minus, Plus, RotateCcw } from 'lucide-react';
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
+import { ArrowRight, RotateCcw } from 'lucide-react';
 import Wedding from './wedding';
-import Link from 'next/link';
 import WeddingLoader from './wedding-loader';
 import { prepareInvitation } from './invitation-assets';
-import { entrancePhoto } from './love-story';
 import WeddingMonogram from './wedding-monogram';
+import WeddingScene from './wedding-scene';
+import { weddingConfig } from './wedding-config';
 
 const curtainDuration = 1200;
 
@@ -19,13 +18,9 @@ export default function WeddingEntrance() {
   const sealButton = useRef<HTMLButtonElement>(null);
   const [entered, setEntered] = useState(false);
   const [leaving, setLeaving] = useState(false);
-  const [inviteOpen, setInviteOpen] = useState(false);
-  const [zoom, setZoom] = useState(1);
-  const [photoFailed, setPhotoFailed] = useState(false);
-  const invitationButton = useRef<HTMLButtonElement>(null);
-  const entryButton = useRef<HTMLButtonElement>(null);
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const focusAfterTransition = useRef(false);
+  const siteTarget = useRef<'main' | 'venue'>('main');
 
   useEffect(() => {
     const url = new URL(location.href);
@@ -42,9 +37,10 @@ export default function WeddingEntrance() {
     if (!focusAfterTransition.current) return;
     focusAfterTransition.current = false;
     if (entered) {
-      const main = document.getElementById('main');
+      const main = document.getElementById(siteTarget.current);
       main?.setAttribute('tabindex', '-1');
       main?.focus({preventScroll:true});
+      if (siteTarget.current !== 'main') main?.scrollIntoView({behavior:'instant',block:'start'});
     } else sealButton.current?.focus({preventScroll:true});
   }, [entered]);
 
@@ -53,20 +49,23 @@ export default function WeddingEntrance() {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const timer = setTimeout(() => {
       setCurtainsReady(true);
-      entryButton.current?.focus({preventScroll:true});
     }, reduced ? 0 : curtainDuration);
     return () => clearTimeout(timer);
   }, [opened]);
+
+  useEffect(() => {
+    if (curtainsReady) document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
+  }, [curtainsReady]);
 
   function openCurtains() {
     setOpened(true);
     window.dispatchEvent(new Event('wedding:play-music'));
   }
 
-  function enterSite(immediate = false) {
+  function enterSite(immediate = false, target: 'main' | 'venue' = 'main') {
     if (leaving) return;
     window.dispatchEvent(new Event('wedding:play-music'));
-    setInviteOpen(false);
+    siteTarget.current = target;
     const finish = () => {
       focusAfterTransition.current = true;
       setLoading(false);
@@ -84,30 +83,13 @@ export default function WeddingEntrance() {
 
   if (entered) return <><Wedding/><button className="replay-invitation" onClick={() => {
     focusAfterTransition.current = true;
-    setEntered(false); setOpened(false); setCurtainsReady(false); setZoom(1);
+    setEntered(false); setOpened(false); setCurtainsReady(false);
     window.scrollTo({top:0,behavior:'instant'});
   }}><RotateCcw size={15}/> Open the invitation again</button></>;
 
-  return <main className={'invitation-experience portrait-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>
+  return <><div className={'invitation-experience portrait-entry scene-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>
     {loading && <WeddingLoader onContinue={() => enterSite(true)}/>}
-    <div className="portrait-entry-stage" inert={loading || leaving || !curtainsReady} aria-hidden={loading || leaving || !curtainsReady}>
-      <figure className={'entry-photograph' + (photoFailed ? ' photo-unavailable' : '')}>
-        <img src={entrancePhoto} width={1025} height={1534} alt="Blessing Egokiniovo and Blessing Oshevire embracing in front of red drapes" fetchPriority="high" decoding="async" onError={() => setPhotoFailed(true)}/>
-      </figure>
-      <div className="entry-shade" aria-hidden="true"/>
-      <header className="portrait-entry-header"><span>#BlessingFoundHerBlessing</span><span className="entry-header-date">12 December 2026</span></header>
-      <div className="portrait-entry-copy">
-        <p className="entry-family">Together with the Awhefeada &amp; Toka families</p>
-        <h1>Egokiniovo<br/><span>&amp;</span> Oshevire</h1>
-        <p className="entry-dedication">From a chance encounter<br/>{' '}to a lifetime of love.</p>
-        <div className="entry-date"><span>Saturday, 12 December 2026</span><span>11am prompt · Ughelli, Delta State</span></div>
-        <div className="portrait-entry-actions">
-          <button ref={entryButton} className="entry-primary" onClick={() => enterSite()}><span>Enter our celebration</span><span className="entry-action-icon" aria-hidden="true"><ArrowRight size={18}/></span></button>
-          <button ref={invitationButton} className="entry-invitation" onClick={() => {setZoom(1);setInviteOpen(true);}}><Mail size={17}/> Read the invitation</button>
-        </div>
-      </div>
-      <span className="entry-photo-caption" aria-hidden="true">Blessing &amp; Blessing</span>
-    </div>
+    <WeddingScene active={curtainsReady && !loading && !leaving} onContinue={target => enterSite(true, target)}/>
 
     {!curtainsReady && <div className="wedding-curtain-layer" inert={loading} aria-hidden={loading}>
       <div className="curtain-panel curtain-left" aria-hidden="true"/>
@@ -117,21 +99,13 @@ export default function WeddingEntrance() {
         <div className="sealed-invitation">
           <p className="seal-overline">An invitation from our families</p>
           <button ref={sealButton} className="champagne-seal" onClick={openCurtains} aria-label="Open the wedding invitation"><span className="seal-emboss"><WeddingMonogram/><span>12 · 12 · 26</span></span></button>
-          <h1>Blessing &amp; Blessing</h1><p>With love, you’re invited.</p>
+          <h1>{weddingConfig.names.together}</h1><p>With love, you’re invited.</p>
           <button className="seal-caption" onClick={openCurtains}>Touch the seal to open <ArrowRight size={15}/></button>
         </div>
         <button className="entrance-skip" onClick={() => enterSite(true)}>Go straight to the site <ArrowRight size={15}/></button>
       </>}
     </div>}
 
-    <Dialog open={inviteOpen} onOpenChange={setInviteOpen}>
-      <DialogContent className="invitation-closeup" showCloseButton={false} onCloseAutoFocus={event => {event.preventDefault(); invitationButton.current?.focus();}}>
-        <div className="invitation-closeup-header"><div><DialogTitle>You’re invited</DialogTitle><DialogDescription>Traditional marriage · 12 December 2026</DialogDescription></div><DialogClose asChild><button className="invitation-back"><ArrowLeft size={17}/> Back</button></DialogClose></div>
-        <div className="invitation-zoom-controls" aria-label="Invitation zoom controls"><button disabled={zoom <= 1} onClick={() => setZoom(z => Math.max(1, z - .25))} aria-label="Zoom out"><Minus size={18}/></button><span aria-live="polite">{Math.round(zoom * 100)}%</span><button disabled={zoom >= 2.5} onClick={() => setZoom(z => Math.min(2.5, z + .25))} aria-label="Zoom in"><Plus size={18}/></button><button onClick={() => setZoom(1)} aria-label="Reset zoom"><RotateCcw size={16}/></button></div>
-        <div className="invitation-zoom-viewport"><div className="invitation-zoom-paper" style={{width:`${zoom * 100}%`}}><img src="/invitation.jpg" width={850} height={1203} alt="Family invitation: Blessing Egokiniovo Awhefeada Esq. and Engr. Blessing Oshevire Toka, 12 December 2026 at 11am, Ricky’s Hotel and Event Place, Oteri, Ughelli."/></div></div>
-        <div className="invitation-closeup-actions"><button onClick={() => enterSite()}>Enter the site <ArrowRight size={17}/></button><Link href="/photographs" onClick={() => setInviteOpen(false)}>View our photographs</Link></div>
-      </DialogContent>
-    </Dialog>
-    <noscript><style>{'.wedding-heart-loader,.wedding-curtain-layer{display:none}.portrait-entry-stage{visibility:visible!important;opacity:1!important}'}</style><div className="entrance-noscript">Open our <a href="/the-day">wedding details</a> or <a href="/photographs">gallery</a>.</div></noscript>
-  </main>;
+    <noscript><style>{'.wedding-heart-loader,.wedding-curtain-layer{display:none}'}</style><div className="entrance-noscript">Open our <a href="/the-day">wedding details</a> or <a href="/photographs">gallery</a>.</div></noscript>
+  </div>{curtainsReady && <Wedding/>}</>;
 }

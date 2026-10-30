@@ -1,4 +1,5 @@
 import { suppliedLoveStory } from './love-story';
+import { weddingConfig } from './wedding-config';
 
 export type ProgrammeItem = { time: string; title: string; detail: string };
 export type Hotel = { name: string; detail: string; url: string };
@@ -9,9 +10,9 @@ export type WeddingContent = {
   registryUrl: string; livestreamUrl: string; asoEbi: string;
   uploadOpen: boolean; mapUrl: string; directionsUrl: string;
 };
-export const venueAddress = "No. 9 Okpare/Oteri Road, Oteri, Ughelli, Delta State";
-export const venueName = "Ricky’s Hotel and Event Place";
-export const weddingDate = "2026-12-12T11:00:00+01:00";
+export const venueAddress = weddingConfig.venue.address;
+export const venueName = weddingConfig.venue.name;
+export const weddingDate = weddingConfig.date.iso;
 // Upgrade older backend copy while preserving guest settings and future family edits.
 export function currentWeddingContent(content: WeddingContent): WeddingContent {
   if (Number(content.storyRevision || 0) >= defaultContent.storyRevision) return content;

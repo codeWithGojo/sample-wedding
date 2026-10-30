@@ -8,7 +8,9 @@ import "./celebration.css";
 import "./stationery.css";
 import "./button-motion.css";
 import "./curtains.css";
+import "./scene.css";
 import WeddingMusic from "./wedding-music";
+import { weddingConfig } from './wedding-config';
 import { weddingSiteUrl } from './calendar';
 
 const siteOrigin = process.env.NEXT_PUBLIC_SITE_URL || weddingSiteUrl;
@@ -28,7 +30,7 @@ export const metadata: Metadata = {
     url: "/",
     title: "#BlessingFoundHerBlessing · 12 December 2026",
     description: "Traditional marriage · 11am prompt · Ricky’s Hotel and Event Place, Ughelli, Delta State. #BlessingFoundHerBlessing",
-    images: [{ url: "/wedding-share-2026.jpg", width: 1200, height: 630, type: "image/jpeg", alt: "Blessing Egokiniovo and Blessing Oshevire — 12 December 2026, 11am, Ughelli" }],
+    images: [{ url: "/wedding-share-2026.jpg", width: 1200, height: 630, type: "image/jpeg", alt: `${weddingConfig.names.together} — ${weddingConfig.date.short}, 11am, Ughelli` }],
   },
   twitter: {
     card: "summary_large_image",

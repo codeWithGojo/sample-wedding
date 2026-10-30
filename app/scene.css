@@ -1,0 +1,167 @@
+/* Only the added room scene. Existing stationery, seal and site styles stay intact. */
+:root {
+  --modal-open-dur: 250ms;
+  --modal-close-dur: 150ms;
+  --modal-scale: 0.96;
+  --modal-scale-close: 0.96;
+  --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+.scene-entry { height: 100dvh; min-height: 100dvh; overflow: clip; padding: 0; }
+.scene-entry:has(.wedding-scene[data-onscreen=true]) + .wedding-site :is(.mobile-actions,.wedding-progress) { visibility: hidden; }
+.portrait-leaving .wedding-scene { opacity: 0; transition: opacity 400ms; }
+.wedding-scene { --scene-play: paused; position: relative; width: 100%; height: 100dvh; min-height: 0; overflow: clip; isolation: isolate; background: #650912; color: #fff2df; font-family: var(--font-wedding-text), Arial, sans-serif; }
+.wedding-scene[data-running=true] { --scene-play: running; }
+.scene-lens { position: absolute; inset: 0; transform-origin: 50% 50%; transition: transform 1100ms cubic-bezier(.4,0,.2,1); will-change: transform; }
+.scene-panorama { position: absolute; inset-block: 0; left: -75%; width: 250%; transform-origin: 50% 72%; animation: scene-pan 12s ease-in-out infinite; animation-play-state: var(--scene-play); will-change: transform; }
+.scene-drapes { object-fit: fill; pointer-events: none; }
+.scene-floor-light { position: absolute; inset: 82% 0 0; background: linear-gradient(180deg, transparent, #fff8eb55); pointer-events: none; }
+.scene-couple { position: absolute; bottom: 7.5%; left: 52%; height: 64%; aspect-ratio: 1025/1535; margin: 0; transform: translateX(-50%); z-index: 3; pointer-events: none; }
+.scene-couple img { object-fit: contain; animation: scene-couple-parallax 12s ease-in-out infinite; animation-play-state: var(--scene-play); will-change: transform; }
+.scene-nightstand { position: absolute; left: 33%; bottom: 10%; height: 42%; aspect-ratio: 1122/1402; transform: translateX(-50%); z-index: 2; }
+.scene-nightstand>img, .scene-floral img, .scene-modal-set>img { object-fit: contain; pointer-events: none; }
+.scene-floral { position: absolute; aspect-ratio: 2/3; pointer-events: none; }
+.scene-floral-left { left: 20%; bottom: 11%; height: 30%; z-index: 1; }
+.scene-floral-right { left: 65%; bottom: 9%; height: 32%; z-index: 2; }
+.scene-floral-front { left: 75%; bottom: -10%; height: 48%; z-index: 4; animation: scene-floral-parallax 12s ease-in-out infinite; animation-play-state: var(--scene-play); }
+.scene-title { position: absolute; z-index: 5; top: max(6dvh, calc(env(safe-area-inset-top) + 25px)); left: 5%; width: 90%; text-align: center; pointer-events: none; transition: opacity 400ms ease; }
+.scene-title p { font-size: 9px; letter-spacing: .08em; color: #f1d7b9; margin: 0 0 15px; }
+.wedding-scene .scene-title h1 { font-family: var(--font-wedding-display), Georgia, serif; font-size: clamp(42px, 11.8vw, 68px); font-weight: 400; line-height: .85; letter-spacing: -.04em; color: #fff4e7; margin: 0; text-shadow: 0 2px 16px #35000855; }
+.wedding-scene .scene-title h1>span { font-size: .72em; color: #e2b877; font-style: italic; }
+.scene-skip { position: absolute; right: max(18px,env(safe-area-inset-right)); top: max(12px,env(safe-area-inset-top)); z-index: 7; display: inline-flex; gap: 5px; align-items: center; padding: 8px 9px; min-height: 44px; color: #fff1df; text-decoration: none; font-size: 10px; }
+.scene-bottom-controls { position: absolute; bottom: max(3.5dvh,calc(env(safe-area-inset-bottom) + 16px)); left: 50%; transform: translateX(-50%); text-align: center; z-index: 6; width: max-content; max-width: 90%; transition: opacity 250ms ease; }
+.scene-view-invitation { display: flex; align-items: center; flex-direction: column; gap: 8px; margin: auto; padding: 8px 20px; border: 0; background: transparent; color: #650912; font: 12px/1.4 var(--font-wedding-text),Arial,sans-serif; }
+.scene-round-icon { width: 54px; height: 54px; border: 1px solid currentColor; border-radius: 50%; display: grid; place-items: center; background: #fff8edcf; transition: transform 250ms cubic-bezier(.22,1,.36,1); }
+.scene-view-invitation:hover .scene-round-icon, .scene-invite-secondary :is(button,a):hover .scene-round-icon { transform: translateY(-3px); }
+.scene-view-invitation:active .scene-round-icon, .scene-invite-secondary :is(button,a):active .scene-round-icon { transform: scale(.94); }
+.scene-event-date { margin: 8px 0 0; font-size: 9px; color: #650912; }
+.scene-pause { position: absolute; bottom: max(21px,env(safe-area-inset-bottom)); left: max(16px,env(safe-area-inset-left)); z-index: 7; display: grid; place-items: center; width: 44px; height: 44px; color: #650912; border: 1px solid #65091266; border-radius: 50%; background: #fff8ebaa; }
+.wedding-scene[data-view=approach] :is(.scene-title,.scene-bottom-controls,.scene-butterfly-path) { opacity: 0; pointer-events: none; }
+.wedding-scene :is(button,a):focus-visible, .scene-dialog :is(button,a):focus-visible { outline: 2px solid #e6b96d; outline-offset: 5px; }
+.wedding-scene :is(button,a), .scene-dialog :is(button,a) { transition: transform 250ms cubic-bezier(.22,1,.36,1), opacity 250ms ease!important; }
+.scene-table-card { position: absolute; left: 42.4%; top: 22.8%; width: 24.4%; height: 28.2%; border: 0; padding: 0; display: block; background: #fbf6eb; color: #650912; cursor: pointer; z-index: 2; }
+.scene-table-card>span { display: block; width: 100%; height: 100%; }
+.scene-invitation-paper { box-sizing: border-box; display: flex!important; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100%; padding: 5%; background: #fbf6eb; color: #650912; text-align: center; font-family: var(--font-wedding-text),Arial,sans-serif; container-type: inline-size; }
+.scene-invitation-paper>span { display: block; flex-shrink: 0; }
+.scene-paper-family { font-size: 4.1cqw; line-height: 1.5; margin-bottom: 5cqw; }
+.scene-paper-invite { font-size: 4cqw; line-height: 1.5; max-width: 90%; margin-bottom: 5cqw; }
+.scene-paper-names { font-family: var(--font-wedding-display),Georgia,serif; font-size: 17.5cqw; line-height: .92; letter-spacing: -.04em; }
+.scene-paper-names>span { display: block; }
+.scene-paper-names i { display: block; font-size: 12cqw; line-height: 1.1; color: #a27a43; }
+.scene-paper-rule { width: 24%; height: 1px; background: #c7a97d; margin: 7cqw 0 6cqw; }
+.scene-paper-date { font: 5.2cqw/1.4 var(--font-wedding-display),Georgia,serif; font-weight: 600; }
+.scene-paper-time { font-size: 4.2cqw; margin: 2cqw 0 6cqw; }
+.scene-paper-venue { font: 5.4cqw/1.3 var(--font-wedding-display),Georgia,serif; font-weight: 600; }
+.scene-paper-address { font-size: 3.9cqw; line-height: 1.6; margin: 2cqw 0 4cqw; }
+.scene-paper-rsvp { font-size: 3.7cqw; line-height: 1.6; }
+.scene-paper-hashtag { font-size: 3.6cqw; margin-top: 5cqw; color: #936b39; }
+.scene-butterfly-path { position: absolute; left: 24%; top: 35%; width: 34px; height: 32px; z-index: 5; pointer-events: none; animation: scene-butterfly-path 10s ease-in-out infinite; animation-play-state: var(--scene-play); transition: opacity 250ms; }
+.scene-butterfly-float { animation: scene-butterfly-bob 1.2s ease-in-out infinite; animation-play-state: var(--scene-play); }
+.scene-butterfly { display: block; width: 100%; height: 100%; }
+.scene-butterfly-left,.scene-butterfly-right { transform-box: view-box; transform-origin: 50% 50%; animation: scene-wing 170ms ease-in-out infinite alternate; animation-play-state: var(--scene-play); }
+.scene-butterfly-right { animation-delay: -40ms; }
+.scene-modal-scrim { position: fixed; inset: 0; z-index: 70; background: #2d030ce0; opacity: 0; transition: opacity var(--modal-open-dur); }
+.scene-modal-scrim.is-visible { opacity: 1; }
+.scene-dialog { position: fixed; inset: 0; z-index: 71; width: 100%; height: 100dvh; overflow: hidden; color: #650912; background: #650912; outline: none; font-family: var(--font-wedding-text),Arial,sans-serif; isolation: isolate; }
+.scene-modal-backdrop { position: absolute; inset: 0; z-index: -1; background: #650912; }
+.scene-modal-backdrop img { object-fit: cover; object-position: 32% 55%; }
+.scene-close { position: absolute; top: max(4dvh,calc(env(safe-area-inset-top) + 12px)); left: 50%; transform: translateX(-50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 80px; min-height: 60px; padding: 6px; border: 0; background: none; color: #fff4e7; font-size: 11px; line-height: 1.4; }
+.scene-modal-set { position: absolute; width: min(240vw,110dvh,1100px); aspect-ratio: 1122/1402; left: 50%; top: 46%; transform: translate(-54.6%,-37%); }
+.scene-readable-card { transition: transform 300ms cubic-bezier(.22,1,.36,1); transform-origin: 50% 50%; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y pinch-zoom; }
+.scene-card-reading .scene-readable-card { transform: scale(1.48); z-index: 5; }
+.scene-reading-tools { position: absolute; top: calc(max(4dvh,env(safe-area-inset-top) + 12px) + 62px); left: 50%; transform: translateX(-50%); z-index: 6; width: 90%; display: flex; align-items: center; justify-content: center; gap: 5px; color: #fff0de; text-align: center; font-size: 10px; }
+.scene-reading-tools button { display: inline-flex; align-items: center; gap: 5px; min-height: 44px; padding: 5px 8px; border: 0; background: none; color: #ecd1ac; font-size: 10px; }
+.scene-invite-actions { position: absolute; bottom: max(3dvh,calc(env(safe-area-inset-bottom) + 12px)); left: 50%; width: min(90%,440px); transform: translateX(-50%); z-index: 7; display: flex; flex-direction: column; gap: 20px; align-items: center; }
+.scene-more-button { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; min-height: 48px; padding: 13px 18px; border: 1px solid #c59e62; border-radius: 100px; background: #650912; color: #fff6e9; font: 11px/1.5 var(--font-wedding-text),Arial,sans-serif; transition: transform 250ms cubic-bezier(.22,1,.36,1); }
+.scene-more-button:hover { transform: translateY(-2px); }
+.scene-more-button:active { transform: scale(.98); }
+.scene-invite-secondary { display: flex; gap: 56px; justify-content: center; }
+.scene-invite-secondary>a,.scene-invite-secondary>button { display: flex; flex-direction: column; align-items: center; gap: 7px; padding: 0; border: 0; background: none; color: #650912; font: 11px/1.4 var(--font-wedding-text),Arial,sans-serif; text-decoration: none; }
+.scene-invite-secondary .scene-round-icon { width: 48px; height: 48px; background: #fff9ef; }
+.scene-gallery-dialog { overflow-y: auto; background: #fff8ec; }
+.scene-gallery-dialog .scene-close { color: #650912; }
+.scene-gallery-body { width: min(92%,900px); margin: 120px auto 35px; padding-bottom: env(safe-area-inset-bottom); }
+.scene-gallery-body>h2 { margin: 0 0 8px; font: 42px/1.1 var(--font-wedding-display),Georgia,serif; }
+.scene-gallery-body>p { font-size: 12px; margin: 0 0 22px; }
+.scene-gallery-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.scene-gallery-grid button { border: 0; padding: 0; background: #eaddca; cursor: pointer; overflow: hidden; }
+.scene-gallery-grid img { width: 100%; height: auto; display: block; transition: transform 300ms ease; }
+.scene-gallery-grid button:hover img { transform: scale(1.025); }
+.scene-gallery-photo { position: relative; width: 100%; height: calc(100dvh - 240px); min-height: 220px; margin: 10px 0; }
+.scene-gallery-photo img { object-fit: contain; }
+.scene-gallery-photo figcaption { position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%); background: #650912cf; color: #fff8ed; border-radius: 20px; padding: 4px 13px; font-size: 11px; }
+.scene-gallery-back { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 4px 0; border: 0; background: none; color: #650912; font-size: 12px; }
+.scene-gallery-arrows { display: flex; gap: 25px; justify-content: center; }
+.scene-gallery-arrows button { width: 44px; height: 44px; display: grid; place-items: center; border: 1px solid #65091277; border-radius: 50%; color: #650912; background: none; }
+/* transitions.dev modal recipe; kept local to the new dialog hooks. */
+.t-modal {
+  transform-origin: center;
+  transform: scale(var(--modal-scale));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-open-dur) var(--modal-ease),
+    opacity   var(--modal-open-dur) var(--modal-ease);
+  will-change: transform, opacity;
+}
+.t-modal.is-open {
+  transform: scale(1);
+  opacity: 1;
+  pointer-events: auto;
+}
+.t-modal.is-closing {
+  transform: scale(var(--modal-scale-close));
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    transform var(--modal-close-dur) var(--modal-ease),
+    opacity   var(--modal-close-dur) var(--modal-ease);
+}
+@keyframes scene-pan { 0%,100% {transform: translate3d(1.5%,0,0) scale(1)} 50% {transform: translate3d(-6%,0,0) scale(1.12)} }
+@keyframes scene-couple-parallax { 0%,100% {transform: translate3d(1%,0,0)} 50% {transform: translate3d(-5%,0,0)} }
+@keyframes scene-floral-parallax { 0%,100% {transform: translate3d(0,0,0)} 50% {transform: translate3d(-12%,0,0)} }
+@keyframes scene-butterfly-path { 0%,100% {transform: translate3d(0,0,0) rotate(-16deg)} 25% {transform: translate3d(22vw,-5dvh,0) rotate(12deg)} 55% {transform: translate3d(39vw,4dvh,0) rotate(32deg)} 80% {transform: translate3d(-5vw,7dvh,0) rotate(-22deg)} }
+@keyframes scene-butterfly-bob { 0%,100% {transform: translateY(0)} 50% {transform: translateY(-8px)} }
+@keyframes scene-wing { from {transform: scaleX(1)} to {transform: scaleX(.2)} }
+@media(min-width:701px) {
+  .scene-title { top: 6dvh; }
+  .wedding-scene .scene-title h1 { font-size: clamp(60px,6.5vw,92px); }
+  .scene-title p { font-size: 11px; }
+  .scene-couple { left: 50%; height: 68%; }
+  .scene-nightstand { left: 38%; height: 46%; }
+  .scene-floral-left { left: 29%; height: 37%; }
+  .scene-floral-right { left: 58%; height: 39%; }
+  .scene-floral-front { left: 68%; height: 59%; }
+  .scene-bottom-controls { bottom: max(2dvh,18px); }
+  .scene-skip { font-size: 12px; right: 3%; top: 20px; }
+  .scene-event-date { font-size: 10px; }
+  .scene-invite-actions { bottom: max(3dvh,24px); }
+  .scene-butterfly-path { width: 42px; height: 38px; }
+}
+@media(max-height:620px) {
+  .scene-title { top: 9dvh; }
+  .scene-title p { margin-bottom: 9px; }
+  .wedding-scene .scene-title h1 { font-size: clamp(34px,8vw,49px); }
+  .scene-bottom-controls { bottom: max(12px,env(safe-area-inset-bottom)); }
+  .scene-event-date { display: none; }
+  .scene-view-invitation { font-size: 10px; gap: 4px; }
+  .scene-round-icon { width: 44px; height: 44px; }
+  .scene-close { top: max(8px,env(safe-area-inset-top)); min-height: 48px; gap: 1px; }
+  .scene-close svg { width: 24px; height: 24px; }
+  .scene-reading-tools { top: 12dvh; }
+  .scene-reading-tools>span { display: none; }
+  .scene-modal-set { top: 44%; width: min(220vw,104dvh); }
+  .scene-invite-actions { bottom: max(10px,env(safe-area-inset-bottom)); gap: 9px; }
+  .scene-more-button { min-height: 44px; padding-block: 10px; }
+  .scene-invite-secondary .scene-round-icon { width: 40px; height: 40px; }
+  .scene-invite-secondary :is(a,button) { gap: 3px; font-size: 10px; }
+}
+@media(max-width:700px) {
+  .wedding-brand strong { max-width: 49vw; font-size: clamp(16px,4.5vw,20px); line-height: 1.1; white-space: normal; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .t-modal { transition: none !important; }
+  .wedding-scene *, .scene-dialog *, .scene-modal-scrim { animation: none!important; transition: none!important; scroll-behavior: auto!important; }
+  .scene-lens { transition: none!important; transform: none!important; }
+  .scene-panorama, .scene-couple img { will-change: auto; }
+  .scene-butterfly-path { display: none; }
+}

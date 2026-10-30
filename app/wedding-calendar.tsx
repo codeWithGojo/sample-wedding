@@ -1,5 +1,7 @@
 "use client";
 
+import { weddingConfig } from './wedding-config';
+
 import { useId, useState } from 'react';
 import { ArrowDownToLine, ArrowUpRight, Bell, CalendarDays, Clock3, MapPin, X } from 'lucide-react';
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
@@ -15,7 +17,7 @@ export default function WeddingCalendar({className='button calendar-button',labe
     <DialogTrigger asChild><button className={className}><CalendarDays size={18} aria-hidden="true"/><span>{label}</span></button></DialogTrigger>
     <DialogContent className="calendar-dialog" showCloseButton={false}>
       <DialogClose asChild><button className="calendar-close" aria-label="Close calendar options"><X size={20}/></button></DialogClose>
-      <div className="calendar-cover"><img src={storyImages[2].src} width={1025} height={1534} alt="Blessing Egokiniovo and Blessing Oshevire smiling together"/><div><span>A date for your diary</span><strong>12<span>December 2026</span></strong></div></div>
+      <div className="calendar-cover"><img src={storyImages[2].src} width={1025} height={1534} alt={weddingConfig.gallery[3].alt}/><div><span>A date for your diary</span><strong>12<span>December 2026</span></strong></div></div>
       <div className="calendar-dialog-body"><DialogTitle>We’ll see you there.</DialogTitle><DialogDescription>Save our traditional marriage to your calendar.</DialogDescription>
         <div className="calendar-event-details"><p><Clock3 size={16}/>Saturday, 12 December · 11am WAT</p><p><MapPin size={16}/><span>Ricky’s Hotel and Event Place<br/><small>Oteri, Ughelli, Delta State</small></span></p></div>
         <div className="calendar-reminder"><label htmlFor={reminderId}><Bell size={16}/>Remind me</label><select id={reminderId} value={reminder} onChange={event=>setReminder(event.target.value as CalendarReminder)}>{reminderChoices.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}</select></div>
