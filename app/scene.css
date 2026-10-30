@@ -6,7 +6,7 @@
   --modal-scale-close: 0.96;
   --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
-.scene-entry { height: 100dvh; min-height: 100dvh; overflow: clip; padding: 0; }
+.scene-entry { height: 100dvh; min-height: 100dvh; overflow: clip; overflow-anchor: none; padding: 0; }
 .scene-entry:has(.wedding-scene[data-onscreen=true]) + .wedding-site :is(.mobile-actions,.wedding-progress) { visibility: hidden; }
 .portrait-leaving .wedding-scene { opacity: 0; transition: opacity 400ms; }
 .wedding-scene { --scene-play: paused; position: relative; width: 100%; height: 100dvh; min-height: 0; overflow: clip; isolation: isolate; background: #650912; color: #fff2df; font-family: var(--font-wedding-text), Arial, sans-serif; }
@@ -44,7 +44,7 @@
 .scene-invitation-paper>span { display: block; flex-shrink: 0; }
 .scene-paper-family { font-size: 4.1cqw; line-height: 1.5; margin-bottom: 5cqw; }
 .scene-paper-invite { font-size: 4cqw; line-height: 1.5; max-width: 90%; margin-bottom: 5cqw; }
-.scene-paper-names { font-family: var(--font-wedding-display),Georgia,serif; font-size: 17.5cqw; line-height: .92; letter-spacing: -.04em; }
+.scene-paper-names { font-family: var(--font-wedding-display),Georgia,serif; font-size: 10cqw; line-height: 1.06; letter-spacing: -.04em; }
 .scene-paper-names>span { display: block; }
 .scene-paper-names i { display: block; font-size: 12cqw; line-height: 1.1; color: #a27a43; }
 .scene-paper-rule { width: 24%; height: 1px; background: #c7a97d; margin: 7cqw 0 6cqw; }
@@ -164,4 +164,14 @@
   .scene-lens { transition: none!important; transform: none!important; }
   .scene-panorama, .scene-couple img { will-change: auto; }
   .scene-butterfly-path { display: none; }
+}
+
+/* Fit the confirmed names without squeezing the mobile invitation. */
+.wedding-scene .scene-title h1 { font-size: clamp(30px, 7.8vw, 68px); line-height: 1; }
+.welcome-hero .wedding-couple-title { font-size: clamp(38px, 4.6vw, 66px); }
+.family-invitation .invitation-couple>span { min-width: 0; }
+@media(max-width:700px) {
+  .welcome-hero .wedding-couple-title { font-size: clamp(31px, 8.4vw, 54px); }
+  .family-invitation .invitation-couple { font-size: clamp(27px, 7vw, 34px); }
+  .wedding-brand strong { font-size: clamp(13px, 3.6vw, 18px); }
 }

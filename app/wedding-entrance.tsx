@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { ArrowRight, RotateCcw } from 'lucide-react';
 import Wedding from './wedding';
 import WeddingLoader from './wedding-loader';
@@ -22,20 +22,36 @@ export default function WeddingEntrance() {
   const focusAfterTransition = useRef(false);
   const siteTarget = useRef<'main' | 'venue'>('main');
 
+  useLayoutEffect(() => {
+    // Reloads and returning from another wedding page must start at the entrance,
+    // rather than restoring a saved position once the content below it mounts.
+    const previousRestoration = window.history.scrollRestoration;
+    window.history.scrollRestoration = 'manual';
+    const resetEntranceScroll = () => window.scrollTo({top:0,behavior:'instant'});
+    resetEntranceScroll();
+    if (!entered) window.addEventListener('pageshow', resetEntranceScroll);
+    return () => {
+      window.removeEventListener('pageshow', resetEntranceScroll);
+      window.history.scrollRestoration = previousRestoration;
+    };
+  }, [entered]);
+
   useEffect(() => {
     const url = new URL(location.href);
     if (url.searchParams.has('enter')) {
       url.searchParams.delete('enter');
-      window.history.replaceState(null, '', url.pathname + url.search + url.hash);
+      window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
     }
     let cancelled = false;
     prepareInvitation().finally(() => { if (!cancelled) setLoading(false); });
     return () => { cancelled = true; clearTimeout(transitionTimer.current); };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!focusAfterTransition.current) return;
     focusAfterTransition.current = false;
+    // Reset after React has replaced the full-height entrance, before paint.
+    window.scrollTo({top:0,behavior:'instant'});
     if (entered) {
       const main = document.getElementById(siteTarget.current);
       main?.setAttribute('tabindex', '-1');
@@ -53,8 +69,11 @@ export default function WeddingEntrance() {
     return () => clearTimeout(timer);
   }, [opened]);
 
-  useEffect(() => {
-    if (curtainsReady) document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
+  useLayoutEffect(() => {
+    if (!curtainsReady) return;
+    // Mounting the long page below the scene must not move the opening viewport.
+    window.scrollTo({top:0,behavior:'instant'});
+    document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
   }, [curtainsReady]);
 
   function openCurtains() {
@@ -71,8 +90,7 @@ export default function WeddingEntrance() {
       setLoading(false);
       setEntered(true);
       setLeaving(false);
-      window.history.replaceState(null, '', '/' + location.hash);
-      window.scrollTo({top:0,behavior:'instant'});
+      window.history.replaceState(window.history.state, '', '/' + location.hash);
     };
     if (immediate || window.matchMedia('(prefers-reduced-motion: reduce)').matches) finish();
     else {
@@ -84,7 +102,6 @@ export default function WeddingEntrance() {
   if (entered) return <><Wedding/><button className="replay-invitation" onClick={() => {
     focusAfterTransition.current = true;
     setEntered(false); setOpened(false); setCurtainsReady(false);
-    window.scrollTo({top:0,behavior:'instant'});
   }}><RotateCcw size={15}/> Open the invitation again</button></>;
 
   return <><div className={'invitation-experience portrait-entry scene-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>

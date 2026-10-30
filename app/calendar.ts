@@ -6,7 +6,7 @@ export const calendarStart = weddingConfig.date.calendarStart; // 11am in Africa
 export const calendarEnd = weddingConfig.date.calendarEnd; // A one-hour calendar placeholder, not the celebration's finish.
 export const calendarTitle = '#BlessingFoundHerBlessing — Traditional marriage';
 export const calendarLocation = `${venueName}, ${venueAddress}, Nigeria`;
-export const calendarDescription = `Join the Awhefeada and Toka families to celebrate ${weddingConfig.names.bride} and ${weddingConfig.names.groom}.\nSaturday, 12 December 2026. 11am prompt, West Africa Time.\nThe calendar reserves one hour; the celebration's finishing time is not confirmed.\nWedding details: ${weddingSiteUrl}/the-day`;
+export const calendarDescription = `Join the Awhefeada and Toka families to celebrate ${weddingConfig.names.brideFormal} and ${weddingConfig.names.groomFormal}.\nSaturday, 12 December 2026. 11am prompt, West Africa Time.\nThe calendar reserves one hour; the celebration's finishing time is not confirmed.\nWedding details: ${weddingSiteUrl}/the-day`;
 export const reminderChoices = [
   {value:'both',label:'1 day and 1 hour before'},
   {value:'day',label:'1 day before'},

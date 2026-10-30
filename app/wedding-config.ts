@@ -1,10 +1,10 @@
 // Shared event details. The scene and existing site use the same source of truth.
 const names = {
-  bride: 'Egokiniovo',
-  groom: 'Oshevire',
-  together: 'Egokiniovo & Oshevire',
-  brideFormal: 'Egokiniovo Awhefeada Esq.',
-  groomFormal: 'Engr. Oshevire Toka',
+  bride: 'Blessing Egokiniovo',
+  groom: 'Blessing Oshevire',
+  together: 'Blessing Egokiniovo & Blessing Oshevire',
+  brideFormal: 'Blessing Egokiniovo Awhefeada Esq.',
+  groomFormal: 'Engr. Blessing Oshevire Toka',
 } as const;
 
 export const weddingConfig = {
@@ -33,19 +33,19 @@ export const weddingConfig = {
   },
   rsvp: {
     phones: ['0706 800 7835', '0708 904 5705'],
-    href: 'https://wa.me/2347068007835?text=' + encodeURIComponent('Hello, I would like to RSVP for Egokiniovo & Oshevire’s traditional marriage on 12 December 2026.'),
+    href: 'https://wa.me/2347068007835?text=' + encodeURIComponent(`Hello, I would like to RSVP for ${names.together}’s traditional marriage on 12 December 2026.`),
   },
   colours: 'Burgundy, Peach, Champagne Gold & Ivory',
   siteUrl: 'https://sample-wedding-mu.vercel.app',
   scene: {
-    label: 'Egokiniovo & Oshevire’s wedding invitation scene',
+    label: `${names.together}’s wedding invitation scene`,
     view: 'View Invitation',
     close: 'Close Invite',
     skip: 'Skip to site',
     more: 'View more wedding information',
     rsvp: 'RSVP',
     gallery: 'Gallery',
-    galleryTitle: 'Egokiniovo & Oshevire · Gallery',
+    galleryTitle: `${names.together} · Gallery`,
     galleryDescription: 'A few moments together. Select a photograph for a closer look.',
     backToGallery: 'Back to gallery',
     previous: 'Previous photograph',

@@ -13,7 +13,7 @@ function InvitationPaper() {
   return <span className="scene-invitation-paper">
     <span className="scene-paper-family">{config.familyLine}</span>
     <span className="scene-paper-invite">{config.invitationLine}</span>
-    <span className="scene-paper-names"><span>{config.names.bride}</span><i>&amp;</i><span>{config.names.groom}</span></span>
+    <span className="scene-paper-names"><span>{config.names.brideFormal}</span><i>&amp;</i><span>{config.names.groomFormal}</span></span>
     <span className="scene-paper-rule" aria-hidden="true"/>
     <span className="scene-paper-date">{config.date.full}</span>
     <span className="scene-paper-time">{config.date.time}</span>
