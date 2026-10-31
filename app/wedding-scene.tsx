@@ -36,7 +36,7 @@ function Butterfly() {
 
 export default function WeddingScene({ active, onContinue }: {
   active: boolean;
-  onContinue: (target?: 'main' | 'venue') => void;
+  onContinue: () => void;
 }) {
   const [view, setView] = useState<'tour' | 'approach'>('tour');
   const [dialog, setDialog] = useState<'invite' | 'gallery' | null>(null);
@@ -129,11 +129,11 @@ export default function WeddingScene({ active, onContinue }: {
     }, duration);
   }
 
-  function continueTo(target: 'main' | 'venue') {
+  function continueToSite() {
     leaving.current = true;
     clearTimeout(approachTimer.current); clearTimeout(closeTimer.current); releaseHold();
     setDialog(null);
-    onContinue(target);
+    onContinue();
   }
 
   function beginHold(event: PointerEvent<HTMLButtonElement>) {
@@ -177,7 +177,7 @@ export default function WeddingScene({ active, onContinue }: {
       </div>
       <header className="scene-title"><p>{config.hashtag}</p><h1>{config.names.bride}<br/><span>&amp;</span> {config.names.groom}</h1></header>
       <Butterfly/>
-      <a className="scene-skip" href="#main" onClick={event => {event.preventDefault(); continueTo('main');}}>{copy.skip}<ArrowRight size={13}/></a>
+      <a className="scene-skip" href="#main" onClick={event => {event.preventDefault(); continueToSite();}}>{copy.skip}<ArrowRight size={13}/></a>
       <div className="scene-bottom-controls">
         <button className="scene-view-invitation" ref={inviteButton} id="scene-view-invitation" onClick={openInvitation} aria-haspopup="dialog" aria-expanded={dialog === 'invite'}><span className="scene-round-icon"><Mail size={25} strokeWidth={1.3}/></span><span>{copy.view}</span></button>
         <p className="scene-event-date">{config.date.short} · {config.venue.locality}</p>
@@ -209,7 +209,7 @@ export default function WeddingScene({ active, onContinue }: {
             </div>
             <div className="scene-reading-tools"><span>{copy.hold}</span><button onClick={() => setZoomed(value => !value)} aria-pressed={zoomed}>{zoomed ? <ZoomOut size={16}/> : <ZoomIn size={16}/>}<span>{zoomed ? copy.zoomOut : copy.zoom}</span></button></div>
             <div className="scene-invite-actions">
-              <button className="scene-more-button" onClick={() => continueTo('venue')}>{copy.more}<ArrowRight size={15}/></button>
+              <button className="scene-more-button" onClick={continueToSite}>{copy.more}<ArrowRight size={15}/></button>
               <div className="scene-invite-secondary">
                 <a href={config.rsvp.href} target="_blank" rel="noopener noreferrer"><span className="scene-round-icon"><Mail size={22} strokeWidth={1.3}/></span><span>{copy.rsvp}</span></a>
                 <button onClick={() => {releaseHold(); setZoomed(false); setSelected(null); setDialog('gallery');}}><span className="scene-round-icon"><Camera size={22} strokeWidth={1.3}/></span><span>{copy.gallery}</span></button>

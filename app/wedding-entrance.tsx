@@ -20,7 +20,6 @@ export default function WeddingEntrance() {
   const [leaving, setLeaving] = useState(false);
   const transitionTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const focusAfterTransition = useRef(false);
-  const siteTarget = useRef<'main' | 'venue'>('main');
 
   useLayoutEffect(() => {
     // Keep native history restoration from applying an old scroll position after
@@ -63,10 +62,9 @@ export default function WeddingEntrance() {
       window.scrollTo({top:0,behavior:'instant'});
       if (curtainsReady || entered) root.removeAttribute('data-wedding-opening');
       if (entered && focusAfterTransition.current) {
-        const main = document.getElementById(siteTarget.current);
+        const main = document.getElementById('main');
         main?.setAttribute('tabindex', '-1');
         main?.focus({preventScroll:true});
-        if (siteTarget.current === 'venue') main?.scrollIntoView({behavior:'instant',block:'start'});
       } else if (curtainsReady) {
         document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
       } else if (!loading && focusAfterTransition.current) {
@@ -94,10 +92,9 @@ export default function WeddingEntrance() {
     window.dispatchEvent(new Event('wedding:play-music'));
   }
 
-  function enterSite(immediate = false, target: 'main' | 'venue' = 'main') {
+  function enterSite(immediate = false) {
     if (leaving) return;
     window.dispatchEvent(new Event('wedding:play-music'));
-    siteTarget.current = target;
     const finish = () => {
       focusAfterTransition.current = true;
       setLoading(false);
@@ -114,7 +111,7 @@ export default function WeddingEntrance() {
 
   return <>{!entered && <div className={'invitation-experience portrait-entry scene-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>
     {loading && <WeddingLoader onContinue={() => enterSite(true)}/>}
-    <WeddingScene active={curtainsReady && !loading && !leaving} onContinue={target => enterSite(true, target)}/>
+    <WeddingScene active={curtainsReady && !loading && !leaving} onContinue={() => enterSite(true)}/>
 
     {!curtainsReady && <div className="wedding-curtain-layer" inert={loading} aria-hidden={loading}>
       <div className="curtain-panel curtain-left" aria-hidden="true"/>
