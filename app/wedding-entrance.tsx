@@ -23,23 +23,27 @@ export default function WeddingEntrance() {
   const siteTarget = useRef<'main' | 'venue'>('main');
 
   useLayoutEffect(() => {
-    // Reloads and returning from another wedding page must start at the entrance,
-    // rather than restoring a saved position once the content below it mounts.
+    // Keep native history restoration from applying an old scroll position after
+    // hydration or when this document returns from the browser's page cache.
     const previousRestoration = window.history.scrollRestoration;
     window.history.scrollRestoration = 'manual';
     const resetEntranceScroll = () => window.scrollTo({top:0,behavior:'instant'});
     resetEntranceScroll();
-    if (!entered) window.addEventListener('pageshow', resetEntranceScroll);
+    window.addEventListener('pageshow', resetEntranceScroll);
     return () => {
       window.removeEventListener('pageshow', resetEntranceScroll);
       window.history.scrollRestoration = previousRestoration;
     };
-  }, [entered]);
+  }, []);
 
   useEffect(() => {
     const url = new URL(location.href);
-    if (url.searchParams.has('enter')) {
+    // Old section links must not skip the opening when the long page mounts.
+    // Guest-management fragments are kept intact.
+    const hasSectionHash = url.hash === '#main' || url.hash === '#venue';
+    if (url.searchParams.has('enter') || hasSectionHash) {
       url.searchParams.delete('enter');
+      if (hasSectionHash) url.hash = '';
       window.history.replaceState(window.history.state, '', url.pathname + url.search + url.hash);
     }
     let cancelled = false;
@@ -48,17 +52,33 @@ export default function WeddingEntrance() {
   }, []);
 
   useLayoutEffect(() => {
-    if (!focusAfterTransition.current) return;
-    focusAfterTransition.current = false;
-    // Reset after React has replaced the full-height entrance, before paint.
+    const root = document.documentElement;
+    // Hold the opening viewport while the loader, curtains and page change
+    // height. Release it once the scene or the main page is ready to scroll.
+    root.setAttribute('data-wedding-opening', '');
     window.scrollTo({top:0,behavior:'instant'});
-    if (entered) {
-      const main = document.getElementById(siteTarget.current);
-      main?.setAttribute('tabindex', '-1');
-      main?.focus({preventScroll:true});
-      if (siteTarget.current !== 'main') main?.scrollIntoView({behavior:'instant',block:'start'});
-    } else sealButton.current?.focus({preventScroll:true});
-  }, [entered]);
+    const frame = requestAnimationFrame(() => {
+      // Next's navigation restoration and the new content layout finish after
+      // the first reset. Reset again before enabling normal guest scrolling.
+      window.scrollTo({top:0,behavior:'instant'});
+      if (curtainsReady || entered) root.removeAttribute('data-wedding-opening');
+      if (entered && focusAfterTransition.current) {
+        const main = document.getElementById(siteTarget.current);
+        main?.setAttribute('tabindex', '-1');
+        main?.focus({preventScroll:true});
+        if (siteTarget.current === 'venue') main?.scrollIntoView({behavior:'instant',block:'start'});
+      } else if (curtainsReady) {
+        document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
+      } else if (!loading && focusAfterTransition.current) {
+        sealButton.current?.focus({preventScroll:true});
+      }
+      focusAfterTransition.current = false;
+    });
+    return () => {
+      cancelAnimationFrame(frame);
+      root.removeAttribute('data-wedding-opening');
+    };
+  }, [loading, curtainsReady, entered]);
 
   useEffect(() => {
     if (!opened) return;
@@ -68,13 +88,6 @@ export default function WeddingEntrance() {
     }, reduced ? 0 : curtainDuration);
     return () => clearTimeout(timer);
   }, [opened]);
-
-  useLayoutEffect(() => {
-    if (!curtainsReady) return;
-    // Mounting the long page below the scene must not move the opening viewport.
-    window.scrollTo({top:0,behavior:'instant'});
-    document.getElementById('scene-view-invitation')?.focus({preventScroll:true});
-  }, [curtainsReady]);
 
   function openCurtains() {
     setOpened(true);
@@ -99,12 +112,7 @@ export default function WeddingEntrance() {
     }
   }
 
-  if (entered) return <><Wedding/><button className="replay-invitation" onClick={() => {
-    focusAfterTransition.current = true;
-    setEntered(false); setOpened(false); setCurtainsReady(false);
-  }}><RotateCcw size={15}/> Open the invitation again</button></>;
-
-  return <><div className={'invitation-experience portrait-entry scene-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>
+  return <>{!entered && <div className={'invitation-experience portrait-entry scene-entry' + (loading ? ' portrait-loading' : ' portrait-ready') + (leaving ? ' portrait-leaving' : '') + (opened ? ' curtains-open' : ' curtains-closed') + (curtainsReady ? ' curtains-ready' : '')} style={{'--curtain-duration': `${curtainDuration}ms`} as CSSProperties}>
     {loading && <WeddingLoader onContinue={() => enterSite(true)}/>}
     <WeddingScene active={curtainsReady && !loading && !leaving} onContinue={target => enterSite(true, target)}/>
 
@@ -124,5 +132,8 @@ export default function WeddingEntrance() {
     </div>}
 
     <noscript><style>{'.wedding-heart-loader,.wedding-curtain-layer{display:none}'}</style><div className="entrance-noscript">Open our <a href="/the-day">wedding details</a> or <a href="/photographs">gallery</a>.</div></noscript>
-  </div>{curtainsReady && <Wedding/>}</>;
+  </div>}{(curtainsReady || entered) && <Wedding key="wedding-content"/>}{entered && <button className="replay-invitation" onClick={() => {
+    focusAfterTransition.current = true;
+    setEntered(false); setOpened(false); setCurtainsReady(false);
+  }}><RotateCcw size={15}/> Open the invitation again</button>}</>;
 }

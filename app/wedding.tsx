@@ -139,7 +139,7 @@ export default function Wedding({page='welcome'}:{page?:WeddingPage}){
       </section>}
 
       {page==='photographs'&&<section className="section gallery-section">
-        <div className="couple-album">{storyImages.map((photo,i)=><button className="photo-tile" key={photo.src+i} onClick={()=>setAlbumOpen({src:photo.src,alt:photo.alt})} aria-label={'View '+photo.alt}><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy"/><span className="album-caption">{['Together','The little moments','Side by side','Every tomorrow'][i]}<small>0{i+1} ↗</small></span></button>)}</div>
+        <div className="couple-album">{weddingConfig.gallery.map((photo,i)=><button className="photo-tile" key={photo.src} onClick={()=>setAlbumOpen({src:photo.src,alt:photo.alt})} aria-label={'View '+photo.alt}><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy"/><span className="album-caption">{photo.caption}<small>{String(i+1).padStart(2,'0')} ↗</small></span></button>)}</div>
         {!photoSharingEnabled?<PhotoPlaceholder/>:<>
         {photos.length>0&&<div className="gallery-grid">{photos.map(p=><button key={p.id} className="photo-tile" onClick={()=>setPhotoOpen(p)} aria-label={p.caption||'Open wedding photo'}><img src={'/api/photos/'+p.id} alt={p.caption||'#BlessingFoundHerBlessing’s celebration'} loading="lazy"/>{p.caption&&<span>{p.caption}</span>}</button>)}</div>}
         <div className="photo-page-note"><h2>Share a moment</h2><p>The dance floor, a family reunion, that photograph we didn’t know you took. We’d love to keep your favourite moments from our day.</p>

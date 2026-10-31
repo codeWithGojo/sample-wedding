@@ -67,9 +67,12 @@ export const weddingConfig = {
     },
   },
   gallery: [
-    {src: '/couple/red-portrait.webp?v=real-20261029', alt: `${names.together} embracing in front of red drapes`, width: 1025, height: 1534},
-    {src: '/couple/together.webp?v=real-20261029', alt: `${names.together} together in white T-shirts and blue jeans`, width: 1025, height: 1534},
-    {src: '/couple/laughter.webp?v=real-20261029', alt: `${names.bride} laughing while sitting with ${names.groom}`, width: 1025, height: 1534},
-    {src: '/couple/forever.webp?v=real-20261029', alt: `${names.together} smiling at each other`, width: 1025, height: 1534},
+    {src: '/couple/red-portrait.webp?v=real-20261029', alt: `${names.together} embracing in front of red drapes`, caption: 'Our beautiful beginning', width: 1025, height: 1534},
+    {src: '/couple/together.webp?v=real-20261029', alt: `${names.together} together in white T-shirts and blue jeans`, caption: 'Together', width: 1025, height: 1534},
+    {src: '/couple/laughter.webp?v=real-20261029', alt: `${names.bride} laughing while sitting with ${names.groom}`, caption: 'The little moments', width: 1025, height: 1534},
+    {src: '/couple/forever.webp?v=real-20261029', alt: `${names.together} smiling at each other`, caption: 'Every tomorrow', width: 1025, height: 1534},
+    {src: '/couple/at-ease.webp', alt: `${names.bride} standing behind ${names.groom} seated in an ivory armchair`, caption: 'At ease, with you', width: 1026, height: 1536},
+    {src: '/couple/side-by-side.webp', alt: `${names.together} embracing beside a wooden table with stacked books`, caption: 'Side by side', width: 1026, height: 1536},
+    {src: '/couple/close-to-you.webp', alt: `${names.bride} smiling in a peach dress while ${names.groom} leans close`, caption: 'Close to you', width: 1026, height: 1536},
   ],
 } as const;

@@ -6,6 +6,8 @@
   --modal-scale-close: 0.96;
   --modal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
+html[data-wedding-opening], html[data-wedding-opening] body { overflow: hidden; overscroll-behavior: none; overflow-anchor: none; }
+html[data-wedding-opening] { scroll-behavior: auto; }
 .scene-entry { height: 100dvh; min-height: 100dvh; overflow: clip; overflow-anchor: none; padding: 0; }
 .scene-entry:has(.wedding-scene[data-onscreen=true]) + .wedding-site :is(.mobile-actions,.wedding-progress) { visibility: hidden; }
 .portrait-leaving .wedding-scene { opacity: 0; transition: opacity 400ms; }

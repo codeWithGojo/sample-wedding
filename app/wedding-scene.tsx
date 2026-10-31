@@ -93,7 +93,10 @@ export default function WeddingScene({ active, onContinue }: {
 
   function openInvitation() {
     if (view === 'approach' || dialog || !active) return;
-    pageScroll.current = window.scrollY;
+    // Opening a scene control can scroll it into view on mobile. Anchor the
+    // dialog to the beginning of the scene, including when it closes again.
+    pageScroll.current = Math.max(0, window.scrollY + (root.current?.getBoundingClientRect().top ?? 0));
+    window.scrollTo({top: pageScroll.current, behavior: 'instant'});
     returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : inviteButton.current;
     const viewport = root.current?.getBoundingClientRect();
     const card = framedCard.current?.getBoundingClientRect();
